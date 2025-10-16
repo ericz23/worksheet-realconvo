@@ -1,3 +1,5 @@
 worksheet_realconvo/
 transcripts_dataset/
 .cursorrules
+.env
+__pycache__/
