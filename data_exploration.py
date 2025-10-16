@@ -7,6 +7,7 @@ def main():
     print(f"Fields: {ds.column_names}")
     ex = ds[0]
     print(ex.get("text", ""))
+    print(ex)
 
 
 if __name__ == "__main__":
