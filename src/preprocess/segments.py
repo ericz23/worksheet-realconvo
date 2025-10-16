@@ -33,6 +33,22 @@ class Segment:
     duration_ms: int
     num_tokens: int
     avg_confidence: Optional[float]
+    # Subspans support LLM-assisted splitting within a segment
+    # Each subspan references local word indices within this segment
+    subspans: List["Subspan"]
+
+
+@dataclass
+class Subspan:
+    idx: int
+    start_ms: int
+    end_ms: int
+    w_start: int  # local word index within the segment (inclusive)
+    w_end: int    # local word index within the segment (inclusive)
+    text: str
+    duration_ms: int
+    num_tokens: int
+    avg_confidence: Optional[float]
 
 
 def _safe_int(value: Any) -> Optional[int]:
@@ -132,6 +148,8 @@ def words_to_segments(
         gap_threshold = gap_ms if gap_ms is not None else min_gap_ms
 
     segments: List[Segment] = []
+    # Track full word info inside current segment for subspan construction
+    cur_words: List[Word] = []
     cur_tokens: List[str] = []
     cur_start: Optional[int] = None
     prev_end = None
@@ -139,12 +157,16 @@ def words_to_segments(
     conf_count: int = 0
 
     def flush_segment():
-        nonlocal cur_tokens, cur_start, prev_end, conf_sum, conf_count
+        nonlocal cur_words, cur_tokens, cur_start, prev_end, conf_sum, conf_count
         if not cur_tokens or cur_start is None or prev_end is None:
             return
         seg_text = _detokenize(cur_tokens)
         duration = max(0, prev_end - cur_start)
         avg_conf = (conf_sum / conf_count) if conf_count > 0 else None
+
+        # Build subspans inside this segment
+        subspans = _build_subspans(cur_words)
+
         segments.append(
             Segment(
                 segment_id=len(segments),
@@ -154,8 +176,10 @@ def words_to_segments(
                 duration_ms=duration,
                 num_tokens=len(cur_tokens),
                 avg_confidence=avg_conf,
+                subspans=subspans,
             )
         )
+        cur_words = []
         cur_tokens = []
         cur_start = None
         prev_end = None
@@ -174,6 +198,7 @@ def words_to_segments(
             cur_start = w.start
         # Accumulate
         cur_tokens.append(w.text)
+        cur_words.append(w)
         if w.confidence is not None:
             conf_sum += w.confidence
             conf_count += 1
@@ -181,6 +206,97 @@ def words_to_segments(
 
     flush_segment()
     return segments
+
+
+def _build_subspans(segment_words: List[Word]) -> List[Subspan]:
+    """Create subspans within a segment to enable LLM-assisted splitting.
+
+    Splitting criteria:
+    - Sentence-ending punctuation on tokens: . ! ?
+    - Adaptive internal gaps (p90) to catch notable pauses within a segment
+    """
+    if not segment_words:
+        return []
+
+    # Compute internal gaps within the segment
+    gaps: List[int] = []
+    prev_end: Optional[int] = None
+    for w in segment_words:
+        if prev_end is not None and w.start is not None and w.end is not None:
+            gaps.append(max(0, w.start - prev_end))
+        prev_end = w.end if w.end is not None else prev_end
+
+    gaps_sorted = sorted(gaps)
+    # Adaptive boundary within segment: clamp to [500, 1500] ms
+    p90_gap = _percentile(gaps_sorted, 0.90) if gaps_sorted else 500
+    gap_boundary = max(500, min(1500, p90_gap))
+
+    # Helper to test if token ends sentence
+    def is_sentence_end(token_text: str) -> bool:
+        if not token_text:
+            return False
+        return token_text.endswith(".") or token_text.endswith("!") or token_text.endswith("?")
+
+    subspans: List[Subspan] = []
+    span_start_idx = 0
+    local_prev_end: Optional[int] = None
+    conf_sum = 0.0
+    conf_count = 0
+
+    def flush_subspan(end_idx: int):
+        nonlocal span_start_idx, local_prev_end, conf_sum, conf_count
+        if end_idx < span_start_idx:
+            return
+        tokens = [w.text for w in segment_words[span_start_idx:end_idx + 1]]
+        text = _detokenize(tokens)
+        start_ms = segment_words[span_start_idx].start or 0
+        end_ms = segment_words[end_idx].end or start_ms
+        duration = max(0, end_ms - start_ms)
+        avg_conf = (conf_sum / conf_count) if conf_count > 0 else None
+        subspans.append(
+            Subspan(
+                idx=len(subspans),
+                start_ms=start_ms,
+                end_ms=end_ms,
+                w_start=span_start_idx,
+                w_end=end_idx,
+                text=text,
+                duration_ms=duration,
+                num_tokens=len(tokens),
+                avg_confidence=avg_conf,
+            )
+        )
+        span_start_idx = end_idx + 1
+        local_prev_end = None
+        conf_sum = 0.0
+        conf_count = 0
+
+    for i, w in enumerate(segment_words):
+        # Update confidence aggregates
+        if w.confidence is not None:
+            conf_sum += w.confidence
+            conf_count += 1
+
+        # Decide if we should end a subspan at token i
+        boundary = False
+        # Sentence-ending punctuation
+        if is_sentence_end(w.text):
+            boundary = True
+        # Large intra-segment pause
+        if not boundary and local_prev_end is not None and w.start is not None:
+            if (w.start - local_prev_end) > gap_boundary:
+                boundary = True
+
+        local_prev_end = w.end if w.end is not None else local_prev_end
+
+        if boundary:
+            flush_subspan(i)
+
+    # Flush any trailing tokens
+    if span_start_idx <= len(segment_words) - 1:
+        flush_subspan(len(segment_words) - 1)
+
+    return subspans
 
 
 def build_llm_windows(

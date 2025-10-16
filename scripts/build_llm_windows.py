@@ -43,9 +43,29 @@ def main():
         overlap=args.overlap,
     )
 
+    # Include a preview of subspans of the first few segments
+    preview = []
+    for s in segments[:3]:
+        preview.append({
+            "segment_id": s.segment_id,
+            "num_subspans": len(s.subspans),
+            "subspans": [
+                {
+                    "idx": sp.idx,
+                    "start_ms": sp.start_ms,
+                    "end_ms": sp.end_ms,
+                    "w_start": sp.w_start,
+                    "w_end": sp.w_end,
+                    "text": sp.text,
+                }
+                for sp in s.subspans[:3]
+            ],
+        })
+
     print(json.dumps({
         "num_segments": len(segments),
         "first_window": windows[0] if windows else {},
+        "segment_subspans_preview": preview,
     }, ensure_ascii=False, indent=2))
 
 
