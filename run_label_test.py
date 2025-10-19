@@ -36,12 +36,13 @@ def main() -> None:
     args = parser.parse_args()
 
     ds = load_from_disk(args.dataset_path)
-    total = len(ds)
+    medicare_ds = ds.filter(lambda x: x["source_zip"] == "medicare_inbound.zip")
+    total = len(medicare_ds)
     count = min(args.n, total)
 
     outputs: List[Dict[str, Any]] = []
     for i in range(count):
-        example = ds[i]
+        example = medicare_ds[i]
         text = example.get("text", "")
         result = label_transcript_with_openai(text, model=args.model, temperature=args.temperature)
         record = {
