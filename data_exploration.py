@@ -15,6 +15,24 @@ def main():
     print("Unique sources and counts:")
     for source, count in sorted(counts.items(), key=lambda kv: (-kv[1], str(kv[0]))):
         print(f"{source}: {count}")
+    
+    # auto_insurance_ds = ds.filter(lambda x: x["source_zip"] == "auto_insurance_customer_service_inbound.zip")
+    # for i in range(10):
+    #     ex = auto_insurance_ds[i]
+    #     print("\nTranscript", i, ":")
+    #     print(ex.get("text", ""))
+    
+    # auto_ds = ds.filter(lambda x: x["source_zip"] == "automotive_inbound.zip")
+    # for i in range(10):
+    #     ex = auto_ds[i]
+    #     print("\nTranscript", i, ":")
+    #     print(ex.get("text", ""))
+
+    # home_service_ds = ds.filter(lambda x: x["source_zip"] == "home_service_inbound.zip")
+    # for i in range(10):
+    #     ex = home_service_ds[i]
+    #     print("\nTranscript", i, ":")
+    #     print(ex.get("text", ""))
 
 
 

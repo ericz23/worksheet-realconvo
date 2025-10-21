@@ -3,3 +3,4 @@ transcripts_dataset/
 .cursorrules
 .env
 __pycache__/
+transcripts_labeled.jsonl
