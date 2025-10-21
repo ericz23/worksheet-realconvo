@@ -57,7 +57,18 @@ def main() -> None:
                 f.write(json.dumps(rec, ensure_ascii=False) + "\n")
     else:
         for rec in outputs:
-            print(json.dumps(rec, ensure_ascii=False))
+            index = rec.get("index", "?")
+            print(f"--- Transcript {index} ---")
+            for seg in rec.get("segments", []):
+                speaker = seg.get("speaker", "unknown")
+                confidence = seg.get("confidence")
+                if isinstance(confidence, (int, float)):
+                    conf_str = f"{confidence:.2f}"
+                else:
+                    conf_str = "?"
+                text = (seg.get("text", "") or "").strip()
+                print(f"{speaker}: {text}  (conf={conf_str})")
+            print()
 
 
 if __name__ == "__main__":
