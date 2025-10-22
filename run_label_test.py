@@ -14,7 +14,7 @@ from typing import Any, Dict, List
 
 from datasets import load_from_disk
 
-from label_transcript import label_transcript_with_openai
+from label_transcript import label_transcript_with_openai, label_transcript_gemini_structured
 
 
 def main() -> None:
@@ -44,7 +44,11 @@ def main() -> None:
     for i in range(count):
         example = medicare_ds[i]
         text = example.get("text", "")
-        result = label_transcript_with_openai(text, model=args.model, temperature=args.temperature)
+        # result = label_transcript_with_openai(text, model=args.model, temperature=args.temperature)
+        result = label_transcript_gemini_structured(
+            transcript=text,
+            model="gemini-2.5-flash"
+        )
         record = {
             "index": i,
             "segments": result.get("segments", []),
@@ -73,5 +77,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
-

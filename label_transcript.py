@@ -12,6 +12,10 @@ import json
 from typing import Any, Dict
 from dotenv import load_dotenv
 from openai import OpenAI
+import os
+from google import genai
+from pydantic import BaseModel
+import enum
 
 load_dotenv()
 
@@ -66,6 +70,45 @@ def label_transcript_with_openai(
     raise ValueError("Model did not return parseable JSON output.")
 
 
+class SpeakerType(str, enum.Enum):
+    AGENT = "agent"
+    CUSTOMER = "customer"
+
+
+class TranscriptSegment(BaseModel):
+    text: str
+    speaker: SpeakerType
+    confidence: float
+
+
+class SegmentResponse(BaseModel):
+    segments: list[TranscriptSegment]
+
+
+def label_transcript_gemini_structured(transcript: str, model: str = "gemini-2.5-flash") -> Dict[str, Any]:
+    client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+    
+    response = client.models.generate_content(
+        model=model,
+        contents=f"Split transcript into segments and label each as 'agent' or 'customer' with confidence 0-1:\n{transcript}",
+        config={
+            "response_mime_type": "application/json",
+            "response_schema": SegmentResponse
+        },
+    )
+    
+    return {
+        "segments": [
+            {
+                "text": segment.text,
+                "speaker": segment.speaker.value,
+                "confidence": segment.confidence
+            }
+            for segment in response.parsed.segments
+        ]
+    }
+
+
 def _read_input_text(path: str | None) -> str:
     if path:
         with open(path, "r", encoding="utf-8") as f:
@@ -88,7 +131,16 @@ def main() -> None:
     print(json.dumps(result, ensure_ascii=False, indent=2))
 
 
+def main_test() -> None:
+    sample_transcript = """
+    Hello, thank you for calling Medicare support. How can I assist you today? Hi, I'm having trouble understanding my Medicare Part B coverage. I'd be happy to help you with that. Can you tell me your Medicare ID number? Sure, it's 1ABC-DE2-FG34. Thank you. I can see your account now. What specific questions do you have about Part B?
+    
+    I want to know if my doctor visits are covered. Yes, Medicare Part B covers doctor visits. You'll typically pay 20 percent after meeting your deductible. That's helpful, but what about prescription drugs? Part B doesn't cover most prescription drugs, but Part D does. Would you like me to explain your Part D coverage as well?
+    """
+    
+    print("Testing Gemini structured output:")
+    result = label_transcript_gemini_structured(sample_transcript)
+    print(json.dumps(result, indent=2))
+
 if __name__ == "__main__":
-    main()
-
-
+    main_test()
