@@ -9,6 +9,7 @@ transcript using `label_transcript_with_openai`, and writes a structured JSONL f
 - segments: list of {text, speaker, confidence}
 - conversation: a single multiline string with lines like
   "agent: Hello there (conf=0.92)"
+- summary: an object summarizing motivation, information exchanged, actions taken, and outcome
 
 Outputs are designed for easy ingestion into downstream LLM policy extraction tasks.
 """
@@ -24,6 +25,7 @@ from typing import Any, Dict, List
 from datasets import load_from_disk
 
 from label_transcript import label_transcript_with_openai
+from openai import OpenAI
 
 
 def _format_conversation(segments: List[Dict[str, Any]]) -> str:
@@ -38,6 +40,52 @@ def _format_conversation(segments: List[Dict[str, Any]]) -> str:
         text = (seg.get("text", "") or "").strip()
         lines.append(f"{speaker}: {text} (conf={conf_str})")
     return "\n".join(lines)
+
+
+def _summarize_conversation(
+    conversation: str,
+    model: str = "gpt-4o-mini",
+    temperature: float = 0.2,
+) -> Dict[str, str]:
+    """Summarize the conversation into key fields using an OpenAI model.
+
+    Returns a dict with keys: motivation, information_exchanged, actions_taken, outcome.
+    """
+    client = OpenAI()
+
+    system_instructions = (
+        "You are a helpful analyst summarizing a customer support call. "
+        "Given the dialog, produce ONLY JSON with keys: "
+        "{\"motivation\": str, \"information_exchanged\": str, \"actions_taken\": str, \"outcome\": str}. "
+        "Keep it concise and factual. Do not include any text outside JSON."
+    )
+
+    completion = client.chat.completions.create(
+        model=model,
+        temperature=temperature,
+        messages=[
+            {"role": "system", "content": system_instructions},
+            {"role": "user", "content": conversation},
+        ],
+    )
+
+    content = (completion.choices[0].message.content or "").strip()
+
+    # Try direct JSON parse first
+    import json as _json
+
+    try:
+        return _json.loads(content)
+    except Exception:
+        # Minimal fallback: extract first JSON object substring
+        start = content.find("{")
+        end = content.rfind("}")
+        if start != -1 and end != -1 and end > start:
+            try:
+                return _json.loads(content[start : end + 1])
+            except Exception:
+                pass
+    raise ValueError("Model did not return parseable JSON for summary.")
 
 
 def main() -> None:
@@ -80,6 +128,11 @@ def main() -> None:
         default=1,
         help="Number of retries if labeling fails (default: 1)",
     )
+    parser.add_argument(
+        "--summary-model",
+        default="gpt-4o-mini",
+        help="OpenAI model to use for summarization (default: gpt-4o-mini)",
+    )
 
     args = parser.parse_args()
 
@@ -97,6 +150,8 @@ def main() -> None:
             segments: List[Dict[str, Any]] = []
             conversation = ""
             error: Exception | None = None
+            summary: Dict[str, Any] = {}
+            summary_error: Exception | None = None
 
             # Retry loop for robustness
             for attempt in range(max(0, args.retries) + 1):
@@ -125,6 +180,24 @@ def main() -> None:
                     segments = []
                     conversation = ""
 
+            # Summarize conversation (even if labeling failed, attempt using raw text)
+            # Prefer using conversation if available; else fall back to raw text.
+            summary_input = conversation if conversation else text
+            for attempt in range(max(0, args.retries) + 1):
+                try:
+                    summary = _summarize_conversation(
+                        summary_input,
+                        model=args.summary_model,
+                    )
+                    summary_error = None
+                    break
+                except Exception as e:
+                    summary_error = e
+                    if attempt < max(0, args.retries):
+                        time.sleep(1.5 ** attempt)
+                    else:
+                        summary = {}
+
             record = {
                 "id": i,
                 "source_zip": example.get("source_zip"),
@@ -135,6 +208,10 @@ def main() -> None:
                 "error": None
                 if error is None
                 else {"type": error.__class__.__name__, "message": str(error)[:500]},
+                "summary": summary,
+                "summary_error": None
+                if summary_error is None
+                else {"type": summary_error.__class__.__name__, "message": str(summary_error)[:500]},
             }
             f.write(json.dumps(record, ensure_ascii=False) + "\n")
 
