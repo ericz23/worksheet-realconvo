@@ -88,6 +88,54 @@ def _summarize_conversation(
     raise ValueError("Model did not return parseable JSON for summary.")
 
 
+def _load_turn_prompt_template() -> str:
+    """Load the turn metadata extraction prompt template from prompts directory."""
+    prompt_path = os.path.join(os.path.dirname(__file__), "prompts", "turn_extraction.txt")
+    with open(prompt_path, "r", encoding="utf-8") as f:
+        return f.read()
+
+
+def _extract_turn_metadata(
+    recent_context: List[Dict[str, Any]],
+    current_turn: Dict[str, Any],
+    model: str = "gpt-4o-mini",
+    temperature: float = 0.0,
+) -> Dict[str, Any]:
+    """Extract minimal turn metadata using OpenAI and a strict prompt template.
+
+    Returns a JSON dict conforming to the minimal schema.
+    """
+    client = OpenAI()
+    system_instructions = _load_turn_prompt_template()
+
+    payload = {
+        "recent_context": recent_context,
+        "current_turn": current_turn,
+    }
+
+    completion = client.chat.completions.create(
+        model=model,
+        temperature=temperature,
+        messages=[
+            {"role": "system", "content": system_instructions},
+            {"role": "user", "content": json.dumps(payload, ensure_ascii=False)},
+        ],
+    )
+
+    content = (completion.choices[0].message.content or "").strip()
+    try:
+        return json.loads(content)
+    except Exception:
+        start = content.find("{")
+        end = content.rfind("}")
+        if start != -1 and end != -1 and end > start:
+            try:
+                return json.loads(content[start : end + 1])
+            except Exception:
+                pass
+    raise ValueError("Model did not return parseable JSON for turn metadata.")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Convert auto insurance transcripts into labeled JSONL")
     parser.add_argument(
@@ -132,6 +180,36 @@ def main() -> None:
         "--summary-model",
         default="gpt-4o-mini",
         help="OpenAI model to use for summarization (default: gpt-4o-mini)",
+    )
+    parser.add_argument(
+        "--turnmeta",
+        dest="turnmeta",
+        action="store_true",
+        default=True,
+        help="Enable per-turn metadata extraction (default: on)",
+    )
+    parser.add_argument(
+        "--no-turnmeta",
+        dest="turnmeta",
+        action="store_false",
+        help="Disable per-turn metadata extraction",
+    )
+    parser.add_argument(
+        "--turnmeta-model",
+        default="gpt-4o-mini",
+        help="OpenAI model to use for turn metadata extraction (default: gpt-4o-mini)",
+    )
+    parser.add_argument(
+        "--turnmeta-temperature",
+        type=float,
+        default=0.0,
+        help="Sampling temperature for turn metadata extraction (default: 0.0)",
+    )
+    parser.add_argument(
+        "--turnmeta-context",
+        type=int,
+        default=3,
+        help="Number of previous turns to include as context (default: 3)",
     )
 
     args = parser.parse_args()
@@ -197,6 +275,52 @@ def main() -> None:
                         time.sleep(1.5 ** attempt)
                     else:
                         summary = {}
+
+            # Turn-level metadata extraction 
+            if args.turnmeta and segments:
+                recent: List[Dict[str, Any]] = []
+                for idx, seg in enumerate(segments):
+                    # Build context window from previous turns
+                    start_ctx = max(0, idx - args.turnmeta_context)
+                    recent = [
+                        {
+                            "turn_index": start_ctx + j,
+                            "speaker": segments[start_ctx + j].get("speaker", "unknown"),
+                            "text": segments[start_ctx + j].get("text", ""),
+                        }
+                        for j in range(0, idx - start_ctx)
+                    ]
+
+                    current_turn = {
+                        "turn_index": idx,
+                        "speaker": seg.get("speaker", "unknown"),
+                        "text": seg.get("text", ""),
+                    }
+
+                    md: Dict[str, Any] = {}
+                    md_error: Exception | None = None
+                    for attempt in range(max(0, args.retries) + 1):
+                        try:
+                            md = _extract_turn_metadata(
+                                recent,
+                                current_turn,
+                                model=args.turnmeta_model,
+                                temperature=args.turnmeta_temperature,
+                            )
+                            md_error = None
+                            break
+                        except Exception as e:
+                            md_error = e
+                            if attempt < max(0, args.retries):
+                                time.sleep(1.5 ** attempt)
+                            else:
+                                md = {}
+
+                    seg["metadata"] = md
+                    seg["metadata_error"] = None if md_error is None else {
+                        "type": md_error.__class__.__name__,
+                        "message": str(md_error)[:500],
+                    }
 
             record = {
                 "id": i,
