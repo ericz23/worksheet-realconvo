@@ -5,3 +5,5 @@ transcripts_dataset/
 __pycache__/
 transcripts_labeled.jsonl
 turn_metadata__test.jsonl
+medicare_conversation_summaries_with_subtopic_cont.jsonl
+medicare_conversation_summaries_with_subtopic.jsonl
