@@ -18,11 +18,47 @@ import argparse
 import json
 import os
 import time
+import asyncio
 from typing import Any, Dict
 
 from datasets import load_from_disk
 from openai import OpenAI
 from dotenv import load_dotenv
+import os
+from google import genai
+from pydantic import BaseModel
+
+
+class SummaryWithSubtopic(BaseModel):
+    motivation: str
+    information_exchanged: str
+    actions_taken: str
+    outcome: str
+    sub_topic: str
+
+
+async def summarize_conversation_with_subtopic_gemini(
+    conversation: str,
+    model: str = "gemini-2.5-flash",
+) -> Dict[str, str]:
+    client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+    
+    response = await client.aio.models.generate_content(
+        model=model,
+        contents=f"Summarize this Medicare support call into key fields with a 2-5 word sub_topic label:\n{conversation}",
+        config={
+            "response_mime_type": "application/json",
+            "response_schema": SummaryWithSubtopic,
+        },
+    )
+    
+    return {
+        "motivation": response.parsed.motivation,
+        "information_exchanged": response.parsed.information_exchanged,
+        "actions_taken": response.parsed.actions_taken,
+        "outcome": response.parsed.outcome,
+        "sub_topic": response.parsed.sub_topic
+    }
 
 
 def summarize_conversation_with_subtopic(
@@ -67,7 +103,7 @@ def summarize_conversation_with_subtopic(
     raise ValueError("Model did not return parseable JSON summary with sub_topic.")
 
 
-def main() -> None:
+async def main() -> None:
     parser = argparse.ArgumentParser(description="Summarize Medicare transcripts with sub_topic (conversation-level only)")
     parser.add_argument(
         "--dataset-path",
@@ -118,6 +154,8 @@ def main() -> None:
     total = len(subset)
     count = total if args.limit in (None, 0) else min(args.limit, total)
 
+    print(count, "examples to process.")
+
     with open(args.output, "w", encoding="utf-8") as f:
         for i in range(count):
             print("Processing", i)
@@ -128,11 +166,12 @@ def main() -> None:
             summary_error: Exception | None = None
             for attempt in range(max(0, args.retries) + 1):
                 try:
-                    summary = summarize_conversation_with_subtopic(
-                        text,
-                        model=args.model,
-                        temperature=args.temperature,
-                    )
+                    # summary = summarize_conversation_with_subtopic(
+                    #     text,
+                    #     model=args.model,
+                    #     temperature=args.temperature,
+                    # )
+                    summary = await summarize_conversation_with_subtopic_gemini(text)
                     summary_error = None
                     break
                 except Exception as e:
@@ -154,6 +193,4 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
-
-
+    asyncio.run(main())
