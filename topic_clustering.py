@@ -9,6 +9,7 @@ from sklearn.cluster import KMeans
 import asyncio
 
 from google import genai
+from openai import AsyncOpenAI
 
 load_dotenv()
 
@@ -20,9 +21,18 @@ def get_sentences_from_summaries(summaries_file = "medicare_conversation_summari
     summaries = []
     with open(summaries_file, "r") as f:
         for line in f:
-            data = json.loads(line.strip())
-            summaries.append(data['summary']['motivation'])
-    # print(summaries[:5])
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                data = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            s = data.get("summary", {})
+            motivation = s.get("motivation", "")
+            sub_topic = s.get("sub_topic", "")
+            combined = f"{motivation}\nSubtopic: {sub_topic}".strip()
+            summaries.append(motivation)
     return summaries
 
 def cluster_embeddings(embeddings, n_clusters=8, random_state=0):
@@ -52,25 +62,65 @@ def get_clusters(summaries, labels):
         clusters[label].append(summary)
     return clusters
 
-async def summarize_from_cluster(clusters):
-    client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
-    cluster_summaries = []
-    for cluster in clusters:
-        cluster_text = "\n".join(f"- {summary}" for summary in cluster)
-        response = await client.aio.models.generate_content(
-            model="gemini-2.5-flash",
-            contents=f"""Find the common topic among these conversation summaries and provide a succinct 2-3 word label:
+async def summarize_from_cluster(clusters, provider=None):
+    if provider is None:
+        provider = "gemini" if os.getenv("GEMINI_API_KEY") else "openai"
 
+    cluster_summaries = []
+
+    if provider == "gemini":
+        client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+        for cluster in clusters:
+            cluster_text = "\n".join(f"- {summary}" for summary in cluster)
+            used_labels_text = "\n".join(f"- {lbl}" for lbl in cluster_summaries) if cluster_summaries else "None"
+            response = await client.aio.models.generate_content(
+                model="gemini-2.5-flash",
+                contents=f"""Propose a concise topic label (2-3 words) for the cluster below.
+
+Rules:
+- Output only the label text: no quotes, no markdown, no punctuation.
+- Keep it plain text without extra words or formatting.
+- Ensure the label is sufficiently distinct from any previously used labels in this run.
+
+Previously used labels:
+{used_labels_text}
+
+Cluster:
 {cluster_text}
 
-Examples:
-- Multiple appointment scheduling topics → "scheduling appointments"
-- Various billing/payment issues → "billing inquiries" 
-- Different coverage questions → "coverage verification"
+Label:"""
+            )
+            cluster_summaries.append(response.text)
+    else:
+        client = AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+        for cluster in clusters:
+            cluster_text = "\n".join(f"- {summary}" for summary in cluster)
+            used_labels_text = "\n".join(f"- {lbl}" for lbl in cluster_summaries) if cluster_summaries else "None"
+            response = await client.chat.completions.create(
+                model="gpt-4o-mini",
+                messages=[
+                    {
+                        "role": "user",
+                        "content": f"""Propose a concise topic label (2-3 words) for the cluster below.
 
-Common topic:"""
-        )
-        cluster_summaries.append(response.text)
+Rules:
+- Output only the label text: no quotes, no markdown, no punctuation.
+- Keep it plain text without extra words or formatting.
+- Ensure the label is sufficiently distinct from any previously used labels in this run.
+- Make the label as specific as possible while ensuring that it is accurate for all the cluster text. 
+
+Previously used labels:
+{used_labels_text}
+
+Cluster:
+{cluster_text}
+
+Label:""",
+                    }
+                ],
+            )
+            cluster_summaries.append(response.choices[0].message.content.strip())
+
     return cluster_summaries
 
 def main():

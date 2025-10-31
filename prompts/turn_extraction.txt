@@ -5,21 +5,15 @@ Minimal schema (required and optional fields):
 - turn_index (int, required)
 - speaker ("agent" | "customer", required)
 - dialogue_act (enum, required; see allowed values below)
-- intent (string, optional; short phrase like "schedule_appointment")
-- info_requested (array<string>, optional; normalized keys like "appointment_time")
-- info_provided (array<object>, optional; each {"key": string, "value_span": string, "normalized_value": string|number|boolean|null})
-- action_taken (array<string>, optional; normalized actions like "schedule_time_slot")
-- extraction_confidence (number in [0,1], required)
+- action_taken (array<string>, optional; normalized actions like "reset_password", "schedule_time_slot")
 
 Allowed dialogue_act values:
-["greeting_opening","acknowledge_backchannel","request_information","provide_information","question_open","question_closed","confirm","confirm_yes","confirm_no","propose_action","commit_action","request_action","apologize","closing"]
+["provide_information","request_information","question_open","question_closed","confirm","confirm_yes","confirm_no","request_action","propose_action","commit_action","greeting_opening","closing","apologize","thanks","acknowledge_backchannel","hold_or_transfer"]
 
 General guidance:
-- Keep intent concise (<= 4 words). Use empty arrays ([]) when none.
-- Prefer info_requested/info_provided keys from your domain vocabulary (e.g., appointment_time, service_type, price_quote, customer_name, phone_number). If unclear, pick a sensible generic key.
-- normalized_value may be omitted (null) if not reliably determinable; still include value_span.
+- Use empty arrays ([]) when a field has no values.
 - action_taken should reflect actions actually executed in THIS turn (not merely proposed).
-- extraction_confidence reflects overall confidence in your annotations for this turn.
+- Set action_taken to [] unless dialogue_act == "commit_action". When dialogue_act == "commit_action", populate action_taken with normalized actions actually completed in this turn.
 
 INPUT FORMAT
 You will receive a JSON object with recent context and the current turn:
@@ -49,14 +43,10 @@ Output:
   "turn_index": 7,
   "speaker": "agent",
   "dialogue_act": "propose_action",
-  "intent": "schedule_appointment",
-  "info_requested": ["appointment_confirmation"],
-  "info_provided": [{"key": "appointment_time", "value_span": "Friday at 2 pm", "normalized_value": "2025-10-24T14:00:00"}],
-  "action_taken": [],
-  "extraction_confidence": 0.90
+  "action_taken": []
 }
 
 TEMPLATE EXECUTION
 - Use the exact field names and enum values provided.
-- If you are unsure, choose the most conservative label and reduce extraction_confidence accordingly.
+- If you are unsure, choose the most conservative label.
 - Do not add fields not listed in the minimal schema.

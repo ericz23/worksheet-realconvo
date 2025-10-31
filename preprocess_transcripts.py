@@ -164,7 +164,7 @@ def _extract_turn_metadata(
     raise ValueError("Model did not return parseable JSON for turn metadata.")
 
 
-def main() -> None:
+def main_OpenAI() -> None:
     parser = argparse.ArgumentParser(description="Convert auto insurance transcripts into labeled JSONL")
     parser.add_argument(
         "--dataset-path",
@@ -173,7 +173,7 @@ def main() -> None:
     )
     parser.add_argument(
         "--source-zip",
-        default="automotive_inbound.zip",
+        default="medicare_inbound.zip",
         help="Filter value for 'source_zip'",
     )
     parser.add_argument(
@@ -197,12 +197,6 @@ def main() -> None:
         type=int,
         default=0,
         help="Optional limit of examples to process (0 means all)",
-    )
-    parser.add_argument(
-        "--retries",
-        type=int,
-        default=1,
-        help="Number of retries if labeling fails (default: 1)",
     )
     parser.add_argument(
         "--summary-model",
@@ -259,21 +253,13 @@ def main() -> None:
             summary: Dict[str, Any] = {}
             summary_error: Exception | None = None
 
-            # Retry loop for robustness
-            for attempt in range(max(0, args.retries) + 1):
-                try:
-                    result = label_transcript_with_openai(
-                        text, model=args.model, temperature=args.temperature
-                    )
-                    break
-                except Exception as e:
-                    error = e
-                    if attempt < max(0, args.retries):
-                        # Exponential backoff: 1s, 1.5s, 2.25s, ...
-                        time.sleep(1.5 ** attempt)
-                    else:
-                        # Exhausted retries; proceed to write an error record
-                        result = None
+            try:
+                result = label_transcript_with_openai(
+                    text, model=args.model, temperature=args.temperature
+                )
+            except Exception as e:
+                error = e
+
 
             if result is not None:
                 try:
@@ -289,20 +275,15 @@ def main() -> None:
             # Summarize conversation (even if labeling failed, attempt using raw text)
             # Prefer using conversation if available; else fall back to raw text.
             summary_input = conversation if conversation else text
-            for attempt in range(max(0, args.retries) + 1):
-                try:
-                    summary = _summarize_conversation(
-                        summary_input,
-                        model=args.summary_model,
-                    )
-                    summary_error = None
-                    break
-                except Exception as e:
-                    summary_error = e
-                    if attempt < max(0, args.retries):
-                        time.sleep(1.5 ** attempt)
-                    else:
-                        summary = {}
+            try:
+                summary = _summarize_conversation(
+                    summary_input,
+                    model=args.summary_model,
+                )
+                summary_error = None
+            except Exception as e:
+                summary_error = e
+                
 
             # Turn-level metadata extraction 
             if args.turnmeta and segments:
@@ -327,22 +308,16 @@ def main() -> None:
 
                     md: Dict[str, Any] = {}
                     md_error: Exception | None = None
-                    for attempt in range(max(0, args.retries) + 1):
-                        try:
-                            md = _extract_turn_metadata(
-                                recent,
-                                current_turn,
-                                model=args.turnmeta_model,
-                                temperature=args.turnmeta_temperature,
-                            )
-                            md_error = None
-                            break
-                        except Exception as e:
-                            md_error = e
-                            if attempt < max(0, args.retries):
-                                time.sleep(1.5 ** attempt)
-                            else:
-                                md = {}
+                    try:
+                        md = _extract_turn_metadata(
+                            recent,
+                            current_turn,
+                            model=args.turnmeta_model,
+                            temperature=args.turnmeta_temperature,
+                        )
+                        md_error = None
+                    except Exception as e:
+                        md_error = e
 
                     seg["metadata"] = md
                     seg["metadata_error"] = None if md_error is None else {
@@ -353,10 +328,7 @@ def main() -> None:
             record = {
                 "id": i,
                 "source_zip": example.get("source_zip"),
-                "raw_text": text,
                 "segments": segments,
-                "conversation": conversation,
-                "status": "ok" if error is None else "error",
                 "error": None
                 if error is None
                 else {"type": error.__class__.__name__, "message": str(error)[:500]},
@@ -479,4 +451,4 @@ def main_gemini() -> None:
             f.write(json.dumps(record, ensure_ascii=False) + "\n")
 
 if __name__ == "__main__":
-    main_gemini()
+    main_OpenAI()
