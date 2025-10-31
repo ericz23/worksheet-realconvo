@@ -164,6 +164,67 @@ def _extract_turn_metadata(
     raise ValueError("Model did not return parseable JSON for turn metadata.")
 
 
+def _extract_turn_metadata_Gemini(
+    recent_context: List[Dict[str, Any]],
+    current_turn: Dict[str, Any],
+    model: str = "gemini-2.5-flash",
+    temperature: float = 0.0,
+) -> Dict[str, Any]:
+    """Extract minimal turn metadata using Gemini and a strict prompt template.
+
+    Returns a dict conforming to the minimal schema.
+    """
+    client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+    system_instructions = _load_turn_prompt_template()
+
+    payload = {
+        "recent_context": recent_context,
+        "current_turn": current_turn,
+    }
+
+    # Concatenate system instructions and payload, request JSON output
+    response = client.models.generate_content(
+        model=model,
+        contents=f"{system_instructions}\n\n{json.dumps(payload, ensure_ascii=False)}",
+        config={
+            "response_mime_type": "application/json",
+        },
+    )
+
+    # Prefer response.text; fall back to extracting from candidates/parts
+    content = ""
+    try:
+        content = (getattr(response, "text", "") or "").strip()
+    except Exception:
+        content = ""
+    if not content:
+        try:
+            # Try to find a JSON part
+            cand = response.candidates[0]
+            part = cand.content.parts[0]
+            # Some SDKs expose structured json; try to serialize if present
+            if hasattr(part, "as_dict"):
+                part_dict = part.as_dict()
+                if isinstance(part_dict, dict) and "json" in part_dict:
+                    content = json.dumps(part_dict["json"], ensure_ascii=False)
+            if not content and hasattr(part, "text"):
+                content = (part.text or "").strip()
+        except Exception:
+            content = ""
+
+    try:
+        return json.loads(content)
+    except Exception:
+        start = content.find("{")
+        end = content.rfind("}")
+        if start != -1 and end != -1 and end > start:
+            try:
+                return json.loads(content[start : end + 1])
+            except Exception:
+                pass
+    raise ValueError("Model did not return parseable JSON for turn metadata (Gemini).")
+
+
 def main_OpenAI() -> None:
     parser = argparse.ArgumentParser(description="Convert auto insurance transcripts into labeled JSONL")
     parser.add_argument(
@@ -204,19 +265,6 @@ def main_OpenAI() -> None:
         help="OpenAI model to use for summarization (default: gpt-4o-mini)",
     )
     parser.add_argument(
-        "--turnmeta",
-        dest="turnmeta",
-        action="store_true",
-        default=True,
-        help="Enable per-turn metadata extraction (default: on)",
-    )
-    parser.add_argument(
-        "--no-turnmeta",
-        dest="turnmeta",
-        action="store_false",
-        help="Disable per-turn metadata extraction",
-    )
-    parser.add_argument(
         "--turnmeta-model",
         default="gpt-4o-mini",
         help="OpenAI model to use for turn metadata extraction (default: gpt-4o-mini)",
@@ -230,8 +278,8 @@ def main_OpenAI() -> None:
     parser.add_argument(
         "--turnmeta-context",
         type=int,
-        default=3,
-        help="Number of previous turns to include as context (default: 3)",
+        default=1,
+        help="Number of previous turns to include as context (default: 1)",
     )
 
     args = parser.parse_args()
@@ -286,7 +334,7 @@ def main_OpenAI() -> None:
                 
 
             # Turn-level metadata extraction 
-            if args.turnmeta and segments:
+            if segments:
                 recent: List[Dict[str, Any]] = []
                 for idx, seg in enumerate(segments):
                     # Build context window from previous turns
@@ -348,7 +396,7 @@ def main_gemini() -> None:
     )
     parser.add_argument(
         "--source-zip",
-        default="automotive_inbound.zip",
+        default="medicare_inbound.zip",
         help="Filter value for 'source_zip'",
     )
     parser.add_argument(
@@ -369,15 +417,26 @@ def main_gemini() -> None:
     )
 
     parser.add_argument(
-        "--retries",
-        type=int,
-        default=1,
-        help="Number of retries if labeling fails (default: 1)",
-    )
-    parser.add_argument(
         "--summary-model",
         default="gemini-2.5-flash",
         help="Gemini model to use for summarization (default: gemini-2.5-flash)",
+    )
+    parser.add_argument(
+        "--turnmeta-model",
+        default="gemini-2.5-flash",
+        help="OpenAI model to use for turn metadata extraction (default: gpt-4o-mini)",
+    )
+    parser.add_argument(
+        "--turnmeta-temperature",
+        type=float,
+        default=0.0,
+        help="Sampling temperature for turn metadata extraction (default: 0.0)",
+    )
+    parser.add_argument(
+        "--turnmeta-context",
+        type=int,
+        default=1,
+        help="Number of previous turns to include as context (default: 1)",
     )
 
     args = parser.parse_args()
@@ -399,16 +458,10 @@ def main_gemini() -> None:
             summary: Dict[str, Any] = {}
             summary_error: Exception | None = None
 
-            for attempt in range(max(0, args.retries) + 1):
-                try:
-                    result = label_transcript_gemini_structured(text, model=args.model)
-                    break
-                except Exception as e:
-                    error = e
-                    if attempt < max(0, args.retries):
-                        time.sleep(1.5 ** attempt)
-                    else:
-                        result = None
+            try:
+                result = label_transcript_gemini_structured(text, model=args.model)
+            except Exception as e:
+                error = e
 
             if result is not None:
                 try:
@@ -421,25 +474,57 @@ def main_gemini() -> None:
                     conversation = ""
 
             summary_input = conversation if conversation else text
-            for attempt in range(max(0, args.retries) + 1):
-                try:
-                    summary = _summarize_conversation_gemini(summary_input, model=args.summary_model)
-                    summary_error = None
-                    break
-                except Exception as e:
-                    summary_error = e
-                    if attempt < max(0, args.retries):
-                        time.sleep(1.5 ** attempt)
-                    else:
-                        summary = {}
+            try:
+                summary = _summarize_conversation_gemini(summary_input, model=args.summary_model)
+                summary_error = None
+            except Exception as e:
+                summary_error = e
+
+            # Turn-level metadata extraction 
+            if segments:
+                recent: List[Dict[str, Any]] = []
+                for idx, seg in enumerate(segments):
+                    # Build context window from previous turns
+                    start_ctx = max(0, idx - args.turnmeta_context)
+                    recent = [
+                        {
+                            "turn_index": start_ctx + j,
+                            "speaker": segments[start_ctx + j].get("speaker", "unknown"),
+                            "text": segments[start_ctx + j].get("text", ""),
+                        }
+                        for j in range(0, idx - start_ctx)
+                    ]
+
+                    current_turn = {
+                        "turn_index": idx,
+                        "speaker": seg.get("speaker", "unknown"),
+                        "text": seg.get("text", ""),
+                    }
+
+                    md: Dict[str, Any] = {}
+                    md_error: Exception | None = None
+                    try:
+                        md = _extract_turn_metadata_Gemini(
+                            recent,
+                            current_turn,
+                            model=args.turnmeta_model,
+                            temperature=args.turnmeta_temperature,
+                        )
+                        md_error = None
+                    except Exception as e:
+                        md_error = e
+
+                    seg["metadata"] = md
+                    seg["metadata_error"] = None if md_error is None else {
+                        "type": md_error.__class__.__name__,
+                        "message": str(md_error)[:500],
+                    }
+
 
             record = {
                 "id": i,
                 "source_zip": example.get("source_zip"),
-                "raw_text": text,
                 "segments": segments,
-                "conversation": conversation,
-                "status": "ok" if error is None else "error",
                 "error": None
                 if error is None
                 else {"type": error.__class__.__name__, "message": str(error)[:500]},
@@ -451,4 +536,4 @@ def main_gemini() -> None:
             f.write(json.dumps(record, ensure_ascii=False) + "\n")
 
 if __name__ == "__main__":
-    main_OpenAI()
+    main_gemini()
