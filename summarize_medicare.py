@@ -61,7 +61,7 @@ async def summarize_conversation_with_subtopic_gemini(
     }
 
 
-def summarize_conversation_with_subtopic(
+async def summarize_conversation_with_subtopic(
     conversation: str,
     model: str = "gpt-4o-mini",
     temperature: float = 0.2,
@@ -171,7 +171,7 @@ async def main() -> None:
                     #     model=args.model,
                     #     temperature=args.temperature,
                     # )
-                    summary = await summarize_conversation_with_subtopic_gemini(text)
+                    summary = await summarize_conversation_with_subtopic(text)
                     summary_error = None
                     break
                 except Exception as e:
