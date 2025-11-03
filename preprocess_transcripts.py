@@ -9,7 +9,7 @@ transcript using `label_transcript_with_openai`, and writes a structured JSONL f
 - segments: list of {text, speaker, confidence}
 - conversation: a single multiline string with lines like
   "agent: Hello there (conf=0.92)"
-- summary: an object summarizing motivation, information exchanged, actions taken, and outcome
+- summary: an object summarizing motivation, information exchanged, actions taken, outcome, and sub_topic
 
 Outputs are designed for easy ingestion into downstream LLM policy extraction tasks.
 """
@@ -21,6 +21,7 @@ import json
 import os
 import time
 from typing import Any, Dict, List
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from datasets import load_from_disk
 
@@ -31,30 +32,31 @@ from google import genai
 from pydantic import BaseModel
 import enum
 
+_GEMINI_CLIENT: genai.Client | None = None
+
+def _get_gemini_client() -> genai.Client:
+    """Return a singleton Gemini client instance."""
+    global _GEMINI_CLIENT
+    if _GEMINI_CLIENT is None:
+        _GEMINI_CLIENT = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+    return _GEMINI_CLIENT
+
+class SubTopicCategory(enum.Enum):
+    PET_APPOINTMENT_SCHEDULING = "Pet Appointment Scheduling"
+    DENTAL_APPOINTMENT_REQUESTS = "Dental Appointment Requests"
+    OTHER_MEDICAL_APPOINTMENT_MANAGEMENT = "Other Medical Appointment Management"
+    MEDICAL_PROCEDURE_INQUIRIES = "Medical Procedure Inquiries"
+    BILLING_AND_PAYMENT_INQUIRIES = "Billing and Payment Inquiries"
+    PET_INQUIRIES = "Pet Inquiries"
+    OTHER = "Other"
+
 class SummaryResponse(BaseModel):
     motivation: str
     information_exchanged: str
     actions_taken: str
     outcome: str
+    sub_topic: SubTopicCategory
 
-def _summarize_conversation_gemini(conversation: str, model: str = "gemini-2.5-flash") -> Dict[str, str]:
-    client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
-    
-    response = client.models.generate_content(
-        model=model,
-        contents=f"Summarize this customer support call into key fields:\n{conversation}",
-        config={
-            "response_mime_type": "application/json",
-            "response_schema": SummaryResponse
-        },
-    )
-    
-    return {
-        "motivation": response.parsed.motivation,
-        "information_exchanged": response.parsed.information_exchanged,
-        "actions_taken": response.parsed.actions_taken,
-        "outcome": response.parsed.outcome
-    }
 
 def _format_conversation(segments: List[Dict[str, Any]]) -> str:
     lines: List[str] = []
@@ -115,6 +117,40 @@ def _summarize_conversation(
                 pass
     raise ValueError("Model did not return parseable JSON for summary.")
 
+def _summarize_conversation_gemini(conversation: str, model: str = "gemini-2.5-flash") -> Dict[str, str]:
+    client = _get_gemini_client()
+    
+    response = client.models.generate_content(
+        model=model,
+        contents=(
+            "Summarize this customer support call into key fields "
+            "(motivation, information_exchanged, actions_taken, outcome, sub_topic).\n"
+            "For sub_topic, choose ONLY from these categories:\n"
+            "- Pet Appointment Scheduling: Scheduling/rescheduling/canceling vet appointments for animals (mentions: pet/dog/cat/vet/animal hospital). Not general pet advice.\n"
+            "- Dental Appointment Requests: Scheduling/rescheduling/canceling dental services (cleaning, fillings, extraction, orthodontics). Not general medical procedures or billing.\n"
+            "- Other Medical Appointment Management: Scheduling/rescheduling/canceling medical visits that are not dental and not pets.\n"
+            "- Medical Procedure Inquiries: Questions about procedures/tests/surgery/prep/recovery/results/referrals; not scheduling-focused.\n"
+            "- Billing and Payment Inquiries: Bills, charges, statements, refunds, prior auth framed as billing, payment plans.\n"
+            "- Pet Inquiries: Pet health/medication/general questions without appointment scheduling.\n"
+            "- Other: Everything else.\n\n"
+            "Rules:\n"
+            "- Prefer appointment categories over inquiry if both appear for the same domain.\n"
+            "- Output one of the category names exactly, nothing else.\n\n"
+            f"Conversation:\n{conversation}"
+        ),
+        config={
+            "response_mime_type": "application/json",
+            "response_schema": SummaryResponse
+        },
+    )
+    
+    return {
+        "motivation": response.parsed.motivation,
+        "information_exchanged": response.parsed.information_exchanged,
+        "actions_taken": response.parsed.actions_taken,
+        "outcome": response.parsed.outcome,
+        "sub_topic": getattr(response.parsed.sub_topic, "value", response.parsed.sub_topic),
+    }
 
 def _load_turn_prompt_template() -> str:
     """Load the turn metadata extraction prompt template from prompts directory."""
@@ -163,67 +199,63 @@ def _extract_turn_metadata(
                 pass
     raise ValueError("Model did not return parseable JSON for turn metadata.")
 
-
 def _extract_turn_metadata_Gemini(
-    recent_context: List[Dict[str, Any]],
-    current_turn: Dict[str, Any],
+    segments: List[Dict[str, Any]],
+    context_k: int,
     model: str = "gemini-2.5-flash",
     temperature: float = 0.0,
-) -> Dict[str, Any]:
-    """Extract minimal turn metadata using Gemini and a strict prompt template.
+) -> List[Dict[str, Any]]:
+    """Batch extract per-turn metadata for the entire transcript using Gemini.
 
-    Returns a dict conforming to the minimal schema.
+    The model should return a JSON array of length equal to the number of segments,
+    where each element is the metadata for the turn with the same index.
     """
-    client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+    if not segments:
+        return []
+
+    client = _get_gemini_client()
     system_instructions = _load_turn_prompt_template()
 
+    minimal_segments: List[Dict[str, Any]] = [
+        {
+            "turn_index": idx,
+            "speaker": seg.get("speaker", "unknown"),
+            "text": seg.get("text", ""),
+        }
+        for idx, seg in enumerate(segments)
+    ]
+
     payload = {
-        "recent_context": recent_context,
-        "current_turn": current_turn,
+        "segments": minimal_segments,
+        "context_window": int(max(0, context_k)),
     }
 
-    # Concatenate system instructions and payload, request JSON output
+    # Instruct the model to return an array aligned to segment indices
+    instruction_suffix = (
+        "\n\nYou are given the full conversation split into segments with turn_index. "
+        "For EACH segment, produce the minimal metadata defined above, using up to 'context_window' "
+        "previous segments as context.\n"
+        f"Return ONLY a JSON array of length {len(minimal_segments)}, where array[i] corresponds to turn_index i.\n"
+        "Do not include any additional keys or explanations."
+    )
+
     response = client.models.generate_content(
         model=model,
-        contents=f"{system_instructions}\n\n{json.dumps(payload, ensure_ascii=False)}",
+        contents=f"{system_instructions}{instruction_suffix}\n\n{json.dumps(payload, ensure_ascii=False)}",
         config={
             "response_mime_type": "application/json",
         },
     )
 
-    # Prefer response.text; fall back to extracting from candidates/parts
     content = ""
     try:
         content = (getattr(response, "text", "") or "").strip()
     except Exception:
         content = ""
-    if not content:
-        try:
-            # Try to find a JSON part
-            cand = response.candidates[0]
-            part = cand.content.parts[0]
-            # Some SDKs expose structured json; try to serialize if present
-            if hasattr(part, "as_dict"):
-                part_dict = part.as_dict()
-                if isinstance(part_dict, dict) and "json" in part_dict:
-                    content = json.dumps(part_dict["json"], ensure_ascii=False)
-            if not content and hasattr(part, "text"):
-                content = (part.text or "").strip()
-        except Exception:
-            content = ""
 
-    try:
-        return json.loads(content)
-    except Exception:
-        start = content.find("{")
-        end = content.rfind("}")
-        if start != -1 and end != -1 and end > start:
-            try:
-                return json.loads(content[start : end + 1])
-            except Exception:
-                pass
-    raise ValueError("Model did not return parseable JSON for turn metadata (Gemini).")
+    data = json.loads(content)
 
+    return data
 
 def main_OpenAI() -> None:
     parser = argparse.ArgumentParser(description="Convert auto insurance transcripts into labeled JSONL")
@@ -438,6 +470,12 @@ def main_gemini() -> None:
         default=1,
         help="Number of previous turns to include as context (default: 1)",
     )
+    parser.add_argument(
+        "--workers",
+        type=int,
+        default=8,
+        help="Number of parallel workers (default: 8)",
+    )
 
     args = parser.parse_args()
     ds = load_from_disk(args.dataset_path)
@@ -446,80 +484,59 @@ def main_gemini() -> None:
     count = total if args.limit in (None, 0) else min(args.limit, total)
 
     print(count, "examples to process.")
-    with open(args.output, "w", encoding="utf-8") as f:
-        for i in range(count):
-            print("Processing", i)
-            example = subset[i]
-            text = example.get("text", "")
-            result: Dict[str, Any] | None = None
-            segments: List[Dict[str, Any]] = []
-            conversation = ""
-            error: Exception | None = None
-            summary: Dict[str, Any] = {}
-            summary_error: Exception | None = None
 
+    def _process_transcript(i: int) -> str:
+        example = subset[i]
+        text = example.get("text", "")
+        result: Dict[str, Any] | None = None
+        segments: List[Dict[str, Any]] = []
+        conversation = ""
+        error: Exception | None = None
+        summary: Dict[str, Any] = {}
+        summary_error: Exception | None = None
+
+        try:
+            result = label_transcript_gemini_structured(text, model=args.model)
+        except Exception as e:
+            error = e
+
+        if result:
             try:
-                result = label_transcript_gemini_structured(text, model=args.model)
+                segments = result.get("segments", [])
+                conversation = _format_conversation(segments)
+                error = None
             except Exception as e:
                 error = e
+                segments = []
+                conversation = ""
 
-            if result is not None:
-                try:
-                    segments = result.get("segments", [])
-                    conversation = _format_conversation(segments)
-                    error = None
-                except Exception as e:
-                    error = e
-                    segments = []
-                    conversation = ""
+        summary_input = conversation if conversation else text
+        try:
+            summary = _summarize_conversation_gemini(summary_input, model=args.summary_model)
+            summary_error = None
+        except Exception as e:
+            summary_error = e
 
-            summary_input = conversation if conversation else text
-            try:
-                summary = _summarize_conversation_gemini(summary_input, model=args.summary_model)
-                summary_error = None
-            except Exception as e:
-                summary_error = e
+        if summary.get("sub_topic") in {"Dental Appointment Requests", "Other Medical Appointment Management"}:
 
-            # Turn-level metadata extraction 
+            # Turn-level metadata extraction (single batch call per transcript)
             if segments:
-                recent: List[Dict[str, Any]] = []
+                md_list = _extract_turn_metadata_Gemini(
+                    segments,
+                    context_k=args.turnmeta_context,
+                    model=args.turnmeta_model,
+                    temperature=args.turnmeta_temperature,
+                )
                 for idx, seg in enumerate(segments):
-                    # Build context window from previous turns
-                    start_ctx = max(0, idx - args.turnmeta_context)
-                    recent = [
-                        {
-                            "turn_index": start_ctx + j,
-                            "speaker": segments[start_ctx + j].get("speaker", "unknown"),
-                            "text": segments[start_ctx + j].get("text", ""),
+                    if idx < len(md_list) and isinstance(md_list[idx], dict):
+                        seg["metadata"] = md_list[idx]
+                        seg["metadata_error"] = None
+                    else:
+                        seg["metadata"] = {}
+                        seg["metadata_error"] = {
+                            "type": "ValueError",
+                            "message": "Batch metadata length mismatch or invalid element",
                         }
-                        for j in range(0, idx - start_ctx)
-                    ]
-
-                    current_turn = {
-                        "turn_index": idx,
-                        "speaker": seg.get("speaker", "unknown"),
-                        "text": seg.get("text", ""),
-                    }
-
-                    md: Dict[str, Any] = {}
-                    md_error: Exception | None = None
-                    try:
-                        md = _extract_turn_metadata_Gemini(
-                            recent,
-                            current_turn,
-                            model=args.turnmeta_model,
-                            temperature=args.turnmeta_temperature,
-                        )
-                        md_error = None
-                    except Exception as e:
-                        md_error = e
-
-                    seg["metadata"] = md
-                    seg["metadata_error"] = None if md_error is None else {
-                        "type": md_error.__class__.__name__,
-                        "message": str(md_error)[:500],
-                    }
-
 
             record = {
                 "id": i,
@@ -533,7 +550,19 @@ def main_gemini() -> None:
                 if summary_error is None
                 else {"type": summary_error.__class__.__name__, "message": str(summary_error)[:500]},
             }
-            f.write(json.dumps(record, ensure_ascii=False) + "\n")
+            return json.dumps(record, ensure_ascii=False) + "\n"
+
+        return ""
+
+    # Execute preprocessing in parallel
+    with open(args.output, "w", encoding="utf-8") as f:
+        with ThreadPoolExecutor(max_workers=args.workers) as pool:
+            futures = [pool.submit(_process_transcript, i) for i in range(count)]
+            for j, fut in enumerate(as_completed(futures), 1):
+                line = fut.result()
+                f.write(line)
+                if j % 50 == 0:
+                    print(f"Completed {j}/{count}")
 
 if __name__ == "__main__":
     main_gemini()
