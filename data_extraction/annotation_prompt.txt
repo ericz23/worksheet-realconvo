@@ -5,7 +5,6 @@ Your task is to produce structured annotations following the exact JSON schema `
 Instructions:
 1. Split the conversation into minimal utterance segments, one speaker turn per segment.
 2. For each segment, output:
-   - turn_index: sequential index starting at 0
    - text: the **exact original utterance text**, without any modification, rewording, or placeholders
    - speaker: "agent" or "customer"
    - confidence: confidence score in [0,1] for the speaker label

@@ -2,11 +2,9 @@ import enum
 from typing import List, Optional
 from pydantic import BaseModel, Field
 
-
 class SpeakerType(str, enum.Enum):
     AGENT = "agent"
     CUSTOMER = "customer"
-
 
 class DialogueAct(str, enum.Enum):
     provide_information = "provide_information"
@@ -26,7 +24,6 @@ class DialogueAct(str, enum.Enum):
     acknowledge_backchannel = "acknowledge_backchannel"
     hold_or_transfer = "hold_or_transfer"
 
-
 class SubTopicCategory(str, enum.Enum):
     PET_APPOINTMENT_SCHEDULING = "Pet Appointment Scheduling"
     DENTAL_APPOINTMENT_REQUESTS = "Dental Appointment Requests"
@@ -36,15 +33,12 @@ class SubTopicCategory(str, enum.Enum):
     PET_INQUIRIES = "Pet Inquiries"
     OTHER = "Other"
 
-
 class TranscriptSegment(BaseModel):
-    turn_index: int = Field(..., ge=0)
     text: str
     speaker: SpeakerType
     confidence: float = Field(..., ge=0.0, le=1.0)
     dialogue_act: DialogueAct
     dialogue_act_confidence: float = Field(..., ge=0.0, le=1.0)
-
 
 class ConversationLevel(BaseModel):
     summary: str
@@ -52,9 +46,7 @@ class ConversationLevel(BaseModel):
     outcome: str
     sub_topic: SubTopicCategory
 
-
 class LabeledConversation(BaseModel):
-    id: Optional[int] = None
     source_zip: Optional[str] = None
     conversation: ConversationLevel
     segments: List[TranscriptSegment]
