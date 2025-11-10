@@ -1,0 +1,7 @@
+You are given a raw conversation transcript. Output a JSON object following the Summary schema. 
+- Do not rewrite, correct, or summarize any text. Keep every segment exactly as it appears, including punctuation and placeholders.
+- is_appointment: true if the transcript is about scheduling an appointment; otherwise false.
+- appointment_type: one of ["Dental", "Pet", "Other"] only if is_appointment is true.
+- segments: list each utterance with its speaker ("agent" or "customer") and the exact text.
+
+Return only valid JSON following the schema.
