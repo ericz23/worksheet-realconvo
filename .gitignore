@@ -14,3 +14,4 @@ gemini_train.jsonl
 gemini_val.jsonl
 medicare_token_estimates.csv
 worksheet-realconvo-476817-0ad693938369.json
+annotated/
