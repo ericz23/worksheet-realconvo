@@ -9,4 +9,9 @@ medicare_conversation_summaries_with_subtopic_cont.jsonl
 medicare_conversation_summaries_with_subtopic.jsonl
 transcripts_labeled_automotive.jsonl
 transcripts_labeled_gemini.jsonl
+gemini_formatted.jsonl
+gemini_train.jsonl
+gemini_val.jsonl
+medicare_token_estimates.csv
+worksheet-realconvo-476817-0ad693938369.json
 annotated/
