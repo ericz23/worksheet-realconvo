@@ -93,7 +93,7 @@ if __name__ == "__main__":
         model="gemini-2.5-flash",
         dataset_path="./transcripts_dataset",
         source_zip="medicare_inbound.zip",
-        index_start=15418,
+        index_start=18556,
         # index_end=6000,
         keyword="appointment",
         batch_size=1000,

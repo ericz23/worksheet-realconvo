@@ -69,25 +69,33 @@ def check_and_retrieve_jobs(
             responses_list = list(job_status.dest.inlined_responses)
             
             adapter = TypeAdapter(Summary)
+            skipped_entries = 0
             
             for i, inline_response in enumerate(responses_list):
                 if inline_response.response and inline_response.response.text:
-                    parsed_summary = adapter.validate_json(inline_response.response.text)
-                    parsed_content = parsed_summary.model_dump()
-                    
-                    if start_id is not None and end_id is not None:
-                        if i == 0:
-                            parsed_content["id"] = start_id
-                        elif i == len(responses_list) - 1:
-                            parsed_content["id"] = end_id
-                    
-                    batch_results.append(parsed_content)
+                    try:
+                        parsed_summary = adapter.validate_json(inline_response.response.text)
+                        parsed_content = parsed_summary.model_dump()
+                        
+                        if start_id is not None and end_id is not None:
+                            if i == 0:
+                                parsed_content["id"] = start_id
+                            elif i == len(responses_list) - 1:
+                                parsed_content["id"] = end_id
+                        
+                        batch_results.append(parsed_content)
+                    except Exception as e:
+                        print(f"Skipping entry {i+1} due to validation error: {str(e)}")
+                        skipped_entries += 1
+                        continue
                     
                     if inline_response.response.usage_metadata:
                         total_input_tokens += inline_response.response.usage_metadata.prompt_token_count or 0
                         total_output_tokens += inline_response.response.usage_metadata.candidates_token_count or 0
             
             print(f"Retrieved {len(batch_results)} results from {display_name}")
+            if skipped_entries > 0:
+                print(f"Skipped {skipped_entries} invalid entries")
             print(f"Tokens - Input: {total_input_tokens}, Output: {total_output_tokens}, Total: {total_input_tokens + total_output_tokens}")
             
             existing_results.extend(batch_results)

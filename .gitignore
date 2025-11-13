@@ -10,3 +10,4 @@ medicare_conversation_summaries_with_subtopic.jsonl
 transcripts_labeled_automotive.jsonl
 transcripts_labeled_gemini.jsonl
 annotated/
+check_json.py
