@@ -11,3 +11,9 @@ transcripts_labeled_automotive.jsonl
 transcripts_labeled_gemini.jsonl
 annotated/
 check_json.py
+gemini_formatted.jsonl
+gemini_train.jsonl
+gemini_val.jsonl
+medicare_token_estimates.csv
+worksheet-realconvo-476817-0ad693938369.json
+annotated/
