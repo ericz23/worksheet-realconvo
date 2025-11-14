@@ -17,3 +17,5 @@ gemini_val.jsonl
 medicare_token_estimates.csv
 worksheet-realconvo-476817-0ad693938369.json
 annotated/
+test_db_connection.py
+cloud-sql-proxy.exe
