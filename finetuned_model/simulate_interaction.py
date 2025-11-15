@@ -2,11 +2,19 @@ from vertexai.generative_models import GenerativeModel
 from chat_finetuned_gemini_v1 import FinetunedGeminiClient
 from dotenv import load_dotenv
 import json
+import sys
+import os
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.abspath(os.path.join(current_dir, ".."))
+sys.path.append(parent_dir)
+from policy_eval.generate_agent_rulebook import generate_rulebook
 
 # Initialize both models
 load_dotenv()
 customer_model = GenerativeModel("gemini-2.5-flash")
 agent_model = FinetunedGeminiClient()
+NUM_INTERACTIONS = 10
+MAX_TURNS = 10
 
 # System prompt for the customer LLM
 base_customer_instruction = """
@@ -14,7 +22,7 @@ You are simulating a customer calling a medical scheduling agent.
 Your goal is to discover the agent’s behavioral policies — what it asks for, what it refuses,
 how it responds to special cases — by interacting naturally as a caller.
 
-After each full interaction (up to 10 turns), you will extract new policies as natural language
+After each full interaction (up to {MAX_TURNS} turns), you will extract new policies as natural language
 rules based on what the agent said and how it behaved.
 
 Each rule should be phrased like:
@@ -25,19 +33,18 @@ You already know these rules:
 {known_policies}
 
 During the next conversation, try to expose new behaviors not yet covered by existing rules.
-Do not restate known rules.
+Do not restate known rules and explore different conversation paths. 
 """
 
 policy_rules = [] 
-NUM_INTERACTIONS = 5
-MAX_TURNS = 10
 
 for i in range(NUM_INTERACTIONS):
     print(f"\n=== Interaction {i+1} ===")
 
     # Build the current prompt with known rules
     customer_instruction = base_customer_instruction.format(
-        known_policies="\n".join(f"- {r}" for r in policy_rules) if policy_rules else "(none yet)"
+        known_policies="\n".join(f"- {r}" for r in policy_rules) if policy_rules else "(none yet)",
+        MAX_TURNS=MAX_TURNS
     )
 
     conversation = [
@@ -107,3 +114,5 @@ Incorrect examples (do NOT produce):
 
 print("\n=== Finished policy extraction ===")
 print(f"Total unique policies discovered: {len(policy_rules)}")
+
+generate_rulebook(policy_rules)
