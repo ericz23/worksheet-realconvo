@@ -1,4 +1,4 @@
-from vertexai.generative_models import GenerativeModel
+from google import genai
 from chat_finetuned_gemini_v1 import FinetunedGeminiClient
 from dotenv import load_dotenv
 import json
@@ -11,7 +11,7 @@ from policy_eval.generate_agent_rulebook import generate_rulebook
 
 # Initialize both models
 load_dotenv()
-customer_model = GenerativeModel("gemini-2.5-flash")
+genai_client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 agent_model = FinetunedGeminiClient()
 NUM_INTERACTIONS = 10
 MAX_TURNS = 10
@@ -70,7 +70,10 @@ Here is the ongoing conversation:
 
 Continue acting as the customer, trying to expose any new behavior or policy.
 Respond briefly and realistically."""
-        user_reply = customer_model.generate_content(user_prompt).text
+        user_reply = genai_client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=user_prompt
+        ).text
         print(f"Customer: {user_reply}")
         conversation.append({"role": "user", "text": user_reply})
 
@@ -99,7 +102,10 @@ Incorrect examples (do NOT produce):
 ["Rule A"]
 """
 
-    extraction_response = customer_model.generate_content(extraction_prompt).text
+    extraction_response = genai_client.models.generate_content(
+        model="gemini-2.5-flash",
+        contents=extraction_prompt
+    ).text
     print("\n--- Extracted rules ---")
     print(extraction_response)
 
