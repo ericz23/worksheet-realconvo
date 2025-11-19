@@ -17,17 +17,17 @@ def process_data(data, model, batch_size=64, max_workers=8):
         if not conv.get("is_appointment", False):
             continue
         segments = conv.get("segments", [])
-        first_ac_idx = None
-        for i in range(len(segments) - 1):
-            if segments[i]["speaker"] == "agent" and segments[i + 1]["speaker"] == "customer":
-                first_ac_idx = i
+        first_customer_idx = None
+        for i, seg in enumerate(segments):
+            if seg["speaker"] == "customer":
+                first_customer_idx = i
                 break
-        if first_ac_idx is None:
+        if first_customer_idx is None:
             continue
         for i, seg in enumerate(segments):
-            if seg["speaker"] != "customer":
+            if seg["speaker"] != "agent":
                 continue
-            if i <= first_ac_idx + 1:
+            if i <= first_customer_idx:
                 continue
             prev_segments = segments[:i]
             prev_context_text = "\n".join(f"{s['speaker']}: {s['text']}" for s in prev_segments)
@@ -71,6 +71,7 @@ if __name__ == "__main__":
     with open(json_file_path, "r", encoding="utf-8") as f:
         data = json.load(f)
     rows = process_data(data[:1], model, batch_size=64, max_workers=8)
-    for row in rows:
-        print(row)
-        print("-------------------")
+    for i, row in enumerate(rows):
+        if i <= 3:
+            print(row)
+            print("-------------------")

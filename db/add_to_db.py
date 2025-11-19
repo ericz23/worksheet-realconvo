@@ -42,19 +42,19 @@ def create_table_if_not_exists(conn):
 
 
 def insert_rows(conn, rows, batch_size=500):
-    with conn.cursor() as cur:
-        for i in tqdm(range(0, len(rows), batch_size), desc="Inserting rows"):
-            batch = rows[i:i + batch_size]
-            params = [
-                (
-                    r["turn_index"],
-                    r["prev_context_text"],
-                    r["prev_context_embedding"],
-                    r["new_turn_text"],
-                    r["appointment_type"],
-                )
-                for r in batch
-            ]
+    for i in tqdm(range(0, len(rows), batch_size), desc="Inserting rows"):
+        batch = rows[i:i + batch_size]
+        params = [
+            (
+                r["turn_index"],
+                r["prev_context_text"],
+                r["prev_context_embedding"],
+                r["new_turn_text"],
+                r["appointment_type"],
+            )
+            for r in batch
+        ]
+        with conn.cursor() as cur:
             cur.executemany(
                 """
                 INSERT INTO appointment_turns
@@ -63,7 +63,7 @@ def insert_rows(conn, rows, batch_size=500):
                 """,
                 params,
             )
-    conn.commit()
+        conn.commit()
 
 
 def main():
