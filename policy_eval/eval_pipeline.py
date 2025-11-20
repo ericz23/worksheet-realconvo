@@ -65,6 +65,24 @@ Respond with JSON only. ABSOLUTELY NEVER include ANY include markdown, code fenc
 """
 
 
+PET_KEYWORDS = (
+    "pet",
+    "pets",
+    "dog",
+    "dogs",
+    "puppy",
+    "puppies",
+    "cat",
+    "cats",
+    "kitten",
+    "kittens",
+    "animal",
+    "animals",
+    "vet",
+    "veterinary",
+)
+
+
 def _safe_json_loads(resp: str, judge_name: str):
     """Attempt to parse JSON while tolerating stray text/code fences."""
     if not resp:
@@ -101,6 +119,21 @@ def _safe_json_loads(resp: str, judge_name: str):
 
     print(f"[WARN] {judge_name} returned non-JSON output. Skipping this turn.")
     return None
+
+
+def _transcript_has_pet_topic(transcript: dict) -> bool:
+    """Return True if any pet-related keywords appear in the transcript text."""
+    contents = transcript.get("contents") or []
+
+    for message in contents:
+        for part in message.get("parts") or []:
+            text = part.get("text", "")
+            if not text:
+                continue
+            lowered = text.lower()
+            if any(keyword in lowered for keyword in PET_KEYWORDS):
+                return True
+    return False
 
 
 def judge_intent_semantic(user_input, actual_response, generated_response):
@@ -255,9 +288,9 @@ def run_full_evaluation(rulebook_text, transcripts_jsonl, output_csv):
 
         with open(transcripts_jsonl, "r", encoding="utf-8") as f_in:
             for line_index, line in enumerate(f_in, start=1):
-                if line_index > 10:
-                    break
                 transcript = json.loads(line)
+                if _transcript_has_pet_topic(transcript):
+                    continue
                 simulate_transcript(transcript, rulebook_text, writer, agent_m, transcript_id=line_index)
 
 
@@ -266,8 +299,8 @@ def run_full_evaluation(rulebook_text, transcripts_jsonl, output_csv):
 ###############################################
 if __name__ == "__main__":
     rulebook_text = open("agent_rulebook.md", encoding="utf-8").read()
-    transcripts_file = "gemini_val.jsonl"
-    output_file = "evaluation_results.csv"
+    transcripts_file = "formatted_data/gemini_val_full.jsonl"
+    output_file = "evaluation_results_v1.csv"
 
     run_full_evaluation(rulebook_text, transcripts_file, output_file)
     print("Evaluation complete! Results saved to:", output_file)
