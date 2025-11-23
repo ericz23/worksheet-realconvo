@@ -67,7 +67,7 @@ def synthesize_rulebook(cleaned_rules):
     return response.text
 
 
-def generate_rulebook(policy_rules, output_path="agent_rulebook.md"):
+def generate_rulebook(policy_rules, output_path="agent_rulebook_db.md"):
     print("Compiling raw policies...")
     cleaned_rules = compile_policies(policy_rules)
 

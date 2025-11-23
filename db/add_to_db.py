@@ -1,6 +1,7 @@
 import os
 import json
 import psycopg2
+from datetime import datetime
 from dotenv import load_dotenv
 from pgvector.psycopg2 import register_vector
 from tqdm import tqdm
@@ -77,8 +78,9 @@ def main():
     with open(json_file_path, "r", encoding="utf-8") as f:
         data = json.load(f)
 
-    rows = process_data(data, model, batch_size=64, max_workers=8)
+    rows = process_data(data[:2], model, batch_size=64, max_workers=8)
     insert_rows(conn, rows)
+    
     conn.close()
 
 
