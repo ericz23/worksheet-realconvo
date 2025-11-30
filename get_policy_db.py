@@ -18,10 +18,6 @@ from db.process_data import model, encode_sentences
 from policy_eval.generate_agent_rulebook import generate_rulebook
 
 
-def load_env():
-    load_dotenv()
-
-
 def get_db_connection_agent():
     url = os.getenv("DATABASE_URL_AGENT")
     if not url:
@@ -110,13 +106,17 @@ Use the given actual client responses as references to figure out the most appro
 
 Generate 2 or 3 different client response options based on the examples and conversation context.
 
-Past examples of client responses:
+For example: if the agent asked if the pateint is new or established, the client should cover "new patient" and "established patient" in two different responses;
+if the agent asks about whether the patient has PPO or HMO, the client should cover "PPO plan", "HMO plan", and "I don't know" in three different responses;
+you may also consider different client tones such as providing the information eagerly, reluctantly, or refusal.
+
+Here is the context of past examples of client responses:
 {ex_text}
 
 Current conversation:
 {conv_text}
 
-Respond with strict JSON containing 2 or 3 client response variations.
+Respond on current conversation with strict JSON containing 2 or 3 client response variations.
 """
 
 class SingleAgentResponse(BaseModel):
@@ -130,7 +130,7 @@ class MultipleClientResponses(BaseModel):
     responses: List[ClientResponseFormat]
 
 async def main():
-    load_env()
+    load_dotenv()
     gem = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
     conn_agent = get_db_connection_agent()
@@ -159,11 +159,11 @@ async def main():
         nonlocal conversation_count
         turn_num = len(curr_conv)
         conv_id = hash(str(curr_conv)) % 10000
-        print(f"[Conv {conv_id}] Turn {turn_num}/{NUM_TURNS}: Processing...")
+        print(f"[Conv {conv_id}] Turn {turn_num}/{NUM_TURNS}")
         
         if len(curr_conv) >= NUM_TURNS:
             conversation_count += 1
-            print(f"[Conv {conv_id}] Completed conversation {conversation_count} with {len(curr_policies)} policies")
+            print(f"[Conv {conv_id}] Completed #{conversation_count}")
             
             conversation_data = {"conversation": curr_conv.copy(), "policies": curr_policies.copy()}
             with open("conversation_branches/all_conversations.json", "a") as f:
@@ -175,15 +175,12 @@ async def main():
             unique_policies = list(dict.fromkeys(curr_policies))
             os.makedirs("agent_rulebook_db_new", exist_ok=True)
             generate_rulebook(unique_policies, output_path=f"agent_rulebook_db_new/rulebook_branch_{conversation_count}.md")
-            print(f"[Conv {conv_id}] Generated rulebook {conversation_count} and saved to JSON")
             return
         
         query_context = "\n".join(f"{m['role']}: {m['text']}" for m in curr_conv)
-        print(f"[Conv {conv_id}] Retrieving agent examples...")
         agent_examples = await retrieve_top_k_examples_for_agent(conn_agent, query_context, len(curr_conv), TOP_K)
         agent_prompt = build_agent_synthesis_prompt(curr_conv, agent_examples)
 
-        print(f"[Conv {conv_id}] Generating agent responses...")
         agent_result = await asyncio.to_thread(
             gem.models.generate_content,
             model="gemini-2.5-flash",
@@ -191,7 +188,6 @@ async def main():
             config={"response_mime_type": "application/json", "response_json_schema": SingleAgentResponse.model_json_schema()}
         )
         agent_output = SingleAgentResponse.model_validate_json(agent_result.text)
-        print(f"[Conv {conv_id}] Generated 1 agent response")
 
         new_conv_with_agent = curr_conv.copy()
         new_conv_with_agent.append({"role": "agent", "text": agent_output.simulated_agent_response})
@@ -201,7 +197,7 @@ async def main():
 
         if len(new_conv_with_agent) >= NUM_TURNS:
             conversation_count += 1
-            print(f"[Conv {conv_id}] Completed conversation {conversation_count} AFTER AGENT with {len(new_policies_after_agent)} policies")
+            print(f"[Conv {conv_id}] Completed #{conversation_count}")
             
             conversation_data = {"conversation": new_conv_with_agent.copy(), "policies": new_policies_after_agent.copy()}
             with open("conversation_branches/all_conversations.json", "a") as f:
@@ -213,25 +209,21 @@ async def main():
             unique_policies = list(dict.fromkeys(new_policies_after_agent))
             os.makedirs("agent_rulebook_db_new", exist_ok=True)
             generate_rulebook(unique_policies, output_path=f"agent_rulebook_db_new/rulebook_branch_{conversation_count}.md")
-            print(f"[Conv {conv_id}] Generated rulebook {conversation_count} and saved to JSON")
             return
         
         client_query_context = "\n".join(f"{m['role']}: {m['text']}" for m in new_conv_with_agent)
         client_task = process_client_responses(conn_client, new_conv_with_agent, client_query_context, new_policies_after_agent, agent_output, TOP_K, conv_id, 0)
         
-        print(f"[Conv {conv_id}] Processing client response task...")
         result = await client_task
-        print(f"[Conv {conv_id}] Created {len(result)} new conversation branches")
+        print(f"[Conv {conv_id}] -> {len(result)} branches")
         
         for new_conv, new_policies in result:
             await branching_exploration(new_conv, new_policies)
     
     async def process_client_responses(conn_client, new_conv_with_agent, client_query_context, curr_policies, agent_response, TOP_K, conv_id, agent_idx):
-        print(f"[Conv {conv_id}-Agent{agent_idx}] Retrieving client examples...")
         client_examples = await retrieve_top_k_examples_for_client(conn_client, client_query_context, len(new_conv_with_agent), TOP_K)
         client_prompt = build_client_response_prompt(new_conv_with_agent, client_examples)
 
-        print(f"[Conv {conv_id}-Agent{agent_idx}] Generating client responses...")
         client_result = await asyncio.to_thread(
             gem.models.generate_content,
             model="gemini-2.5-flash",
@@ -239,7 +231,10 @@ async def main():
             config={"response_mime_type": "application/json", "response_json_schema": MultipleClientResponses.model_json_schema()}
         )
         client_output = MultipleClientResponses.model_validate_json(client_result.text)
-        print(f"[Conv {conv_id}-Agent{agent_idx}] Generated {len(client_output.responses)} client responses")
+        
+        print(f"[Conv {conv_id}] Client responses:")
+        for i, response in enumerate(client_output.responses, 1):
+            print(f"  {i}. {response.client_response}")
 
         results = []
         for client_response in client_output.responses:
@@ -250,13 +245,12 @@ async def main():
             results.append((new_conv, new_policies))
         return results
     
-    print(f"Starting conversation exploration with {NUM_TURNS} max turns...")
     await branching_exploration(starting_conversation, [])
     
     with open("conversation_branches/all_conversations.json", "a") as f:
         f.write("\n]")
     
-    print(f"\nExploration complete! Generated {conversation_count} conversations and {conversation_count} rulebooks")
+    print(f"\nComplete. Generated {conversation_count} conversations and {conversation_count} rulebooks")
     conn_agent.close()
     conn_client.close()
     

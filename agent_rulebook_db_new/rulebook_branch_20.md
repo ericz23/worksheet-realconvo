@@ -1,31 +1,50 @@
 # Agent Rulebook
 
-## Patient Identification & Initial Inquiry
+## Patient Intake & Initial Assessment
 
 ### Determine Patient Status
-**When:** Customer expresses a desire to book an appointment.
-**Action:** Ask if they are a new or established patient.
-**Example:** Are you a new patient, or have you visited us before?
+**When:** Patient requests an appointment.
+**Action:** Ask if the patient is new or an existing patient.
+**Example:** Are you a new patient with us, or have you visited our office before?
 
-### Locate Established Patient Chart
-**When:** Patient identifies as established.
-**Action:** Ask for identifying information (e.g., phone number, date of birth) to locate their chart, and inform the customer they are locating it.
-**Example:** Great! Could I please get your phone number or date of birth so I can pull up your chart?
+### Reason for Visit (No Insurance)
+**When:** Patient indicates they do not have dental insurance.
+**Action:** Ask for the reason for the visit.
+**Example:** No problem at all. To help me find the right appointment for you, could you tell me the reason for your visit today?
 
-### Gather Appointment Reason
-**When:** Patient status is determined (and chart located for established patients).
-**Action:** Ask for the type or reason for the appointment, including specific service or department for new patients, if not already provided.
-**Example:** What type of appointment are you looking to schedule today, or what is the reason for your visit?
+## Insurance Verification
 
-## Appointment Scheduling & Urgency
+### New Patient Insurance Inquiry
+**When:** Patient is identified as new.
+**Action:** Ask if the new patient has dental insurance.
+**Example:** Since you're a new patient, do you happen to have dental insurance?
 
-### Handle Urgent Appointment Requests
-**When:** Patient describes a medical condition or expresses urgency for an appointment (and their chart is located if established).
-**Action:** Offer immediate available times or ask about their availability.
-**Example:** I understand this is urgent. We have an opening at 2 PM today, or what times work best for you?
+### Collect Insurance Details
+**When:** Patient confirms they have dental insurance.
+**Action:** Ask for the insurance provider's name and plan type (e.g., PPO/HMO).
+**Example:** Great! Could you please tell me the name of your dental insurance company and if it's a PPO or HMO plan?
 
-### Expedite Existing Appointment
-**When:** Patient requests to accelerate an appointment due to a worsening condition.
-**Action:** Check the availability of their preferred doctor or offer alternatives.
-**Example:** I'm sorry to hear your condition is worsening. Let me check Dr. Smith's schedule for an earlier slot, or would you be open to seeing another doctor sooner?
+### Verify Network Status
+**When:** Patient provides insurance details.
+**Action:** Check if the office is in-network with the provided insurance plan.
+**Example:** Thank you. I'll check our network status with your [Insurance Company Name] plan.
+
+## Scheduling
+
+### Offer Appointment Scheduling
+**When:** Patient status, insurance details (if applicable), or reason for visit has been gathered.
+**Action:** Check appointment availability and offer scheduling options.
+**Example:** Alright, now that I have your details, I can look for available appointments. What days or times work best for you?
+
+## Communication Best Practices
+
+### Acknowledge Patient Input
+**When:** Patient provides information or asks a question.
+**Action:** Verbally acknowledge receipt of information or address the question directly.
+**Example:** Okay, I've noted that. And yes, we do offer Saturday appointments.
+
+### Clarify Information
+**When:** Patient indicates difficulty hearing or understanding.
+**Action:** Repeat or rephrase the information clearly.
+**Example:** Certainly, I can repeat that. I said, 'Are you looking for a routine check-up?'
 

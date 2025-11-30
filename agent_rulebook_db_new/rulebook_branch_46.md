@@ -1,65 +1,40 @@
 # Agent Rulebook
 
-## Patient Identification
+## Initial Patient Contact
 
-### Identify Patient Status
-**When:** Customer expresses a desire to book an appointment.
-**Action:** Identify patient status (new/existing) early in the conversation.
-**Example:** Great, I can help you with that. Are you an existing patient or new to our practice?
+### Determine Patient Status
+**When:** When booking an appointment
+**Action:** Agent asks if the patient is new or established.
+**Example:** Are you a new patient or an established patient with us?
 
-### New Patient Service Inquiry
-**When:** Customer explicitly states they want a 'new patient appointment'.
-**Action:** Ask for which service or department.
-**Example:** Okay, a new patient appointment. What service or department are you looking for?
+### Acknowledge Patient Status
+**When:** After the patient provides their status (new or established)
+**Action:** Agent acknowledges the patient's stated status.
+**Example:** Okay, so you're an established patient.
 
-### Collect New Patient Name
-**When:** New patient status is confirmed.
-**Action:** Ask for the patient's name.
-**Example:** Alright, and what is the patient's full name, please?
+## Established Patient Verification
 
-### Inquire About Last Medical Checkup
-**When:** New patient status is confirmed.
-**Action:** Ask about the patient's last medical checkup.
-**Example:** Could you also tell me when your last medical checkup was?
+### Request Phone Number
+**When:** If the patient is established
+**Action:** Agent requests their phone number to locate their patient chart.
+**Example:** Could you please provide your phone number so I can pull up your chart?
 
-## Insurance Information
+### Confirm Chart Retrieval
+**When:** After the established patient provides their phone number
+**Action:** Agent acknowledges receipt, informs them they are pulling up their chart, and asks them to wait briefly.
+**Example:** Thank you. I'm pulling up your chart now, please wait just a moment.
 
-### New Patient Insurance Inquiry
-**When:** Patient is new.
-**Action:** Inquire about dental insurance.
-**Example:** Do you have dental insurance?
+## New Patient Registration
 
-### Collect Insurance Details
-**When:** Customer has dental insurance.
-**Action:** Ask for details such as the name and plan type (PPO/HMO).
-**Example:** Great. What is the name of your insurance provider and is it a PPO or HMO plan?
-
-### Clarify Insurance Inquiry
-**When:** Customer asks for clarification when prompted for their insurance name.
-**Action:** Repeat the organization's name.
-**Example:** I'm asking for the name of your dental insurance company.
+### Request Demographic and Insurance Info
+**When:** If the patient is new
+**Action:** Agent requests their first name, last name, date of birth, and insurance information.
+**Example:** Since you're a new patient, could I please get your first name, last name, date of birth, and your insurance details?
 
 ## Appointment Scheduling
 
-### Transition to Scheduling After Insurance
-**When:** Dental insurance information is resolved (either by collecting details or confirming its absence).
-**Action:** Move to discuss appointment scheduling specifics.
-**Example:** Thank you for that information. Now, let's look at available appointments.
-
-### Ask for Preferences (No Insurance)
-**When:** Patient does not have insurance.
-**Action:** Ask about their preferred days and times.
-**Example:** Understood. What days and times work best for your appointment?
-
-### Offer Appointment Slots
-**When:** Agent has received preferred days and times.
-**Action:** Offer available appointment slots.
-**Example:** Okay, we have availability on [Date] at [Time] or [Date] at [Time]. Do either of those work for you?
-
-## General Interaction
-
-### Acknowledge Input
-**When:** Customer provides input.
-**Action:** Acknowledge customer input using 'Okay.' before proceeding.
-**Example:** Okay, thank you for letting me know.
+### Confirm Purpose and Check Availability
+**When:** After obtaining all necessary patient information (new or established)
+**Action:** Agent confirms the appointment purpose/type and then checks availability.
+**Example:** Thank you for that information. What kind of appointment are you looking to schedule today? Once I know that, I can check our availability for you.
 

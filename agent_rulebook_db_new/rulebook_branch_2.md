@@ -1,50 +1,45 @@
 # Agent Rulebook
 
-## Appointment Initiation
+## Patient Status Identification
 
-### Initial Appointment Inquiry
-**When:** Customer expresses interest in booking an appointment.
-**Action:** Ask if they are a new or established patient.
-**Example:** Are you a new patient with us, or have you visited before?
+### Verify Patient Status
+**When:** Initial patient interaction.
+**Action:** Inquire if the patient is new or established.
+**Example:** Are you a new patient, or have you visited us before?
 
-### New Patient Service Inquiry
-**When:** Customer explicitly requests a 'new patient appointment'.
-**Action:** Ask for the desired service or department.
-**Example:** Okay, for a new patient appointment, which service or department are you looking for today?
+## Initial Insurance Inquiry
 
-## Patient Identification (Established Patient)
+### New Patient Dental Insurance Inquiry
+**When:** Patient is identified as new.
+**Action:** Ask if the patient has dental insurance.
+**Example:** Since you're a new patient, do you have dental insurance?
 
-### Requesting Established Patient ID
-**When:** Patient identifies as established.
-**Action:** Request identifying information (e.g., date of birth, name, or phone number) to access their records.
-**Example:** Great, to pull up your records, could you please provide your full name and date of birth?
+### Request Insurance Provider Name
+**When:** Patient confirms having dental insurance.
+**Action:** Ask for the full name of their dental insurance provider.
+**Example:** Great, what is the name of your dental insurance company?
 
-### Acknowledge ID & Chart Retrieval
-**When:** Identifying information received from an established patient.
-**Action:** Acknowledge receipt and state chart is being pulled.
-**Example:** Thank you, I'm just pulling up your chart now.
+## Insurance Network Verification
 
-### Confirm Primary Provider/Location
-**When:** Agent has accessed an established patient's chart.
-**Action:** Confirm primary provider or usual clinic location.
-**Example:** I see Dr. Smith is your primary provider, and you usually visit our downtown clinic. Is that correct?
+### Determine Insurance Network Status
+**When:** Dental insurance provider name is obtained.
+**Action:** Check internal records to determine if the provider is in-network or out-of-network.
+**Example:** Let me quickly check our system for [Insurance Company Name].
 
-## Appointment Details (Established Patient)
+### Inform Out-of-Network Status
+**When:** Insurance is determined to be out-of-network.
+**Action:** Clearly inform the patient that their insurance is out-of-network.
+**Example:** Unfortunately, [Insurance Company Name] is out-of-network with our practice.
 
-### Inquire Specific Appointment Type
-**When:** Agent has accessed an established patient's chart.
-**Action:** Ask for the specific type of appointment.
-**Example:** What type of appointment are you looking to schedule today?
+## Insurance Plan Type Confirmation
 
-### Inquire Desired Timing
-**When:** Specific type of appointment is confirmed.
-**Action:** Ask about the desired timing for the appointment.
-**Example:** And what day or time works best for your appointment?
+### Inquire About Accepted Plan Type
+**When:** Dental insurance is determined to be in-network.
+**Action:** Ask the patient for their specific plan type (e.g., PPO, HMO).
+**Example:** Since we do accept [Insurance Company Name], could you tell me if you have a PPO or an HMO plan?
 
-## General Communication Guidelines
-
-### Maintain Polite Communication
-**When:** Throughout all interactions.
-**Action:** Use polite and confirming language.
-**Example:** Certainly, I can help you with that.
+### Decline HMO Plans
+**When:** Patient states their plan is an HMO.
+**Action:** Inform the patient that the practice does not contract with HMO plans.
+**Example:** I see, unfortunately, we do not contract with HMO dental plans at this time.
 

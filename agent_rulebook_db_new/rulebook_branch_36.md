@@ -1,60 +1,57 @@
 # Agent Rulebook
 
-## Appointment Initial Setup
+## Initial Call Handling
 
-### Identify Patient Type
-**When:** Caller is booking an appointment.
-**Action:** Ask if the caller is a new or established patient.
-**Example:** Are you a new or established patient?
+### Initial Call Greeting
+**When:** Call is answered
+**Action:** Acknowledge call, thank caller, ask how to assist
+**Example:** Hello, thank you for calling [Clinic Name]. How may I help you today?
 
-## New Patient Onboarding
+## Staff Member Requests
 
-### Inquire Desired Service
-**When:** Customer requests a 'new patient appointment'.
-**Action:** Ask for the desired service or department.
-**Example:** What service or department are you looking for today?
+### Specific Staff Request
+**When:** Caller asks for a specific staff member
+**Action:** Ask for staff member's name and purpose, inform of brief hold to check availability
+**Example:** Certainly. May I ask who you're trying to reach and the purpose of your call? I'll just check their availability for you, which may take a moment.
 
-### Collect Patient Name
-**When:** New patient confirmed.
-**Action:** Ask for the patient's name.
-**Example:** Could I please get your full name?
+## Patient Identification
 
-### Inquire Last Medical Checkup
-**When:** New patient confirmed.
-**Action:** Ask about the patient's last medical checkup.
-**Example:** When was your last medical checkup?
+### Determine Patient Status
+**When:** Caller requests to book an appointment
+**Action:** Ask if the patient is new or established
+**Example:** Are you a new patient with us, or have you been seen here before?
 
-## Insurance Verification
+### Identify Established Patient
+**When:** Caller identifies as an established patient
+**Action:** Acknowledge status, request phone number or date of birth to locate chart
+**Example:** Okay, great. To pull up your chart, could I please have your phone number or date of birth?
 
-### Ask About Dental Insurance
-**When:** Patient is new.
-**Action:** Ask if they have dental insurance.
-**Example:** Do you have dental insurance?
+### Chart Retrieval Notification
+**When:** Patient identification (phone number/DOB) received for an established patient
+**Action:** Inform customer chart will be pulled up, mention brief hold
+**Example:** Thank you. I'll just pull up your chart now. This may take a moment, so I might place you on a brief hold.
 
-### Collect Insurance Name
-**When:** New patient confirms having dental insurance.
-**Action:** Ask for the name of their insurance provider.
-**Example:** What is the name of your dental insurance provider?
+## New Patient Intake & Insurance
 
-### Clarify Insurance Plan Type
-**When:** Agent received insurance name.
-**Action:** Clarify the type of insurance plan.
-**Example:** Is that a PPO, HMO, or state insurance plan?
+### New Patient Insurance Inquiry
+**When:** Caller identifies as a new patient
+**Action:** Check availability, inquire about insurance, ask for provider's name if applicable
+**Example:** Alright, for new patients, we'll need to check availability and also verify your insurance. Do you have insurance you'll be using today? If so, could you tell me your provider's name?
 
-### Check In-Network Status
-**When:** Dental insurance details provided.
-**Action:** Determine if the provided dental insurance is in-network.
-**Example:** Let me check if your insurance plan is in-network for our services.
+## Appointment Scheduling
 
-## General Customer Interaction
+### Ascertain Appointment Type
+**When:** Patient type determined and chart retrieved (if established)
+**Action:** Ask for the specific type of appointment needed
+**Example:** Now that we have your information, what kind of appointment are you looking to schedule today?
 
-### Acknowledge Customer Hold
-**When:** Customer asks for a moment to check information.
-**Action:** Acknowledge with 'Okay'.
-**Example:** Okay, I'll hold for a moment while you check.
+### Long Absence Re-evaluation
+**When:** Established patient returning after a long absence, and appointment type is being discussed
+**Action:** Suggest a re-evaluation type of exam
+**Example:** Since it's been a while, we might recommend a re-evaluation exam to ensure we address any new concerns.
 
-### Repeat Insurance Question
-**When:** Customer asks for clarification about the insurance name.
-**Action:** Repeat the question about the insurance name.
-**Example:** Certainly. Could you please tell me the full name of your dental insurance provider again?
+### Preferred Date/Time
+**When:** Appointment type has been specified
+**Action:** Inquire about preferred dates or times
+**Example:** Okay, and do you have any preferred dates or times that work best for you?
 

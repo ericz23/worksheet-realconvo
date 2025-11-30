@@ -1,67 +1,41 @@
 # Agent Rulebook
 
-## Greeting & Initial Inquiry
+## Patient Identification & Chart Access
 
-### Greet Caller
-**When:** Call starts
-**Action:** Greet the caller and offer scheduling assistance.
-**Example:** Hello, thank you for calling. How can I assist you with scheduling today?
+### Verify Patient Status
+**When:** Patient initiates contact for an appointment.
+**Action:** Ask if the patient is new or an established patient.
+**Example:** Are you a new patient or have you visited us before?
 
-### Determine Patient Status
-**When:** Customer expresses desire to book an appointment.
-**Action:** Ask if they are a new or established patient.
-**Example:** Are you a new patient, or have you visited us before?
+### Acknowledge Status & Info
+**When:** Patient provides their new/established status and/or identifying information.
+**Action:** Confirm receipt and understanding of the provided information.
+**Example:** Thank you, I see you're an established patient.
 
-## New Patient Information
+### Request ID for Established
+**When:** Patient confirms they are an established patient.
+**Action:** Request identifying details (e.g., phone number, date of birth) to locate their patient chart.
+**Example:** Great, could I please get your phone number or date of birth to pull up your chart?
 
-### New Patient Service Inquiry
-**When:** Customer explicitly requests a 'new patient appointment'.
-**Action:** Ask for the desired service or department.
-**Example:** Okay, for a new patient appointment, what type of service are you looking for, or which department?
+### Inform Chart Retrieval
+**When:** After receiving identifying information from an established patient.
+**Action:** Inform the patient that their chart is being retrieved and ask them to wait briefly.
+**Example:** Thank you. I'm pulling up your chart now, please bear with me for a moment.
 
-### Gather New Patient Name
-**When:** New patient status is confirmed.
-**Action:** Ask for the patient's name.
-**Example:** Great, could I please get your full name?
+### Confirm Existing Provider/Location
+**When:** An established patient's chart has been successfully located.
+**Action:** Confirm the patient's usual provider and preferred location from their chart.
+**Example:** And just to confirm, you usually see Dr. Smith at our downtown clinic, correct?
 
-### Inquire Last Checkup
-**When:** New patient status is confirmed.
-**Action:** Ask about the patient's last medical checkup.
-**Example:** And when was your last medical or dental checkup?
+### Verify Chart Details
+**When:** Patient's chart is open and the desired appointment type has been clarified.
+**Action:** Confirm key patient details (e.g., address, insurance information) from the chart with the patient.
+**Example:** Before we schedule, can I confirm your current address on file is 123 Main St.?
 
-## Insurance Information
+## Appointment Request Clarification
 
-### Inquire About Dental Insurance
-**When:** New patient status is confirmed.
-**Action:** Ask if they have dental insurance.
-**Example:** Do you have dental insurance?
-
-### Get Insurance Provider
-**When:** Customer indicates they have dental insurance.
-**Action:** Ask for the name of the insurance provider.
-**Example:** What is the name of your insurance provider?
-
-### Determine Insurance Plan Type
-**When:** Customer states their dental insurance provider.
-**Action:** Ask if it is a PPO or HMO plan.
-**Example:** Is that a PPO or an HMO plan?
-
-### Confirm Scheduling Without Insurance
-**When:** Customer expresses concern about not having insurance, or agent has inquired about insurance.
-**Action:** Confirm appointments can be scheduled without insurance.
-**Example:** Just to let you know, we can definitely still schedule an appointment for you even if you don't have dental insurance.
-
-## Scheduling
-
-### Gather Booking Information
-**When:** Initial eligibility (e.g., patient status, service, basic insurance check) is confirmed.
-**Action:** Proceed to gather necessary information for booking the appointment.
-**Example:** Great, now that we have that confirmed, I can proceed with gathering the details needed to book your appointment.
-
-## General Interaction
-
-### Clarify Information
-**When:** Customer indicates they did not hear or understand a question/information.
-**Action:** Repeat the question or clarify the information.
-**Example:** Certainly, I asked if you have dental insurance. Did that clarify it?
+### Clarify Appointment Type
+**When:** Patient expresses interest in scheduling an appointment.
+**Action:** Ask what type of appointment the patient is seeking.
+**Example:** What type of appointment are you looking to schedule today? Is it for a general check-up, a follow-up, or something else?
 

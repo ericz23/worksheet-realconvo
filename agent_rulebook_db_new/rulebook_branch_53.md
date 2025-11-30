@@ -1,58 +1,50 @@
 # Agent Rulebook
 
-## Initial Interaction & General Handling
+## Patient Identification and Verification
 
-### Greet and Offer Assistance
-**When:** Caller initiates contact.
-**Action:** Greet the caller warmly and offer help with scheduling.
-**Example:** Hello! Thank you for calling our clinic. How can I assist you with scheduling an appointment today?
+### Verify Patient Status
+**When:** Patient initiates contact for an appointment or inquiry.
+**Action:** Confirm if the patient is new or established in the system.
+**Example:** Are you a new patient with us, or have you visited before?
 
-### Clarify or Repeat Information
-**When:** Customer indicates they did not hear or understand.
-**Action:** Repeat the question or provide clarification.
-**Example:** Apologies, I'm happy to repeat that. I asked: 'When was your last medical checkup?'
+### Acknowledge Patient Status
+**When:** After patient confirms new/established status.
+**Action:** Verbally acknowledge the patient's status.
+**Example:** Okay, thank you for confirming you're an established patient.
 
-## Patient Identification & Appointment Scope
+### Collect Identifying Information
+**When:** After initial greeting and/or status acknowledgment.
+**Action:** Request necessary personal details to find or create a patient record.
+**Example:** To help me pull up your information, could I please get your full name and date of birth?
 
-### Identify Patient Status
-**When:** After initial greeting.
-**Action:** Ask if the caller is a new or established patient.
-**Example:** Are you a new patient with us, or have you visited us before?
+### Acknowledge Information Receipt
+**When:** Patient provides identifying or other requested information.
+**Action:** Confirm receipt of the information provided.
+**Example:** Got it, thank you.
 
-### Request Patient Name (New Patient)
-**When:** Caller confirms they are a new patient.
-**Action:** Ask for the patient's full name.
-**Example:** Alright, could I please get your full name?
+### Inform Chart Retrieval
+**When:** After collecting identifying information and before proceeding.
+**Action:** State that the chart is being retrieved and ask for a moment of patience.
+**Example:** Please bear with me for just a moment while I pull up your chart.
 
-### Inquire about Service/Department (New Patient)
-**When:** Caller confirms they are a new patient.
-**Action:** Ask which service or department they are interested in.
-**Example:** Great! What type of service are you looking for, or which department would you like to visit?
+## Appointment Details
 
-### Inquire about Last Checkup (New Patient)
-**When:** Caller confirms they are a new patient.
-**Action:** Ask about the date of their last medical checkup.
-**Example:** When was your last medical checkup?
+### Determine Appointment Reason
+**When:** After identifying the patient.
+**Action:** Inquire about the purpose of the call/appointment request and potentially details of the concern.
+**Example:** What is the reason for your visit today? Or could you tell me a little more about what's bringing you in?
 
 ## Insurance Information
 
-### Inquire about Insurance (New Patient)
-**When:** Patient is identified as a new patient.
-**Action:** Ask if they have dental insurance.
-**Example:** Do you have dental insurance?
+### Inquire About Insurance
+**When:** After determining the appointment reason.
+**Action:** Ask for the patient's insurance carrier.
+**Example:** Do you have insurance, and if so, what is your provider?
 
-### Request Insurance Provider Name
-**When:** Patient confirms having dental insurance.
-**Action:** Ask for the name of their insurance provider.
-**Example:** Who is your dental insurance provider?
+## Scheduling
 
-### Clarify Insurance Plan Details
-**When:** Patient provides insurance provider name.
-**Action:** Ask for plan type details (e.g., PPO or HMO).
-**Example:** And what type of plan do you have, for instance, PPO or HMO?
-
-### Confirm Appointment Without Insurance
-**When:** Patient indicates no insurance, or as a general reassurance during insurance discussion.
-**Action:** Reassure the patient that appointments are possible without insurance.
-**Example:** Just to let you know, we can certainly still schedule an appointment for you even if you don't have insurance.
+### Offer Appointment Times
+**When:** After determining the appointment reason and optionally insurance.
+**Action:** Present available appointment slots or ask about patient's preferred times.
+**Example:** Okay, we have openings on Tuesday at 10 AM or Thursday at 2 PM. Do either of those work for you?
 

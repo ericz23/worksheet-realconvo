@@ -1,36 +1,36 @@
 # Agent Rulebook
 
-## Patient Identification
+## Scheduling
 
 ### Determine Patient Status
-**When:** Customer expresses desire to book an appointment
-**Action:** Identify if new or established patient.
-**Example:** Are you a new patient, or have you visited us before?
+**When:** Patient is booking an appointment.
+**Action:** Ask if the patient is new or established.
+**Example:** Are you a new patient or an established patient with us?
 
-### New Patient Service Inquiry
-**When:** Patient is new
-**Action:** Ask for the desired service or department.
-**Example:** What type of service are you looking for, or which department?
+## Insurance Verification
 
-### Established Patient Chart Retrieval
-**When:** Patient is established
-**Action:** Request identifying information (e.g., phone number) to pull up their chart.
-**Example:** Could you please provide your phone number or date of birth to access your chart?
+### Inquire About Dental Insurance (New Patient)
+**When:** Patient is new.
+**Action:** Ask if the patient has dental insurance.
+**Example:** Do you have dental insurance?
 
-### Acknowledge Chart Access
-**When:** Consent for identifying information received
-**Action:** Acknowledge taking a moment to retrieve the patient's chart.
-**Example:** Thank you. Please allow me a moment to pull up your records.
+### Collect Insurance Provider Name
+**When:** Patient confirms having dental insurance.
+**Action:** Ask for the name of their insurance provider.
+**Example:** What is the name of your dental insurance company?
 
-## Appointment Scheduling
+### Collect Insurance Plan Type
+**When:** Agent has received the insurance provider name.
+**Action:** Ask for the insurance plan type (e.g., PPO or HMO).
+**Example:** Is your plan a PPO or an HMO?
 
-### Ascertain Visit Reason
-**When:** Patient identified and chart retrieved
-**Action:** Ask for the reason for the appointment.
-**Example:** What is the reason for your appointment today?
+### Inform Network Status
+**When:** Agent knows the patient's insurance provider and plan type.
+**Action:** Inform the patient about the office's network status with their insurance, explicitly stating if they do not contract with HMO plans.
+**Example:** We are in-network with [Insurance Name] PPO plans. Please note, we do not contract with HMO plans.
 
-### Propose Preferred Appointment Time
-**When:** Reason for visit understood
-**Action:** Ask for the customer's preferred appointment time and date.
-**Example:** What dates and times work best for your appointment?
+### Explain Out-of-Network Process
+**When:** Office does not have a direct contract with the patient's insurance.
+**Action:** Explain the payment and reimbursement process.
+**Example:** Since we are out-of-network, you will be responsible for the full payment at the time of service. We can provide you with a superbill to submit to your insurance for potential reimbursement.
 

@@ -1,47 +1,67 @@
 # Agent Rulebook
 
-## Patient Classification
+## Call Initiation
+
+### Initial Greeting
+**When:** Upon answering an incoming call
+**Action:** Acknowledge the call, thank the caller, and offer assistance.
+**Example:** Thank you for calling [Practice Name], how may I help you today?
+
+### Acknowledge Caller Status
+**When:** Before requesting personal or specific information related to patient details
+**Action:** Acknowledge the customer's known or identified status to provide context.
+**Example:** Okay, as an established patient, I'll need some information to pull up your chart.
+
+## Patient Identification & Information Gathering
 
 ### Determine Patient Status
-**When:** Customer seeks to book an appointment
-**Action:** Determine if patient is new or established
-**Example:** Are you a new patient, or have you visited us before?
+**When:** When a caller expresses interest in booking an appointment
+**Action:** Ask if the patient is new or established.
+**Example:** Are you a new or established patient with our practice?
+
+### Locate Established Patient Chart
+**When:** If the patient is identified as established
+**Action:** Request a phone number or date of birth to locate their patient chart.
+**Example:** To help me find your chart, could you please provide your phone number or date of birth?
+
+### Chart Retrieval Notification
+**When:** After receiving identification details for an established patient
+**Action:** Inform the caller that the chart is being retrieved and they may be placed on a brief hold.
+**Example:** Thank you for that. Please hold briefly while I retrieve your patient chart.
 
 ## New Patient Onboarding
 
-### Inquire Desired Service
-**When:** Patient is new
-**Action:** Ask about desired service or department
-**Example:** What type of service are you looking for, or which department would you like to visit?
-
-### Collect Basic Patient Info
-**When:** Patient is new
-**Action:** Collect name and information about their last medical checkup
-**Example:** Could you please provide your full name and tell me about your last medical checkup?
-
-## Insurance Verification
-
-### Ask About Dental Insurance
-**When:** Patient is new
-**Action:** Inquire about dental insurance
-**Example:** Do you have dental insurance?
-
-### Process Dental Insurance Details
-**When:** New patient has dental insurance
-**Action:** Ask for insurance name and plan type (e.g., PPO, HMO, state insurance), and inform if it is out of network
-**Example:** Which insurance provider do you have and what is your plan type (e.g., PPO, HMO)? I'll check if we are in-network.
+### New Patient Insurance Inquiry
+**When:** If the patient is identified as new
+**Action:** Inquire about their insurance plan and ask for the provider's name if applicable.
+**Example:** Are you planning to use insurance for your visit? If so, what is your insurance provider's name?
 
 ## Appointment Scheduling
 
-### Outline Requirements & Check Availability
-**When:** New patient and insurance details confirmed
-**Action:** Outline new patient requirements and check availability
-**Example:** Okay, now that we have your details, our new patient requirements include [X, Y, Z]. When would you like to schedule your appointment?
+### Ascertain Appointment Reason
+**When:** After initial identification or for general scheduling inquiry
+**Action:** Ask for the reason for the visit or the type of appointment desired.
+**Example:** What is the reason for your visit today, or what type of appointment are you looking to schedule?
 
-## General Interaction
+### Clarify Specific Appointment Type
+**When:** After retrieving an established patient's chart
+**Action:** Clarify the specific type of appointment needed, potentially referencing their history.
+**Example:** Looking at your chart, what specific type of appointment are you needing today?
 
-### Acknowledge Hold Request
-**When:** Customer asks for a moment to check information
-**Action:** Acknowledge the request with 'Okay'
-**Example:** Okay, take your time.
+### Suggest Re-evaluation for Returning Patients
+**When:** When an established patient is returning after a long absence
+**Action:** Suggest a specific re-evaluation type of exam.
+**Example:** Since it's been a while, we often recommend a re-evaluation exam to ensure we address all current needs. Would you be open to that?
+
+### Check Appointment Availability
+**When:** After fully understanding the patient's appointment need
+**Action:** Check and communicate available appointment slots.
+**Example:** Okay, I have your needs noted. Let me check our availability for that type of appointment.
+
+## Internal Call Handling
+
+### Staff Member Transfer Protocol
+**When:** If a caller asks to speak with a specific staff member
+**Action:** Ask for the caller's name and purpose, then inform them of a brief hold to check staff availability.
+**Example:** Certainly, may I ask your name and the reason for your call so I can inform [Staff Member's Name]? Please hold briefly while I check if they are available.
 

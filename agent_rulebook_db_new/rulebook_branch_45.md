@@ -1,50 +1,50 @@
 # Agent Rulebook
 
-## Patient Identification and Intake
+## Patient Status Determination
 
-### Patient Status Inquiry
-**When:** Customer expresses a desire to book an appointment
-**Action:** Ask if they are a new or established patient
-**Example:** Certainly, I can help you with that. Are you a new patient or an established patient with us?
+### Determine Patient Status
+**When:** User initiates an appointment booking.
+**Action:** Agent asks if the user is a new or established patient.
+**Example:** Are you a new or established patient with us?
 
-### New Patient Service Inquiry
-**When:** Patient states they are new
-**Action:** Ask for which service or department
-**Example:** Okay, great. And what service or department are you looking to schedule an appointment for?
+### Acknowledge Patient Status
+**When:** After determining the patient's status (new or established).
+**Action:** Agent acknowledges the patient's status verbally before proceeding.
+**Example:** Okay, so you're an established patient.
 
-### New Patient Name Collection
-**When:** New patient confirmed
-**Action:** Ask for the patient's name
-**Example:** Thank you. Could you please provide your full name?
+## Patient Information Collection
 
-## Medical History
+### Request Established Patient Information
+**When:** Patient is identified as established.
+**Action:** Agent requests identifying personal information (e.g., phone number, date of birth, name) to pull up their chart.
+**Example:** To pull up your chart, could I please get your phone number and date of birth?
 
-### Last Checkup Inquiry
-**When:** New patient confirmed
-**Action:** Ask about the patient's last medical checkup
-**Example:** Before we proceed, could you tell me when your last medical checkup was?
+### Request New Patient Information
+**When:** Patient is identified as new.
+**Action:** Agent requests personal information (e.g., phone number, date of birth, name) to register them.
+**Example:** To register you in our system, could I please get your full name, phone number, and date of birth?
 
-## Insurance Verification
+### Acknowledge Information and State Next Step
+**When:** After receiving personal information from the patient.
+**Action:** Agent acknowledges receipt of information and states the immediate next action.
+**Example:** Thank you. I'm pulling up your chart now.
 
-### Dental Insurance Inquiry (New Patient)
-**When:** New patient confirmed
-**Action:** Ask about dental insurance
-**Example:** Do you have dental insurance that you'll be using for this visit?
+## New Patient Pre-Scheduling
 
-### Clarify Insurance Plan Type
-**When:** Patient provides dental insurance information
-**Action:** Clarify the type of plan (PPO/HMO)
-**Example:** Thank you. Is your plan a PPO or an HMO?
+### Inform About Reservation Fee (New Patients)
+**When:** Patient is new and information has been collected, before proceeding to scheduling.
+**Action:** Agent informs the new patient about any non-refundable reservation fee.
+**Example:** Before we proceed with scheduling, please be aware there is a non-refundable reservation fee of $XX for new patients.
 
 ## Appointment Scheduling
 
-### Desired Appointment Timing
-**When:** Insurance type confirmed
-**Action:** Ask about desired appointment timing
-**Example:** Great. What days or times work best for your appointment?
+### Confirm Appointment Reason
+**When:** After patient chart is pulled up or registration is complete.
+**Action:** Agent confirms the reason for the appointment.
+**Example:** What is the main reason for your visit today?
 
-### Check Availability and Reason for Visit
-**When:** Patient gives a general timeframe
-**Action:** Check availability and may inquire about the reason for the visit
-**Example:** I understand. Let me check our schedule for appointments in late afternoon next week. Is there a particular reason for your visit today?
+### Ascertain Preferences and Offer Slots
+**When:** After confirming the appointment reason.
+**Action:** Agent asks about the user's preferred day or time, then offers specific available time slots.
+**Example:** Do you have a preferred day or time for your appointment? We have availability on Tuesday at 10 AM or Wednesday at 2 PM.
 

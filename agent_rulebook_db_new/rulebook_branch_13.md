@@ -1,43 +1,43 @@
 # Agent Rulebook
 
-## Patient Identification
+## Patient Intake
 
 ### Determine Patient Status
-**When:** Customer requests to book an appointment.
-**Action:** Ask if they are a new or established patient.
-**Example:** Are you a new patient with us, or have you visited before?
+**When:** Initial contact with a patient.
+**Action:** Ask if the patient is new or established.
+**Example:** Hello, are you a new patient or have you visited us before?
 
-### New Patient Service Inquiry
-**When:** Customer explicitly states they want a 'new patient appointment'.
-**Action:** Ask for the desired service or department.
-**Example:** For your new patient appointment, which service or department are you interested in?
+## Insurance Verification
 
-### Collect Established Patient Identifier
-**When:** Patient identifies as established.
-**Action:** Ask for their phone number to pull up their chart.
-**Example:** Great, could I please get your phone number so I can pull up your chart?
+### Inquire about Insurance for New Patients
+**When:** Patient confirms they are new.
+**Action:** Ask about dental insurance.
+**Example:** Okay, since you're new, do you happen to have dental insurance?
 
-## Established Patient Chart Access & Initial Inquiry
+### Gather Dental Insurance Details
+**When:** Patient indicates they have dental insurance.
+**Action:** Ask for the insurance name and plan type (PPO or HMO).
+**Example:** Great, what is the name of your dental insurance, and is it a PPO or HMO plan?
 
-### Acknowledge Identifier
-**When:** An established patient provides their phone number.
-**Action:** Acknowledge the provided information.
-**Example:** Thank you for that.
+### Inform of HMO Non-Acceptance
+**When:** Patient states their plan is HMO.
+**Action:** Clearly state that the office is not contracted with HMO plans.
+**Example:** I see, unfortunately, we are not contracted with HMO dental plans.
 
-### Inform Chart Lookup Progress
-**When:** After acknowledging the phone number.
-**Action:** Inform the user that chart lookup is in progress and mention a brief wait.
-**Example:** I'm now pulling up your chart, please bear with me for a moment.
+### Clarify Unknown Insurance Type
+**When:** Patient is unsure about their PPO/HMO type.
+**Action:** Re-ask the question, optionally explaining that HMO plans are not accepted.
+**Example:** No problem at all. Just to confirm, is your plan a PPO or HMO? We typically don't accept HMO plans.
 
-### Inquire Appointment Reason
-**When:** After the chart lookup begins.
-**Action:** Ask for the specific reason or type of medical appointment.
-**Example:** While that's loading, what is the specific reason for your appointment today?
+### Assist with Insurance Type Identification
+**When:** Patient needs assistance identifying their insurance type.
+**Action:** Offer assistance by asking about network flexibility (e.g., if they are assigned to a specific office or can choose).
+**Example:** I can help with that! Are you assigned to a specific office, or can you see any dentist you choose?
 
-## Appointment Scheduling
+## General Communication
 
-### Offer Available Time Slots
-**When:** After identifying the type of appointment an established patient wants.
-**Action:** Offer available time slots for the specified appointment type.
-**Example:** Okay, for a [appointment type] appointment, I have openings on [date] at [time] or [date] at [time]. Which works best for you?
+### Acknowledge Patient Responses
+**When:** Patient provides information or asks a question.
+**Action:** Verbally acknowledge their input.
+**Example:** Okay, I understand.
 

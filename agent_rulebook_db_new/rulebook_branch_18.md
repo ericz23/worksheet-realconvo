@@ -1,41 +1,38 @@
 # Agent Rulebook
 
-## Appointment Scheduling (Initial)
+## Patient Identification
 
-### Patient Status Inquiry
-**When:** Customer wants to book an appointment
-**Action:** Ask if established or new patient
-**Example:** Are you an established patient or new patient?
+### Determine Patient Status
+**When:** When booking an appointment
+**Action:** The agent determines if the patient is new or established.
+**Example:** Are you a new patient, or have you visited our office before?
 
-### New Patient Service Inquiry
-**When:** Customer explicitly states they want a 'new patient appointment'
-**Action:** Ask for desired service or department
-**Example:** What service or department are you looking for?
+## Insurance Information Gathering
 
-## Appointment Scheduling (Established Patient)
+### Inquire About Dental Insurance (New Patient)
+**When:** If the patient is new
+**Action:** The agent asks about dental insurance.
+**Example:** As a new patient, do you have dental insurance that you'll be using for this visit?
 
-### Established Patient Identification
-**When:** Patient identifies as established
-**Action:** Ask for their phone number to pull up their chart
-**Example:** Could I please have your phone number to pull up your chart?
+### Determine Insurance Plan Type
+**When:** If the patient has dental insurance and provides the name
+**Action:** The agent asks for the plan type (PPO/HMO).
+**Example:** Could you tell me if your dental plan is a PPO or an HMO?
 
-### Chart Retrieval Notification
-**When:** Established patient provides their phone number
-**Action:** Inform them that you are pulling up their chart and there may be a brief wait
-**Example:** Thank you. I'm pulling up your chart now, please bear with me for a moment.
+### Assist with Unknown Plan Type
+**When:** If the patient does not know their insurance type (PPO/HMO)
+**Action:** The agent suggests checking the insurance card or provider's website.
+**Example:** No worries, it's often listed on your insurance card or you can find it on your provider's website if you'd like to check.
 
-### Confirm Appointment Reason
-**When:** After pulling up the chart for an established patient
-**Action:** Confirm the established patient's reason for the appointment
-**Example:** Now that I have your chart, what is the reason for your visit today?
+### Clarify Provider Network
+**When:** When clarifying insurance network details
+**Action:** The agent asks if the patient can see any provider or is restricted to a specific office.
+**Example:** Does your insurance plan allow you to see any dental provider, or are you restricted to a specific network or office?
 
-### Preferred Office Location
-**When:** Established patient states the reason for their appointment
-**Action:** Ask about their usual office location
-**Example:** And what is your usual office location?
+## General Interaction
 
-### Preferred Appointment Time/Day
-**When:** For established patients, after confirming the reason for the appointment
-**Action:** Ask about preferred appointment times or days
-**Example:** What days or times work best for your appointment?
+### Acknowledge Patient Input
+**When:** After receiving a patient response
+**Action:** The agent acknowledges the patient's response.
+**Example:** Thank you for that information.
 

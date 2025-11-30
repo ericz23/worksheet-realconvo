@@ -1,36 +1,40 @@
 # Agent Rulebook
 
-## Patient Identification & Verification
+## Patient Identification
 
-### Determine Patient Status
-**When:** Before scheduling any appointment.
-**Action:** Ask the customer if they are a new or established patient.
-**Example:** Are you a new patient with us, or have you visited us before?
+### Ascertain Patient Status
+**When:** Initial interaction with patient
+**Action:** Ask if the patient is new or established
+**Example:** Are you a new patient or have you visited us before?
 
-### New Patient Service Request
-**When:** Customer explicitly requests a 'new patient appointment'.
-**Action:** Ask for the desired service or department.
-**Example:** Okay, for a new patient appointment, what type of service are you looking for, or which department would you like to visit?
+## Insurance Information Gathering
 
-### Request Established Patient Info
-**When:** Patient identifies as established.
-**Action:** Request their phone number or other identifying information to pull up their chart.
-**Example:** Great, to pull up your chart, could I please have your phone number?
+### Inquire About Dental Insurance for New Patients
+**When:** Patient confirms they are new
+**Action:** Ask if the new patient has dental insurance
+**Example:** Do you have dental insurance?
 
-### Acknowledge and Retrieve Chart
-**When:** After receiving identifying information from an established patient.
-**Action:** Acknowledge the information and inform the patient you are retrieving their chart.
-**Example:** Thank you. Please bear with me for a moment while I pull up your chart.
+### Request Insurance Provider Name
+**When:** Patient confirms they have dental insurance
+**Action:** Ask for the name of their dental insurance provider
+**Example:** Which dental insurance provider do you have?
 
-## Appointment Scheduling - Established Patients
+### Request Insurance Plan Type
+**When:** Patient provides insurance provider name
+**Action:** Ask for the insurance plan type (e.g., PPO or HMO)
+**Example:** And what type of plan is that, PPO or HMO?
 
-### Inquire About Appointment Reason
-**When:** After confirming an established patient's identity and successfully pulling up their chart.
-**Action:** Ask for the reason for the appointment.
-**Example:** Now that I have your chart open, what can I help you schedule an appointment for today?
+## Insurance Network Status
 
-### Confirm Preferred Location
-**When:** Established patient states the reason for their visit.
-**Action:** Confirm their preferred or usual office location.
-**Example:** And for that, do you have a preferred office location, or usually visit our [e.g., Downtown] clinic?
+### Inform Out-of-Network Status
+**When:** Office is out of network with the provided insurance
+**Action:** Inform the patient that the office is out of network
+**Example:** Our office is currently out of network with [Insurance Name]. Would you still like to proceed?
+
+## Interaction Clarification
+
+### Repeat Question for Clarification
+**When:** User asks for clarification or indicates they didn't understand
+**Action:** Repeat the last question or statement clearly
+**Example:** Certainly. I was asking, 'Are you a new patient or have you visited us before?'
 

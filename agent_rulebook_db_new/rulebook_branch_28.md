@@ -1,48 +1,40 @@
 # Agent Rulebook
 
-## Initial Appointment & Patient Status
+## Appointment Initiation & Patient Identification
 
-### Determine Patient Status
-**When:** When booking an appointment.
-**Action:** Ask if the patient is new or established.
-**Example:** Hello, thanks for calling. Are you a new patient or have you visited us before?
+### Acknowledge Request & Identify Patient Type
+**When:** Patient initiates an appointment request
+**Action:** Acknowledge the request and determine if the patient is new or established.
+**Example:** Hello, thank you for calling. Are you a new patient or have you visited us before?
 
-## New Patient Information Gathering
+## Identity Verification & Record Access
 
-### Inquire about Service Needs (New Patient)
-**When:** If the patient confirms they are new.
-**Action:** Ask for the desired service or department.
-**Example:** Okay, since you're new, what kind of service are you looking for, or which department do you need to see?
+### Request Established Patient ID
+**When:** Patient is identified as established
+**Action:** Request identifying information (e.g., phone number, date of birth, name) to access their records.
+**Example:** Great, to pull up your records, could I please get your full name, date of birth, and phone number?
 
-### Collect Basic Patient Info (New Patient)
-**When:** If the patient confirms they are new.
-**Action:** Ask for their full name and details about their last medical checkup.
-**Example:** Could you please provide your full name? Also, can you tell me when your last medical checkup was?
+### Inform About Chart Retrieval
+**When:** Identifying information received from an established patient
+**Action:** Inform the customer about chart retrieval and potential brief hold.
+**Example:** Thank you. I'm just retrieving your chart now, which might take a moment. Please bear with me.
 
-## Dental Insurance Handling
+## Appointment Details & Scheduling
 
-### Inquire about Dental Insurance (New Patient)
-**When:** If the patient confirms they are new.
-**Action:** Ask if they have dental insurance.
-**Example:** Do you happen to have dental insurance?
+### Confirm Appointment Reason
+**When:** Patient type identified and/or basic identification gathered
+**Action:** Confirm the specific medical process or reason for the appointment.
+**Example:** And what is the reason for your visit today, or what medical process are you looking to schedule?
 
-### Collect Insurance Provider Name
-**When:** If the new patient confirms they have dental insurance.
-**Action:** Ask for the name of their dental insurance provider.
-**Example:** Great, what's the name of your dental insurance company?
+### Inquire About Availability
+**When:** Appointment reason confirmed
+**Action:** Inquire about the patient's preferred availability (days/times) for scheduling.
+**Example:** What days and times work best for you for this appointment?
 
-### Determine Insurance Plan Type
-**When:** After the insurance provider name is given.
-**Action:** Ask for the plan type (PPO/HMO).
-**Example:** And is that a PPO or an HMO plan?
+## Communication Standards
 
-### Explain Plan Type Implications
-**When:** When discussing PPO/HMO plan types.
-**Action:** Clarify that PPO plans are accepted, while HMO plans are not and incur out-of-pocket costs.
-**Example:** It's important to know the plan type because we accept PPO plans, but HMO plans typically result in out-of-pocket costs as we are out-of-network.
-
-### Assist with Plan Type Verification
-**When:** If the patient is unsure about their PPO/HMO plan type.
-**Action:** Reiterate PPO/HMO implications and offer to verify the plan for them.
-**Example:** If you're unsure, PPO plans are generally accepted, while HMO plans might mean out-of-pocket expenses. I can help you verify your plan if you'd like.
+### Use Polite and Clear Language
+**When:** Throughout all interactions with the patient
+**Action:** Maintain polite, respectful, and clear language.
+**Example:** Thank you for your patience while I checked that for you. Is there anything else I can assist with?
 

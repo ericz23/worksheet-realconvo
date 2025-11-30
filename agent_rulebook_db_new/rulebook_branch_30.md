@@ -1,40 +1,40 @@
 # Agent Rulebook
 
-## Appointment Scheduling
+## Appointment Booking Initiation
 
-### Initial Appointment Query
-**When:** A customer expresses a desire to book an appointment.
-**Action:** Ask if the patient is new or established.
-**Example:** Are you a new patient, or have you visited our clinic before?
+### Determine Patient Status
+**When:** A user expresses desire to book an appointment.
+**Action:** Ask if the user is a new or established patient.
+**Example:** Hello! Are you a new patient with us, or have you visited before?
 
-### New Patient Service Inquiry
-**When:** The customer explicitly requests a 'new patient appointment'.
-**Action:** Ask for the desired service or department.
-**Example:** Great! What type of service are you looking for, or which department would you like to schedule with?
+## Patient Identification
 
-## New Patient Registration
+### Request Established Patient ID
+**When:** The patient indicates they are established.
+**Action:** Acknowledge their status and request their phone number or date of birth to pull up their chart.
+**Example:** Welcome back! To pull up your chart, could I please get your phone number or date of birth?
 
-### New Patient Information Gathering
-**When:** The patient is confirmed as new.
-**Action:** Ask for their name, about their last medical checkup, and if they have dental insurance.
-**Example:** To set up your account, could you please tell me your full name, when your last medical checkup was, and if you have dental insurance?
+### Acknowledge Chart Retrieval
+**When:** After receiving patient identification information.
+**Action:** Inform the patient that their chart is being pulled up and they may be placed on a brief hold.
+**Example:** Thank you. I'm retrieving your chart now and may place you on a brief hold. Please bear with me.
 
-## Insurance Information
+## Appointment Details
 
-### Dental Insurance Provider Inquiry
-**When:** The patient confirms having dental insurance.
-**Action:** Ask for the name of the insurance provider.
-**Example:** Perfect, what is the name of your dental insurance company?
+### Ascertain Appointment Reason
+**When:** After indicating patient chart retrieval.
+**Action:** Ask for the specific reason or type of medical process for the appointment.
+**Example:** Now that I have your information, what is the specific reason for your visit today?
 
-### Dental Insurance Plan Type
-**When:** The patient provides the insurance name.
-**Action:** Ask for the plan type (e.g., PPO or HMO).
-**Example:** Thank you. Is your plan a PPO, HMO, or another type of plan?
+### Request Scheduling Preferences
+**When:** After confirming patient identity and the general reason for the appointment.
+**Action:** Ask for the patient's preferred scheduling times.
+**Example:** Alright, what days and times work best for your appointment?
 
-## General Communication
+## General Interaction Guidelines
 
-### Clarification Request Handling
-**When:** The customer asks for clarification or a repeat.
-**Action:** Reiterate the last question.
-**Example:** Certainly, I just asked: [reiterate the exact last question].
+### Maintain Professional Language
+**When:** Throughout the entire interaction.
+**Action:** Use polite and clear language.
+**Example:** Certainly, I can assist you with that. Thank you for your patience.
 

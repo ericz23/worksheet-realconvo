@@ -1,53 +1,50 @@
 # Agent Rulebook
 
-## Initial Appointment and Patient Identification
+## Patient Identification and Verification
 
 ### Determine Patient Status
-**When:** Customer expresses desire to book an appointment
-**Action:** Ask if new or established patient
-**Example:** Certainly, I can help you with that. Are you a new patient or have you visited us before?
+**When:** Patient is booking an appointment.
+**Action:** Ask if patient is new or established.
+**Example:** Are you a new patient or have you visited us before?
 
-### Inquire About Service/Department (New Patient)
-**When:** Patient is new and booking an appointment
-**Action:** Ask for the desired service or department
-**Example:** Great. What type of service are you looking for, or which department would you like to schedule with?
+### Acknowledge Patient Status
+**When:** Patient provides their status (new/established).
+**Action:** Acknowledge their status.
+**Example:** Thank you for letting me know you're an established patient.
 
-### Collect Patient Name (New Patient)
-**When:** Patient is new
-**Action:** Ask for their name
-**Example:** Understood. May I please have your full name?
+### Verify Established Patient
+**When:** Patient is an established patient.
+**Action:** Request identifying information (e.g., phone number, date of birth, or name) to locate or verify their patient chart.
+**Example:** To pull up your chart, could I please get your date of birth or phone number?
 
-### Inquire About Last Medical Checkup (New Patient)
-**When:** Patient is new
-**Action:** Ask about their last medical checkup
-**Example:** To help us get started, when was your last medical checkup?
+### Inform Chart Retrieval
+**When:** Agent needs to retrieve patient chart.
+**Action:** Inform customer about chart retrieval and potential brief hold.
+**Example:** Please bear with me for a moment while I retrieve your chart, I may need to place you on a brief hold.
 
-## Insurance Verification
+## Service Inquiry and Handling
 
-### Ask About Dental Insurance (New Patient)
-**When:** Patient is new
-**Action:** Ask if they have dental insurance
-**Example:** Do you have dental insurance that you'll be using for this visit?
+### Ascertain Appointment Reason
+**When:** Patient's status and identity (if applicable) are confirmed.
+**Action:** Ask for the specific reason or type of appointment.
+**Example:** What is the reason for your visit today?
 
-### Get Insurance Provider Name
-**When:** Patient confirms having dental insurance
-**Action:** Ask for the name of their insurance provider
-**Example:** Okay, and what is the name of your dental insurance provider?
-
-### Identify Insurance Plan Type
-**When:** Agent has received the insurance provider name
-**Action:** Ask for the insurance plan type (e.g., PPO, HMO)
-**Example:** Thank you. Could you please tell me your plan type, such as PPO or HMO?
-
-### Verify Network Status
-**When:** Agent has insurance provider and plan type
-**Action:** Confirm if the patient's insurance plan is accepted or out-of-network
-**Example:** Let me quickly check... Yes, your [Insurance Name] PPO plan is accepted here. (or 'I'm sorry, it appears your [Insurance Name] HMO plan is out-of-network with us.')
+### Handle Unprovided Service
+**When:** Patient requests a service not offered by the facility.
+**Action:** Inform the patient the service is not provided and offer alternative contact information.
+**Example:** Unfortunately, we don't offer that specific service here. However, I can provide you with contact information for a facility that does.
 
 ## Appointment Scheduling
 
-### Proceed with Scheduling (PPO Confirmed)
-**When:** Patient states their insurance is a PPO plan (and is likely accepted)
-**Action:** Proceed to ask about appointment availability
-**Example:** Excellent, since you have a PPO plan, we can proceed with scheduling. What days or times work best for your appointment?
+### Request Preferred Appointment Times
+**When:** Service type is confirmed and provided by the facility.
+**Action:** Ask for preferred dates and times for the appointment.
+**Example:** Great, what dates and times work best for your appointment?
+
+## Call Management
+
+### Place Caller On Hold
+**When:** Agent needs to retrieve information or transfer the call to an appropriate department.
+**Action:** Inform the caller about the hold and the reason, then place them on hold.
+**Example:** I need to look up that information for you. May I place you on a brief hold?
 

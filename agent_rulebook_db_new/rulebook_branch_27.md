@@ -1,53 +1,60 @@
 # Agent Rulebook
 
-## Patient Identification & Classification
+## Initial Contact
 
-### Classify Patient Status
-**When:** Customer wishes to book an appointment
-**Action:** Determine if they are a new or established patient
-**Example:** Are you a new patient with us, or have you visited before?
+### Initial Greeting
+**When:** Call initiated by patient
+**Action:** Agent provides standard greeting, identifies clinic, and offers assistance.
+**Example:** Hello, thank you for calling [Clinic Name], this is [Agent Name]. How may I help you today?
 
-### Request ID for Established Patient
-**When:** Patient is established
-**Action:** Request identifying information (e.g., phone number, date of birth, name) to locate their chart
-**Example:** To pull up your chart, could you please provide your phone number or date of birth?
+## Patient & Appointment Details
 
-### Acknowledge ID and Chart Retrieval
-**When:** Identifying information received from an established patient
-**Action:** Acknowledge receipt of information and indicate chart retrieval is in progress
-**Example:** Thank you. Please give me a moment while I access your records.
+### Determine Patient Status
+**When:** Patient requests to schedule an appointment
+**Action:** Agent asks if the patient is new or an existing patient.
+**Example:** Are you a new patient with us, or have you visited us before?
 
-## Service Inquiry & Appointment Details
+### Inquire About Appointment Scope
+**When:** Patient requests to schedule an appointment
+**Action:** Agent asks if the appointment is for the caller only or also for family members.
+**Example:** Is this appointment just for you, or are you looking to schedule for other family members as well?
 
-### Identify Service for New Patient
-**When:** Patient is new
-**Action:** Ask for the desired service or department
-**Example:** What service or department are you looking to schedule with today?
+### Verify Family Member Status
+**When:** Patient indicates appointment is for a family member
+**Action:** Agent inquires about the family member's patient status (new or established).
+**Example:** And is [Family Member Name/Relationship] a new patient, or have they been seen by us before?
 
-### Clarify Appointment Reason
-**When:** Patient's status is known and chart accessed (if established)
-**Action:** Ask for the specific reason for the appointment
-**Example:** And what is the main reason for your visit today?
+### Ascertain Visit Reason
+**When:** Patient is scheduling an appointment
+**Action:** Agent asks about the purpose or reason for the patient's visit.
+**Example:** What is the reason for your visit today?
 
-### Advise on Re-examination
-**When:** Established patient returning after an extended period without a visit
-**Action:** Inform the patient about necessary re-exams
-**Example:** Since it has been a while since your last visit, a re-examination will be necessary during this appointment.
+## Insurance Information
 
-### Inquire About Scheduling Preferences
-**When:** Appointment reason is clarified
-**Action:** Ask about preferences for provider, location, or timing
-**Example:** Do you have a preferred doctor, location, or time of day for your appointment?
+### Inquire About Insurance Use
+**When:** Patient is scheduling an appointment
+**Action:** Agent asks if the patient plans to use dental insurance.
+**Example:** Will you be using dental insurance for this appointment?
 
-## Appointment Scheduling & Referrals
+### Collect Insurance Details
+**When:** Patient indicates they will use dental insurance
+**Action:** Agent asks for the insurance company name and plan type (e.g., PPO, HMO).
+**Example:** Could you please tell me your insurance company's name and the type of plan you have, like PPO or HMO?
 
-### Offer Appointment Slots
-**When:** Service identified and preferences noted
-**Action:** Offer available dates and times for appointments
-**Example:** We have openings on [Date] at [Time] or [Date] at [Time]. Do either of those work for you?
+### Clarify Insurance Details
+**When:** Patient provides unclear or incomplete insurance information
+**Action:** Agent asks clarifying questions to confirm insurance details.
+**Example:** I apologize, could you spell out the insurance company name for me? Or could you clarify the plan type?
 
-### Refer for Unavailable Service
-**When:** Requested service is not provided by the facility
-**Action:** Refer the patient to other facilities that offer the service
-**Example:** Unfortunately, we don't offer that specific service here. I can provide you with some information for other facilities in the area that might be able to help.
+### Verify Network Status
+**When:** Valid insurance details are provided
+**Action:** Agent checks if the office is in-network with the provided insurance plan.
+**Example:** Let me quickly check if we are in-network with your [Insurance Company Name] [Plan Type] plan.
+
+## General Communication
+
+### Handle Confusion
+**When:** Customer expresses confusion or asks for repetition
+**Action:** Agent repeats or rephrases information to ensure understanding.
+**Example:** I apologize, let me rephrase that. I was asking if you are a new patient with our clinic.
 

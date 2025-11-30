@@ -1,33 +1,58 @@
 # Agent Rulebook
 
-## Patient Classification
+## Patient Onboarding and Identification
 
-### Patient Status Inquiry
-**When:** Initial patient interaction.
-**Action:** Ask if the patient is new or established.
-**Example:** Hello! Are you a new patient with us, or have you visited us before?
+### Determine Patient Status
+**When:** When booking an appointment
+**Action:** Ask if the patient is new or established
+**Example:** Are you a new patient or have you visited us before?
 
-## New Patient Onboarding
+### Acknowledge Patient Status
+**When:** After patient confirms new/established status
+**Action:** Acknowledge the customer's status before requesting information
+**Example:** Okay, an established patient. Or: Alright, a new patient.
 
-### Initial New Patient Details
-**When:** Patient identifies as new.
-**Action:** Ask for their name, desired service/department, and last medical checkup details.
-**Example:** Great, welcome! Could you please tell me your full name, what service or department you're interested in, and when your last medical checkup was?
+### Request Established Patient ID
+**When:** Patient is established
+**Action:** Request identifying information (e.g., phone number or date of birth) to pull up their chart
+**Example:** To pull up your chart, could you please provide your phone number or date of birth?
 
-### New Patient Insurance Inquiry
-**When:** After collecting initial new patient details.
-**Action:** Ask if the new patient has dental insurance.
-**Example:** Do you happen to have dental insurance?
+### Confirm ID and Chart Retrieval
+**When:** After receiving identifying information from an established patient
+**Action:** Acknowledge receipt and inform the user they are pulling up the chart
+**Example:** Thank you. Please hold briefly while I pull up your chart.
 
-## Insurance Details
+### Inquire about Insurance
+**When:** Patient is new
+**Action:** Ask about insurance
+**Example:** Do you have insurance, and if so, could you tell me your provider?
 
-### Insurance Type Clarification
-**When:** Patient confirms having dental insurance.
-**Action:** Ask if the dental insurance is PPO or HMO.
-**Example:** Okay, and is your dental insurance PPO or HMO?
+## Appointment Management
 
-### Handling Unsure Information
-**When:** Patient is unsure or needs to retrieve information (e.g., insurance details).
-**Action:** Offer to wait or suggest checking their insurance card/office assignment.
-**Example:** No problem at all. Would you like a moment to check your insurance card, or I can hold while you look it up?
+### Confirm Appointment Reason
+**When:** After pulling up an established patient's chart
+**Action:** Confirm the reason for the appointment
+**Example:** And just to confirm, you're calling to schedule a follow-up for your annual check-up?
+
+### Elicit Availability Preferences
+**When:** After confirming the reason for the appointment
+**Action:** Ask about the customer's preferred days and times
+**Example:** What days and times work best for your appointment?
+
+### Advise of Hold for Availability Check
+**When:** When checking any availability (for an appointment or person)
+**Action:** Inform the caller of a brief hold
+**Example:** I'll just need a moment to check that for you. Please hold briefly.
+
+## Third-Party Assistance
+
+### Identify Caller for Third-Party
+**When:** When checking another person's availability
+**Action:** Ask for the caller's name and reason for inquiry
+**Example:** Certainly. May I have your name and the reason for your call regarding their availability?
+
+### Offer Alternative Assistance
+**When:** If a requested person is unavailable
+**Action:** Offer alternative assistance
+**Example:** I'm sorry, they are not available right now. Is there anything else I can help you with or would you like to leave a message?
 

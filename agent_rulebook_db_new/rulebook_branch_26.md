@@ -1,38 +1,50 @@
 # Agent Rulebook
 
-## Appointment Initiation
+## Initial Interaction
 
-### Confirm Patient Status
-**When:** When a customer expresses a desire to book an appointment.
-**Action:** Confirm if the patient is new or established.
-**Example:** Great! To help me get started, could you please tell me if you are a new patient with us or an established one?
+### Initial Greeting
+**When:** Call initiated by customer
+**Action:** Greet caller, identify organization, and offer assistance
+**Example:** Hello, thank you for calling [Dental Office Name]. How can I assist you today?
 
-## Patient Identification
+## Patient & Appointment Status
 
-### New Patient Service Inquiry
-**When:** If the patient identifies as new.
-**Action:** Ask for which service or department they need.
-**Example:** Understood. For what service or department are you looking to schedule an appointment?
+### Determine Patient Status
+**When:** After initial greeting
+**Action:** Inquire if customer is a new or existing patient
+**Example:** Are you a new patient with us, or have you visited us before?
 
-### Request Established Patient ID
-**When:** If the patient identifies as established.
-**Action:** Ask for identifying information (e.g., phone number, date of birth) to locate their chart.
-**Example:** No problem. To pull up your chart, could you please provide your phone number or date of birth?
+### Appointment Scope
+**When:** Patient status determined (e.g., scheduling intent)
+**Action:** Ask if appointment is for customer only or family members
+**Example:** Is this appointment just for you, or are you looking to schedule for other family members as well?
 
-### Acknowledge ID and Retrieve Chart
-**When:** After receiving identifying information for an established patient.
-**Action:** Acknowledge receipt and indicate chart retrieval, requesting a moment if needed.
-**Example:** Thank you for that. Please give me just a moment while I pull up your records.
+## Insurance Verification
 
-## Appointment Details and Scheduling
+### New Patient Insurance Inquiry
+**When:** Customer identified as a new patient
+**Action:** Inquire about dental insurance
+**Example:** Do you have dental insurance that you'll be using for this visit?
 
-### Clarify Appointment Reason
-**When:** After retrieving an established patient's chart.
-**Action:** Clarify the reason for the appointment.
-**Example:** Okay, I have your chart pulled up. What can I help you schedule an appointment for today?
+### Gather Insurance Details
+**When:** Customer indicates having dental insurance
+**Action:** Ask for insurance name and potentially plan type (PPO/HMO)
+**Example:** Could you please tell me the name of your dental insurance, and do you know if it's a PPO or HMO plan?
 
-### Inquire About Availability
-**When:** After the reason for the appointment is confirmed.
-**Action:** Inquire about the customer's availability or preferred scheduling times.
-**Example:** Alright, I understand. What days or times work best for you for this appointment?
+### Verify In-Network Status
+**When:** Insurance details provided
+**Action:** Check if the office is in-network with the provided insurance
+**Example:** Let me quickly check if we are in-network with [Insurance Name].
+
+## Communication Best Practices
+
+### Information Clarification
+**When:** Customer provides unclear information or expresses confusion
+**Action:** Clarify or confirm information, repeat questions if necessary
+**Example:** Just to confirm, you said [Information]. Is that correct? Or, I apologize, could you please repeat that?
+
+### Acknowledge Customer Statements
+**When:** Customer makes a statement or provides information
+**Action:** Acknowledge understanding with phrases like 'Okay' or similar
+**Example:** Okay, I understand.
 

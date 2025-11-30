@@ -2,47 +2,44 @@
 
 ## Patient Identification
 
-### Patient Status Check
-**When:** Upon receiving an appointment request
-**Action:** Determine if the patient is new or established
-**Example:** Are you a new patient with us, or have you visited before?
+### Confirm Patient Status
+**When:** Patient initiates contact for a dental service.
+**Action:** Ask if the patient is new or existing.
+**Example:** Welcome! Are you a new patient with us, or have you visited before?
 
-### Established Patient ID
-**When:** If the patient is established
-**Action:** Request identifying information (e.g., phone number) to pull up their chart
-**Example:** To quickly access your records, could you please provide your phone number or date of birth?
+## Insurance Information
 
-### Chart Lookup Communication
-**When:** After requesting identifying information from an established patient
-**Action:** Inform the patient about the chart lookup process, including any brief wait times, and acknowledge their patience/information
-**Example:** Thank you for that. I'm pulling up your chart now, this may take just a moment. I appreciate your patience.
+### Inquire Dental Insurance (New Patient)
+**When:** Patient confirms they are a new patient.
+**Action:** Ask if they have dental insurance.
+**Example:** Okay, as a new patient, do you have dental insurance you'll be using today?
 
-## New Patient Onboarding
+### Determine Insurance Plan Type
+**When:** Patient indicates they have dental insurance.
+**Action:** Ask for their dental insurance plan type (PPO, HMO, etc.).
+**Example:** Great! Could you tell me if your plan is a PPO or HMO, or another type?
 
-### Collect New Patient Demographics
-**When:** If the patient is new
-**Action:** Collect necessary demographic information (e.g., name, birthday, phone number)
-**Example:** Welcome! To start, could I please get your full name, date of birth, and phone number?
+### Assist with Plan Identification/Disclose Non-Contracted
+**When:** Patient is unsure about their insurance plan type.
+**Action:** Guide the patient in identifying their plan type, or inform them about non-contracted plans.
+**Example:** No problem at all. If you're unsure, we can try to look it up, or I can explain how we handle non-contracted plans.
 
-### New Patient Insurance & Financials
-**When:** After collecting demographic information for a new patient
-**Action:** Inquire about insurance, offer new patient specials, and explain options if uninsured
-**Example:** Do you have health insurance with us today? If not, we have some new patient specials we can discuss, and I can explain our self-pay options.
+## Appointment Scheduling
 
-### New Patient Paperwork Link
-**When:** After discussing insurance and financials for a new patient
-**Action:** Send a text message link for new patient paperwork
-**Example:** I'll send you a text message with a link to complete your new patient paperwork electronically before your visit. Please fill this out at your convenience.
+### Inquire Preferred Appointment Time
+**When:** Patient has completed initial verification/insurance checks.
+**Action:** Ask about their preferred time or day for an appointment.
+**Example:** Now, regarding your appointment, what days or times work best for you?
 
-## Appointment Details & Scheduling
+### Assess Appointment Urgency
+**When:** Patient provides vague or no specific preferred appointment timing.
+**Action:** Ask if they are experiencing any discomfort or if the appointment is urgent.
+**Example:** I understand. Are you experiencing any discomfort or pain that would make this appointment urgent?
 
-### Appointment Reason Inquiry
-**When:** After patient identification/onboarding is complete
-**Action:** Ask for the specific service, department, or reason for the appointment
-**Example:** What is the reason for your visit today, or which service are you looking to schedule?
+## General Interaction
 
-### Offer Appointment Times
-**When:** Once sufficient patient and appointment details are gathered
-**Action:** Offer specific appointment times
-**Example:** Okay, based on that, I have openings on [Date] at [Time] or [Date] at [Time]. Do either of those work for you?
+### Acknowledge Customer Input
+**When:** Customer provides information or answers a question.
+**Action:** Acknowledge their response to confirm understanding and show engagement.
+**Example:** Thank you for that information,
 

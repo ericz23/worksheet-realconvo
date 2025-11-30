@@ -1,50 +1,38 @@
 # Agent Rulebook
 
-## Appointment Initiation
+## Identity Verification
 
 ### Determine Patient Status
-**When:** Patient is booking an appointment.
+**When:** Patient is initiating an appointment booking.
 **Action:** Agent asks if the patient is new or established.
-**Example:** Are you a new patient or have you visited us before?
+**Example:** Are you a new patient with us, or have you seen a doctor here before?
 
-## Patient Information Collection
+### Verify Established Patient
+**When:** Patient is identified as established.
+**Action:** Agent requests identifying information (e.g., phone number, date of birth, full name) to locate and verify their chart.
+**Example:** To pull up your chart, could you please confirm your phone number and date of birth?
 
-### Inquire About Desired Service
-**When:** Patient is a new patient.
-**Action:** Agent asks for the desired service or department.
-**Example:** What type of service are you looking for, or which department do you need?
+### Gather New Patient Information
+**When:** Patient is identified as new.
+**Action:** Agent asks for the patient's first name, last name, date of birth, and insurance information.
+**Example:** Welcome! Could you please provide your first name, last name, date of birth, and your insurance provider?
 
-### Collect Patient Name
-**When:** Patient is a new patient.
-**Action:** Agent asks for the patient's name.
-**Example:** Could you please tell me your full name?
+## Appointment Details & Scheduling
 
-### Inquire About Last Medical Checkup
-**When:** Patient is a new patient.
-**Action:** Agent asks about their last medical checkup.
-**Example:** When was your last medical checkup?
+### Confirm Doctor and Location
+**When:** Patient identity and initial appointment type are confirmed.
+**Action:** Agent confirms the patient's primary doctor and preferred office location.
+**Example:** And just to confirm, is Dr. Smith still your primary physician, and are you looking for an appointment at our downtown office?
 
-## Insurance Verification
+### Request Appointment Timing
+**When:** Patient identity, primary doctor, and office location are confirmed.
+**Action:** Agent asks for the patient's preferred appointment timing (days/times).
+**Example:** Great, now that we have your details, what days or times work best for your appointment?
 
-### Inquire About Dental Insurance
-**When:** Patient is a new patient.
-**Action:** Agent asks if the patient has dental insurance.
-**Example:** Do you have dental insurance?
+## Patient Engagement & Communication
 
-### Clarify Insurance Type
-**When:** Patient indicates having dental insurance.
-**Action:** Agent asks to clarify the type of dental insurance (PPO or HMO).
-**Example:** Is your dental plan PPO or HMO?
-
-## Scheduling
-
-### Schedule PPO Appointment
-**When:** Patient has a PPO dental plan.
-**Action:** Agent asks about their desired appointment time.
-**Example:** Great, what day and time works best for your appointment?
-
-### Assess Urgent Symptoms
-**When:** Patient requests an appointment as soon as possible.
-**Action:** Agent asks about any bothering symptoms.
-**Example:** To help us schedule you appropriately, could you describe any symptoms that are bothering you?
+### Maintain Active Engagement
+**When:** During information gathering, retrieval, or transition points.
+**Action:** Agent acknowledges customer's status or information, informs them when retrieving information, and re-engages after retrieval to clarify next steps or appointment details.
+**Example:** Thank you for that information. I'm just pulling up your details now, please hold a moment. Okay, I have your chart open. What type of appointment are you looking to schedule?
 

@@ -1,53 +1,38 @@
 # Agent Rulebook
 
-## Patient Identification
+## Patient Status & Acknowledgment
 
 ### Determine Patient Status
-**When:** Initial interaction with a caller seeking medical services
-**Action:** Ask the caller if they are a new or established patient
-**Example:** "Are you a new patient or have you visited us before?"
+**When:** User wants to book an appointment
+**Action:** Agent asks if they are a new or established patient
+**Example:** Hello! Are you a new patient with us or an established one?
 
-### Collect New Patient Name
-**When:** Caller is confirmed as a new patient
-**Action:** Ask for the patient's full name
-**Example:** "Great, to get started, what is your full name?"
+### Acknowledge Patient Status
+**When:** After determining patient status
+**Action:** Agent acknowledges the customer's status before requesting information
+**Example:** Okay, an established patient. Thank you for letting me know.
 
-### Inquire Last Checkup
-**When:** Caller is confirmed as a new patient
-**Action:** Ask about the date of their last medical checkup
-**Example:** "Could you tell me when your last medical checkup was?"
+## Identity Verification & Chart Preparation
 
-## Scheduling
+### Identify Established Patient
+**When:** Patient is established
+**Action:** Agent asks for their phone number or date of birth to pull up their chart
+**Example:** To access your chart, could you please provide your phone number or your date of birth?
 
-### Identify Service for New Patient
-**When:** Caller explicitly requests a 'new patient appointment'
-**Action:** Ask the caller which service or department they need
-**Example:** "Certainly. Which service or department are you looking for?"
+### Inform of Chart Retrieval
+**When:** After receiving patient identification
+**Action:** Agent informs the customer they will pull up the chart and may take a moment or place them on hold
+**Example:** Thank you. I'm pulling up your chart now, which may take a moment. Please bear with me.
 
-## Insurance Information
+## Appointment Details & Scheduling
 
-### Ask About Dental Insurance Use
-**When:** Caller is confirmed as a new patient
-**Action:** Ask if they will be using dental insurance for their visit
-**Example:** "Will you be using dental insurance for this appointment?"
+### Inquire Appointment Reason
+**When:** After retrieving an established patient's chart
+**Action:** Agent asks for the specific reason or type of appointment
+**Example:** Now that I have your chart open, what brings you in today? What type of appointment are you looking to schedule?
 
-### Collect Insurance Provider Name
-**When:** New patient confirms they will use dental insurance
-**Action:** Ask for the name of their dental insurance provider
-**Example:** "Okay, what is the name of your dental insurance provider?"
-
-### Identify Insurance Plan Type
-**When:** Agent has received the insurance provider's name from the new patient
-**Action:** Ask for the specific dental insurance plan type
-**Example:** "And do you know if your plan is a PPO or an HMO, or another type?"
-
-### Assist with Plan Type Identification
-**When:** Patient is unsure about their insurance plan type
-**Action:** Offer to help identify the plan type by asking about specific plan features
-**Example:** "No problem at all. Sometimes the card has it, or we can figure it out if you can tell me a few things about your plan benefits."
-
-### Confirm Insurance Acceptance and Limitations
-**When:** Insurance plan details have been gathered
-**Action:** Confirm plan acceptance and inform the patient of any network limitations or restrictions
-**Example:** "Your [Provider] [Plan Type] plan is accepted here. Please note, for HMOs, you might need a referral, or if it's out-of-network, different co-pays might apply."
+### Gather Scheduling Preferences
+**When:** After the patient specifies the reason for the appointment
+**Action:** Agent asks for preferred location (if not established) and preferred days and times
+**Example:** For this appointment, do you have a preferred location, and what days and times are most convenient for you?
 

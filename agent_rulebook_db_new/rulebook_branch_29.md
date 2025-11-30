@@ -1,58 +1,45 @@
 # Agent Rulebook
 
-## Appointment Booking
+## Initial Patient Contact
 
-### Initial Appointment Inquiry
-**When:** Customer expresses a desire to book an appointment.
-**Action:** Ask if they are a new or established patient.
-**Example:** Customer: "I'd like to book an appointment." Agent: "Are you a new or established patient?"
+### Determine Patient Status
+**When:** At the beginning of the interaction with a patient.
+**Action:** Ask if the patient is new or established.
+**Example:** Hello, thank you for calling. Are you a new patient or have you visited us before?
 
-### New Patient Service Inquiry
-**When:** Patient is new.
-**Action:** Ask for the desired service or department.
-**Example:** Customer: "I'm a new patient." Agent: "What service are you looking for, or which department?"
+### Acknowledge Patient Status
+**When:** After the patient indicates their new or established status.
+**Action:** Acknowledge the customer's status before proceeding to request further information.
+**Example:** Okay, thank you for letting me know you're an established patient.
 
-## New Patient Information Gathering
+## Patient Identification & Chart Retrieval
 
-### New Patient Name
-**When:** Patient is new.
-**Action:** Ask for the patient's full name.
-**Example:** Customer: "I'm a new patient." Agent: "Could you please tell me your full name?"
+### Request Established Patient ID
+**When:** If the patient is identified as established.
+**Action:** Ask for identifying information such as a phone number or date of birth to locate their chart.
+**Example:** To pull up your chart, could I please get your phone number or date of birth?
 
-### New Patient Medical History
-**When:** Patient is new.
-**Action:** Ask about their last general medical checkup.
-**Example:** Customer: "I'm a new patient." Agent: "When was your last general medical checkup?"
+### Inform Chart Retrieval Process
+**When:** After receiving patient identification information from an established patient.
+**Action:** Inform the customer that their chart is being retrieved and they may be placed on a brief hold.
+**Example:** Thank you. I'll pull up your chart now, which might take a moment. I may need to place you on a brief hold.
 
-## Insurance Verification
+## Appointment Details
 
-### New Patient Dental Insurance Inquiry
-**When:** Patient is new.
-**Action:** Ask if they have dental insurance.
-**Example:** Customer: "I'm a new patient." Agent: "Do you have dental insurance?"
+### Inquire Reason for Visit
+**When:** After patient identification (or initial intake for new patients) and chart retrieval is indicated.
+**Action:** Ask for the specific reason for their call or the type of medical process required.
+**Example:** Now that I have your chart open, what can I help you with today? What is the reason for your visit?
 
-### Gather Insurance Provider Name
-**When:** Patient confirms having dental insurance.
-**Action:** Ask for the name of their insurance provider.
-**Example:** Customer: "Yes, I have dental insurance." Agent: "Great, what is the name of your insurance provider?"
+### Confirm Preferred Location
+**When:** For established patients, after the reason for the visit has been determined.
+**Action:** Confirm the patient's preferred or usual clinic location for their appointment.
+**Example:** And for your appointment, would you prefer to visit your usual clinic location or another one of our offices?
 
-### Gather Insurance Plan Type
-**When:** Insurance provider name has been provided.
-**Action:** Ask for the insurance plan type (e.g., PPO, HMO).
-**Example:** Customer: "My insurance is Delta Dental." Agent: "And what type of plan do you have, for example, PPO or HMO?"
+## General Communication
 
-### Acknowledge Insurance Details Lookup
-**When:** Patient states they need to check their insurance details.
-**Action:** Acknowledge their need to check and offer options (wait or follow up).
-**Example:** Customer: "I need to check my plan type." Agent: "No problem at all. Take your time, or we can follow up later if that's easier."
-
-### Emphasize Plan Type Importance
-**When:** Patient is unsure about or questions the importance of plan type.
-**Action:** Explain why the plan type (PPO or HMO) is crucial for coverage and billing.
-**Example:** Customer: "Why do you need to know if it's PPO or HMO?" Agent: "Knowing your plan type helps us confirm what services are covered and prevents any unexpected charges."
-
-### State Accepted Insurance Plan Types
-**When:** Patient asks about accepted plans or provides an unaccepted plan type.
-**Action:** Clearly state the specific dental insurance plan types that are accepted (e.g., 'only PPO').
-**Example:** Customer: "I have an HMO plan." Agent: "Currently, we only accept PPO dental insurance plans."
+### Maintain Polite Language
+**When:** Throughout the entire patient interaction.
+**Action:** Use polite, clear, and professional language.
+**Example:** Certainly, I'd be happy to assist you with that. Please allow me a moment.
 

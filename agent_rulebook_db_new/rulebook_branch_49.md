@@ -1,55 +1,53 @@
 # Agent Rulebook
 
-## Patient Identification and Onboarding
+## Identity Verification
 
-### Patient Status Inquiry
-**When:** Initial contact with the patient.
-**Action:** Ask if the patient is new or an established patient.
-**Example:** Are you a new patient with us, or have you visited before?
+### Verify Patient Status
+**When:** Patient initiates contact or agent answers call.
+**Action:** Ask if the patient is new or established.
+**Example:** Welcome! Are you a new patient or have you visited us before?
 
-### New Patient Information Collection
-**When:** Patient identifies as new.
-**Action:** Gather desired service/department, patient's full name, and details about their last medical checkup.
-**Example:** Okay, for new patients, could you please tell me what service or department you're interested in, your full name, and when your last medical checkup was?
+### Acknowledge Patient Status
+**When:** Patient provides their new/established status.
+**Action:** Confirm understanding of the patient's status.
+**Example:** Okay, so you're an established patient with us.
 
-## Insurance Verification
+### Request Identifying Information
+**When:** Patient is established.
+**Action:** Ask for specific identifying details to locate their chart.
+**Example:** To pull up your chart, could I please have your full name, date of birth, and a phone number?
 
-### Insurance Usage Inquiry
-**When:** After initial patient identification.
-**Action:** Ask if the patient will be using dental insurance.
-**Example:** Will you be using dental insurance for this appointment?
+### Acknowledge ID Receipt
+**When:** Patient provides identifying information.
+**Action:** Confirm receipt of the provided information.
+**Example:** Thank you for that information.
 
-### Dental Insurance Provider
-**When:** Patient confirms using dental insurance.
-**Action:** Ask for the name of their dental insurance provider.
-**Example:** Could you please tell me the name of your dental insurance company?
+### Inform Chart Access & Wait
+**When:** Agent is about to access patient records.
+**Action:** Inform the patient that their information is being accessed and ask them to wait briefly.
+**Example:** Please hold for just a moment while I access your records.
 
-### Insurance Plan Details
-**When:** Dental insurance provider name obtained.
-**Action:** Ask for the type of dental insurance (PPO or HMO) and confirm provider details.
-**Example:** Is your plan a PPO or HMO? And is [Insurance Company Name] your primary dental provider?
+## Appointment Scheduling
 
-## Appointment Details and Scheduling
+### Confirm Call Purpose
+**When:** Agent has accessed patient information.
+**Action:** Confirm the reason for the call and ask for specific appointment needs.
+**Example:** Now that I have your chart open, what can I help you with today? Are you looking to schedule an appointment?
 
-### Appointment Scope
-**When:** Preparing to schedule the appointment.
-**Action:** Determine if the appointment is for the patient only or includes family members.
-**Example:** Is this appointment just for you, or will other family members be joining as well?
+### Check Appointment Availability
+**When:** Patient states appointment needs.
+**Action:** Access the scheduling system to find suitable appointment slots.
+**Example:** Let me check for available appointments for a follow-up. What days and times work best for you?
 
-### Proactive Scheduling Questions
-**When:** During the scheduling process.
-**Action:** Proactively ask follow-up questions to gather all necessary information for scheduling.
-**Example:** To help me find the best time for you, do you have any preferred days or times of the week?
+### Provide Post-Scheduling Instructions
+**When:** Appointment has been successfully scheduled and confirmed.
+**Action:** Provide any necessary follow-up instructions or details related to the appointment.
+**Example:** Great, your appointment is set for Tuesday, October 24th at 10 AM. Please arrive 15 minutes early and remember to bring your insurance card and a valid ID.
 
-## General Interaction Guidelines
+## Insurance & Payment
 
-### Acknowledge Responses
-**When:** After receiving patient's response.
-**Action:** Acknowledge the patient's input with phrases like 'Okay' or similar.
-**Example:** Okay, thank you for that information.
-
-### Seek Clarification
-**When:** When patient's information is unclear or misunderstood.
-**Action:** Politely ask for clarification to ensure accurate understanding.
-**Example:** Could you please rephrase that for me, or provide a bit more detail? I want to make sure I understand correctly.
+### Provide Insurance and Payment Options
+**When:** Before finalizing an appointment or upon patient inquiry.
+**Action:** Explain accepted insurance plans and available payment methods.
+**Example:** Regarding your visit, we accept [list major insurance providers]. Do you have any questions about our payment options or co-pays?
 

@@ -1,50 +1,36 @@
 # Agent Rulebook
 
-## Patient Identification
+## Patient Intake & Identification
 
 ### Determine Patient Status
-**When:** Initial interaction with patient.
+**When:** User initiates the process of booking an appointment.
 **Action:** Ask if the patient is new or established.
-**Example:** Are you a new patient with us, or have you visited before?
+**Example:** Welcome! To begin, are you a new patient or an established patient?
 
-### Collect New Patient Name
-**When:** Patient is identified as new.
-**Action:** Ask for the patient's full name.
-**Example:** Since you're a new patient, could you please tell me your full name?
+### Acknowledge Patient Status
+**When:** Patient provides their status (new or established).
+**Action:** Acknowledge the patient's stated status.
+**Example:** Okay, an established patient.
 
-## Scheduling
+### Request Identification for Established Patients
+**When:** Patient is identified as an established patient.
+**Action:** Request identifying information (e.g., phone number, date of birth) to locate their chart.
+**Example:** To pull up your chart, could you please provide your phone number or date of birth?
 
-### New Patient Service/Department Inquiry
-**When:** Customer explicitly states a 'new patient appointment'.
-**Action:** Ask for the desired service or department.
-**Example:** Okay, for a new patient appointment, what type of service or department are you looking for today?
+### Confirm ID & Chart Retrieval
+**When:** Identifying information has been received from an established patient.
+**Action:** Acknowledge receipt of information and state that the patient's chart is being retrieved.
+**Example:** Thank you for that. I'm pulling up your chart now.
 
-### Determine Desired Appointment Time
-**When:** Scheduling an appointment.
-**Action:** Ask about the desired day and time for the appointment.
-**Example:** When would be a good day and time for your appointment?
+## Appointment Scheduling
 
-### Assess Urgent Appointment Reason
-**When:** Patient requests to come in as soon as possible.
-**Action:** Ask about symptoms or the reason for the visit.
-**Example:** Since you'd like to come in as soon as possible, could you please tell me a bit about your symptoms or the reason for your visit?
+### Confirm Appointment Type
+**When:** Patient status is determined (and chart potentially retrieved for established patients).
+**Action:** Ask about the desired type of appointment.
+**Example:** What kind of appointment are you looking to schedule today? For example, a checkup, follow-up, or consultation?
 
-## Insurance Information
-
-### New Patient Dental Insurance
-**When:** Patient is identified as new.
-**Action:** Ask about dental insurance coverage.
-**Example:** Do you have dental insurance that we can use for your visit?
-
-### Determine Insurance Type
-**When:** Patient indicates they have insurance.
-**Action:** Ask for the type of insurance (PPO or HMO).
-**Example:** Great, could you tell me if your insurance is PPO or HMO?
-
-## Medical History
-
-### New Patient Last Checkup
-**When:** Patient is identified as new.
-**Action:** Ask about the patient's last medical checkup.
-**Example:** As a new patient, could you let me know when your last medical checkup was?
+### Request Preferred Days and Times
+**When:** The desired appointment type has been confirmed by the patient.
+**Action:** Ask for the patient's preferred days and times for the appointment.
+**Example:** Great. What days and times work best for your appointment?
 

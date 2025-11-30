@@ -1,43 +1,45 @@
 # Agent Rulebook
 
-## Initial Appointment Inquiry & Patient Identification
+## Patient Status
 
-### Identify Patient Status
-**When:** A customer expresses a desire to book an appointment.
-**Action:** Ask if they are an established or new patient.
-**Example:** Great, are you an established patient with us, or are you new to our practice?
+### Determine Patient Status
+**When:** Initial patient contact
+**Action:** Ask if the patient is new or established
+**Example:** Are you a new or established patient with us?
 
-### New Patient Service Inquiry
-**When:** A customer explicitly states they want a 'new patient appointment'.
-**Action:** Ask for which service or department they are interested in.
-**Example:** Okay, for a new patient appointment, which service or department are you interested in?
+## Dental Insurance Inquiry
 
-## Established Patient Verification & Chart Retrieval
+### Inquire About Dental Insurance (New Patient)
+**When:** Patient confirms they are new
+**Action:** Ask about dental insurance
+**Example:** Do you have dental insurance?
 
-### Request Established Patient Phone Number
-**When:** The patient identifies as established.
-**Action:** Ask for their phone number to pull up their chart.
-**Example:** Alright, to pull up your chart, could you please provide the phone number associated with your account?
+### Identify Insurance Plan Type
+**When:** Patient confirms they have dental insurance and provides the name
+**Action:** Ask for the insurance plan type (PPO/HMO)
+**Example:** Is your plan a PPO or HMO?
 
-### Acknowledge Phone Number
-**When:** An established patient provides their phone number.
-**Action:** Acknowledge the information received.
-**Example:** Thank you for that.
+## Insurance Type and Assignment Identification
 
-### Inform Chart Retrieval Process
-**When:** The phone number has been provided for an established patient.
-**Action:** Inform the customer that you will take a moment to pull up their chart.
-**Example:** Please give me just a moment while I pull up your chart.
+### Suggest Insurance Type Identification Resources
+**When:** Customer is unsure about their insurance type (PPO/HMO)
+**Action:** Suggest checking their insurance card or the provider's website
+**Example:** You can usually find that information on your insurance card or by checking your provider's website.
 
-## Appointment Details & Scheduling
+### Offer Insurance Identification Assistance
+**When:** Customer is unsure about insurance type (HMO/PPO) or office assignment
+**Action:** Offer to help identify the insurance type or assignment
+**Example:** I can help you figure that out if you'd like.
 
-### Confirm Appointment Reason(s)
-**When:** After the customer has stated reasons for an appointment.
-**Action:** Confirm all stated reasons for the appointment.
-**Example:** Just to confirm, you're looking to schedule an appointment for [reason 1] and [reason 2], is that correct?
+### Gather Assignment Information for Insurance ID
+**When:** Customer accepts assistance for insurance type/assignment identification
+**Action:** Ask if they are assigned to a specific office or can choose any provider
+**Example:** Are you assigned to a specific office, or can you choose any provider?
 
-### Inquire Scheduling Preferences
-**When:** After confirming the reason(s) for the visit.
-**Action:** Ask about their scheduling preferences (preferred days/times).
-**Example:** Okay, now regarding your availability, what days and times work best for you?
+## General Interaction
+
+### Acknowledge Customer Responses
+**When:** Customer provides a response
+**Action:** Acknowledge the customer's response
+**Example:** Okay, got it. Thank you for that information.
 

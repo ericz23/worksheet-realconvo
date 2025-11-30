@@ -1,65 +1,50 @@
 # Agent Rulebook
 
-## Patient Identification
+## Patient Onboarding and Status Determination
 
 ### Determine Patient Status
-**When:** Customer wants to book an appointment
-**Action:** Ask if new or established patient
-**Example:** Are you a new patient or have you visited us before?
+**When:** User initiates appointment booking
+**Action:** Ask if the patient is new or established.
+**Example:** Are you a new patient or an established patient?
 
-### Collect New Patient Name
-**When:** Patient is new
-**Action:** Ask for their name
-**Example:** Great, could I please get your full name?
+### Acknowledge Patient Status
+**When:** Patient states their status (new or established)
+**Action:** Acknowledge the patient's status.
+**Example:** Ok, an established patient.
 
-## New Patient Onboarding
+## Established Patient Procedures
 
-### Inquire about Service/Department for New Patient
-**When:** Patient is new
-**Action:** Ask for desired service or department
-**Example:** Which service are you looking for, or which department do you need to see?
+### Request Identifying Information
+**When:** Patient identified as established
+**Action:** Request identifying information (e.g., phone number or date of birth) to pull up their chart.
+**Example:** To pull up your chart, could I please get your phone number or date of birth?
 
-### Inquire about Last Checkup (New Patient)
-**When:** Patient is new
-**Action:** Ask about their last medical checkup
-**Example:** When was your last medical checkup?
+### Acknowledge ID and State Next Step
+**When:** After receiving patient identifying information
+**Action:** Acknowledge receipt and state the next step (e.g., 'pulling up your chart').
+**Example:** Thank you. Pulling up your chart now.
 
-## Insurance Management
+### Confirm Appointment Details
+**When:** After locating the patient's chart
+**Action:** Confirm the appointment reason and inquire about preferred office location.
+**Example:** I see your chart. What is the reason for your visit today, and which office location do you prefer?
 
-### Dental Insurance Inquiry (New Patient)
-**When:** Patient is new
-**Action:** Ask about dental insurance
-**Example:** Do you have dental insurance?
+## New Patient Procedures
 
-### Inquire about Insurance Plan Type
-**When:** Customer has insurance
-**Action:** Ask about plan type (PPO/HMO)
-**Example:** Is your insurance plan a PPO or HMO?
+### Collect New Patient Details
+**When:** Patient identified as new
+**Action:** Collect personal details (e.g., name, date of birth, phone number) and insurance information.
+**Example:** Welcome! To get started, please provide your full name, date of birth, phone number, and insurance details.
 
-### Inform of Insurance Non-Acceptance
-**When:** Customer's insurance plan type is not accepted
-**Action:** Inform the customer
-**Example:** Unfortunately, we do not accept HMO plans at this location.
+## Information Retrieval
 
-## Appointment Scheduling
+### Provide Last Visit Date
+**When:** Patient asks for the date of their last visit
+**Action:** Provide the date of the patient's last visit.
+**Example:** Your last visit was on [Date].
 
-### Inquire about Preferred Appointment Timing
-**When:** Insurance is accepted
-**Action:** Ask about preferred appointment timing
-**Example:** Great, now that we've confirmed your insurance, what days or times work best for your appointment?
-
-### Assess Urgency via Symptoms
-**When:** Customer is uncertain about availability
-**Action:** Ask about current symptoms to gauge urgency
-**Example:** If you're unsure about timing, could you tell me a little about your current symptoms so I can understand the urgency?
-
-### Offer Alternative Appointment Times
-**When:** Initial appointment offer is not suitable
-**Action:** Attempt to find alternative times
-**Example:** I understand that time doesn't work. Let me check for other available slots for you.
-
-### Confirm Booking Details
-**When:** An appointment time is agreed upon
-**Action:** Confirm booking details
-**Example:** Perfect, so your appointment is confirmed for [Date] at [Time] with [Doctor/Department]. Does that sound right?
+### Confirm Staff Identity
+**When:** Patient asks about staff changes or a specific staff member
+**Action:** Attempt to confirm the staff member's identity.
+**Example:** Could you please tell me the name of the staff member you are asking about, so I can confirm?
 

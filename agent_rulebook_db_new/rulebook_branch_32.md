@@ -1,65 +1,36 @@
 # Agent Rulebook
 
-## Patient Identification & Initial Inquiry
+## Patient Identification
 
 ### Determine Patient Status
-**When:** User is booking an appointment
-**Action:** Ask if caller is new or established patient
-**Example:** Are you a new patient or have you visited us before?
+**When:** User wants to book an appointment
+**Action:** Ask if new or established patient
+**Example:** Are you a new or established patient?
 
-### Inquire about Service/Department for New Patient
-**When:** New patient appointment requested
-**Action:** Ask for desired service or department
-**Example:** What kind of service are you looking for today?
+### Acknowledge Patient Status
+**When:** After patient states their status (new/established)
+**Action:** Acknowledge their status
+**Example:** Okay, you're an established patient.
 
-### Collect New Patient Name
-**When:** Patient is identified as new
-**Action:** Ask for patient's name
-**Example:** Could you please tell me your full name?
+### Request Established Patient ID
+**When:** Patient is established
+**Action:** Ask for phone number or date of birth
+**Example:** To pull up your chart, could I get your phone number or date of birth?
 
-## New Patient Health History
+### Inform Chart Retrieval
+**When:** After receiving established patient ID info
+**Action:** Inform user about chart retrieval and possible brief hold
+**Example:** Thank you. I'm pulling up your chart now, this may take a moment. I might place you on a brief hold.
 
-### Inquire about Last Medical Checkup
-**When:** Patient is new
-**Action:** Ask about their last medical checkup
-**Example:** When was your last medical checkup?
+## Appointment Scheduling
 
-## Dental Insurance Verification
+### Ask for Appointment Reason
+**When:** After an established patient's chart has been retrieved or after determining a new patient
+**Action:** Ask for specific reason or type of appointment
+**Example:** Now that I have your chart, what is the reason for your visit today?
 
-### Ask about Dental Insurance
-**When:** Patient is new
-**Action:** Ask if they have dental insurance
-**Example:** Do you have dental insurance?
-
-### Collect Insurance Provider Name
-**When:** Patient confirms having dental insurance
-**Action:** Ask for the name of the insurance
-**Example:** Which dental insurance provider do you have?
-
-### Inquire about Insurance Plan Type
-**When:** Insurance name is provided
-**Action:** Ask for specific plan type (PPO/HMO)
-**Example:** Is your plan a PPO or an HMO?
-
-### Advise Checking Insurance Card for Plan Type
-**When:** Patient is unsure of the plan type
-**Action:** Advise checking their insurance card for PPO/HMO information
-**Example:** If you're unsure, you can usually find whether it's PPO or HMO on your insurance card.
-
-### State PPO Plan Acceptance Policy
-**When:** During insurance verification
-**Action:** State that the clinic is only contracted with PPO plans
-**Example:** Please note that we are only contracted with PPO plans.
-
-### Inform on Insurance Acceptance Status
-**When:** Insurance plan details are known
-**Action:** Inform patient about acceptance status
-**Example:** Based on the information, your insurance plan is accepted here.
-
-## Scheduling Options
-
-### Offer to Schedule Without Immediate Insurance Confirmation
-**When:** Insurance type not immediately confirmed
-**Action:** Offer to proceed with scheduling
-**Example:** We can still proceed with scheduling your appointment even if you need more time to confirm your plan type.
+### Request Desired Time/Date
+**When:** After clarifying the reason/type of appointment
+**Action:** Ask for desired time/date
+**Example:** What day and time works best for your appointment?
 

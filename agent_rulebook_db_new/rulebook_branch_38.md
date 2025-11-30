@@ -1,50 +1,31 @@
 # Agent Rulebook
 
-## Initial Contact & Patient Status
+## Patient Identification
 
 ### Determine Patient Status
-**When:** When booking an appointment
-**Action:** Ask if the patient is new or established
+**When:** Patient initiates appointment booking.
+**Action:** Ask if the patient is new or established.
 **Example:** Are you a new patient or have you visited us before?
 
-### Assess Medical Need for Availability
-**When:** If the patient is unsure about appointment availability
-**Action:** Ask about the nature of their medical need
-**Example:** To help me find the best available time, could you tell me a little about the nature of your medical need?
+### Acknowledge Patient Status
+**When:** Patient provides their new/established status.
+**Action:** Acknowledge the patient's status.
+**Example:** Okay, so you're an established patient.
 
-## New Patient Onboarding
+### Request Identifying Information (Established)
+**When:** Patient is established.
+**Action:** Request identifying information (e.g., phone number, date of birth).
+**Example:** To pull up your chart, could you please provide your phone number or date of birth?
 
-### Collect New Patient Name
-**When:** Upon confirming a new patient
-**Action:** Ask for the patient's name
-**Example:** Great, could I please get your full name?
-
-### Inquire About Service for New Patient
-**When:** For new patient appointments
-**Action:** Ask for the desired service or department
-**Example:** What service are you looking for today, or which department would you like to visit?
-
-### Inquire About Last Medical Checkup
-**When:** Upon confirming a new patient
-**Action:** Ask about the patient's last medical checkup
-**Example:** When was your last medical checkup?
-
-## Insurance Verification
-
-### Inquire About Dental Insurance
-**When:** Upon confirming a new patient
-**Action:** Ask about dental insurance
-**Example:** Do you have dental insurance?
-
-### Determine Insurance Type
-**When:** After discussing dental insurance
-**Action:** Ask about the patient's insurance type (PPO or HMO)
-**Example:** Is your insurance plan PPO or HMO?
+### Acknowledge Info & Inform Process
+**When:** Agent receives identifying information.
+**Action:** Acknowledge receipt and inform the patient of the next step (e.g., retrieving chart, completing task).
+**Example:** Thank you. Please bear with me for a moment while I retrieve your chart.
 
 ## Appointment Scheduling
 
-### Schedule Appointment for PPO Patient
-**When:** If the patient confirms a PPO plan
-**Action:** Ask about their desired appointment time
-**Example:** Okay, and what time works best for your appointment?
+### Clarify Appointment & Schedule
+**When:** Patient information has been retrieved.
+**Action:** Clarify appointment type/purpose and ask for scheduling preferences (time, date).
+**Example:** Now that I have your information, what type of appointment are you looking to schedule today? And do you have a preferred date or time?
 
