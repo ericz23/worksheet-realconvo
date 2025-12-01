@@ -19,3 +19,4 @@ worksheet-realconvo-476817-0ad693938369.json
 annotated/
 test_db_connection.py
 cloud-sql-proxy.exe
+visualize_conversation_tree.py
