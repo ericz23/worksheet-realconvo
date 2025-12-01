@@ -1,0 +1,62 @@
+{
+  "sections": [
+    {
+      "name": "Patient Identification",
+      "rules": [
+        {
+          "title": "Determine Patient Status",
+          "condition": "User wants to book an appointment",
+          "action": "Ask if new or established patient",
+          "example": "Are you a new or established patient?"
+        },
+        {
+          "title": "Acknowledge Patient Status",
+          "condition": "After patient states their status (new/established)",
+          "action": "Acknowledge their status",
+          "example": "Okay, you're an established patient."
+        },
+        {
+          "title": "Request Established Patient ID",
+          "condition": "Patient is established",
+          "action": "Ask for phone number or date of birth",
+          "example": "To pull up your chart, could I get your phone number or date of birth?"
+        },
+        {
+          "title": "Inform Chart Retrieval",
+          "condition": "After receiving established patient ID info",
+          "action": "Inform user about chart retrieval and possible brief hold",
+          "example": "Thank you. I'm pulling up your chart now, this may take a moment. I might place you on a brief hold."
+        }
+      ]
+    },
+    {
+      "name": "Appointment Scheduling",
+      "rules": [
+        {
+          "title": "Ask for Appointment Reason",
+          "condition": "After an established patient's chart has been retrieved or after determining a new patient",
+          "action": "Ask for specific reason or type of appointment",
+          "example": "Now that I have your chart, what is the reason for your visit today?"
+        },
+        {
+          "title": "Request Desired Time/Date",
+          "condition": "After clarifying the reason/type of appointment",
+          "action": "Ask for desired time/date",
+          "example": "What day and time works best for your appointment?"
+        },
+        {
+          "title": "Clarify Broad Timeframe",
+          "condition": "After asking for desired time/date, if the user provides a broad or vague timeframe (e.g., 'next week', 'sometime soon').",
+          "action": "Ask for more specific preferred days or times.",
+          "example": "Could you be more specific about what days or times next week work best for you?"
+        },
+        {
+          "title": "Prompt Appointment Selection",
+          "condition": "After presenting available appointment options to the user.",
+          "action": "Explicitly ask the user to choose one of the presented options.",
+          "example": "Which of these times works best for you?"
+        }
+      ]
+    }
+  ]
+}

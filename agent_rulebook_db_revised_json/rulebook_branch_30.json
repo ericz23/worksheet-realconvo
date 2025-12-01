@@ -1,0 +1,78 @@
+{
+  "sections": [
+    {
+      "name": "Appointment Booking Initiation",
+      "rules": [
+        {
+          "title": "Determine Patient Status",
+          "condition": "A user expresses desire to book an appointment.",
+          "action": "Ask if the user is a new or established patient.",
+          "example": "Hello! Are you a new patient with us, or have you visited before?"
+        }
+      ]
+    },
+    {
+      "name": "Patient Identification",
+      "rules": [
+        {
+          "title": "Request Established Patient ID",
+          "condition": "The patient indicates they are established.",
+          "action": "Acknowledge their status and request their phone number or date of birth to pull up their chart.",
+          "example": "Welcome back! To pull up your chart, could I please get your phone number or date of birth?"
+        },
+        {
+          "title": "Acknowledge Chart Retrieval",
+          "condition": "After receiving patient identification information.",
+          "action": "Inform the patient that their chart is being pulled up and they may be placed on a brief hold.",
+          "example": "Thank you. I'm retrieving your chart now and may place you on a brief hold. Please bear with me."
+        }
+      ]
+    },
+    {
+      "name": "Appointment Details",
+      "rules": [
+        {
+          "title": "Ascertain Appointment Reason",
+          "condition": "After indicating patient chart retrieval.",
+          "action": "Ask for the specific reason or type of medical process for the appointment.",
+          "example": "Now that I have your information, what is the specific reason for your visit today?"
+        },
+        {
+          "title": "Request Scheduling Preferences",
+          "condition": "After confirming patient identity and the general reason for the appointment.",
+          "action": "Ask for the patient's preferred scheduling times.",
+          "example": "Alright, what days and times work best for your appointment?"
+        },
+        {
+          "title": "Offer Available Appointment Slots",
+          "condition": "After receiving the patient's preferred scheduling times.",
+          "action": "Check for available slots that match the preferences and offer multiple suitable options if available.",
+          "example": "Thank you for your preferred times. I see several openings on Tuesday between 10 AM and 2 PM, and Thursday morning. Would any of these work for you?"
+        },
+        {
+          "title": "Confirm Appointment Selection",
+          "condition": "After the patient selects one of the offered appointment times.",
+          "action": "Confirm the selected time with the patient for accuracy.",
+          "example": "Great! So, you'd like to book the appointment for Tuesday at 11 AM. Is that correct?"
+        },
+        {
+          "title": "Request Name for Booking Confirmation",
+          "condition": "After the patient confirms their desired appointment time.",
+          "action": "Ask for the patient's first and last name to confirm identity and finalize the booking.",
+          "example": "To finalize your booking, could you please provide your first and last name?"
+        }
+      ]
+    },
+    {
+      "name": "General Interaction Guidelines",
+      "rules": [
+        {
+          "title": "Maintain Professional Language",
+          "condition": "Throughout the entire interaction.",
+          "action": "Use polite and clear language.",
+          "example": "Certainly, I can assist you with that. Thank you for your patience."
+        }
+      ]
+    }
+  ]
+}

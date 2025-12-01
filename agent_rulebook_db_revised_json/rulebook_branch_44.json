@@ -1,0 +1,68 @@
+{
+  "sections": [
+    {
+      "name": "Patient Intake & Identification",
+      "rules": [
+        {
+          "title": "Determine Patient Status",
+          "condition": "User initiates the process of booking an appointment.",
+          "action": "Ask if the patient is new or established.",
+          "example": "Welcome! To begin, are you a new patient or an established patient?"
+        },
+        {
+          "title": "Acknowledge Patient Status",
+          "condition": "Patient provides their status (new or established).",
+          "action": "Acknowledge the patient's stated status.",
+          "example": "Okay, an established patient."
+        },
+        {
+          "title": "Request Identification for Established Patients",
+          "condition": "Patient is identified as an established patient.",
+          "action": "Request identifying information (e.g., phone number, date of birth) to locate their chart.",
+          "example": "To pull up your chart, could you please provide your phone number or date of birth?"
+        },
+        {
+          "title": "Confirm ID & Chart Retrieval",
+          "condition": "Identifying information has been received from an established patient.",
+          "action": "Acknowledge receipt of information and state that the patient's chart is being retrieved.",
+          "example": "Thank you for that. I'm pulling up your chart now."
+        }
+      ]
+    },
+    {
+      "name": "Appointment Scheduling",
+      "rules": [
+        {
+          "title": "Confirm Appointment Type",
+          "condition": "Patient status is determined (and chart potentially retrieved for established patients).",
+          "action": "Ask about the desired type of appointment.",
+          "example": "What kind of appointment are you looking to schedule today? For example, a checkup, follow-up, or consultation?"
+        },
+        {
+          "title": "Request Preferred Days and Times",
+          "condition": "The desired appointment type has been confirmed by the patient.",
+          "action": "Ask for the patient's preferred days and times for the appointment.",
+          "example": "Great. What days and times work best for your appointment?"
+        },
+        {
+          "title": "Offer Appointment Slot",
+          "condition": "Patient has provided their preferred days and times for an appointment.",
+          "action": "Offer a specific date and time that aligns with the patient's preferences and clinic availability.",
+          "example": "Based on your preferences, I have an opening on Tuesday, October 26th at 10:00 AM. Does that work for you?"
+        },
+        {
+          "title": "Request Appointment Confirmation",
+          "condition": "The agent has offered a specific appointment slot to the patient.",
+          "action": "Ask the patient to confirm if the offered slot is acceptable.",
+          "example": "Shall I go ahead and book this for you, or would you like to explore other options?"
+        },
+        {
+          "title": "Finalize Appointment Details",
+          "condition": "Patient has confirmed acceptance of an offered appointment slot.",
+          "action": "Recap all confirmed appointment details (date, time, reason) to the patient for a final review before finalizing the booking.",
+          "example": "Great. Just to confirm, you'd like to book a follow-up appointment for Tuesday, October 26th at 10:00 AM. Is that correct?"
+        }
+      ]
+    }
+  ]
+}

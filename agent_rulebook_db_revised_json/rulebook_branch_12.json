@@ -1,0 +1,79 @@
+{
+  "sections": [
+    {
+      "name": "Initial Patient Interaction",
+      "rules": [
+        {
+          "title": "Patient Status Confirmation",
+          "condition": "An appointment is requested.",
+          "action": "Confirm if the patient is new or existing.",
+          "example": "Are you a new patient or have you visited us before?"
+        },
+        {
+          "title": "Acknowledge Customer Responses",
+          "condition": "Customer provides a response.",
+          "action": "Acknowledge their response to ensure they feel heard.",
+          "example": "Understood. Thank you for letting me know."
+        }
+      ]
+    },
+    {
+      "name": "Insurance & Priority Information Gathering",
+      "rules": [
+        {
+          "title": "New Patient Insurance Inquiry",
+          "condition": "Patient is new.",
+          "action": "Inquire about dental insurance coverage.",
+          "example": "Do you have dental insurance?"
+        },
+        {
+          "title": "Prioritize New Patient Information",
+          "condition": "Patient is new.",
+          "action": "Prioritize gathering information about insurance type and the nature of the visit (symptoms/routine).",
+          "example": "To help us best assist you, could you tell me about your dental insurance and the primary reason for your visit?"
+        },
+        {
+          "title": "Dental Plan Type Inquiry",
+          "condition": "Dental insurance is indicated.",
+          "action": "Ask for the specific plan type (PPO/HMO).",
+          "example": "Is your dental plan a PPO or an HMO?"
+        },
+        {
+          "title": "Assist Unsure Plan Type",
+          "condition": "Patient is unsure about their plan type (PPO/HMO).",
+          "action": "Attempt to help identify the plan or clearly state any non-contracted plans.",
+          "example": "No problem at all, we can help check. Could you tell me your insurance provider? Please also note we are not contracted with all plans."
+        }
+      ]
+    },
+    {
+      "name": "Scheduling & Visit Details",
+      "rules": [
+        {
+          "title": "New Patient Routine Visit Details",
+          "condition": "When a new patient requests a routine appointment.",
+          "action": "Inform the patient that their first routine appointment typically includes a comprehensive examination, necessary X-rays, and a professional cleaning.",
+          "example": "For your first routine visit as a new patient, it typically includes a comprehensive examination, necessary X-rays, and a professional cleaning."
+        },
+        {
+          "title": "Initial Visit Purpose & Follow-up",
+          "condition": "After informing a new patient about their initial visit details or when discussing the scope of their first appointment.",
+          "action": "Explain that the initial visit is primarily for diagnosis and treatment planning, and any further extensive treatments will be scheduled for a separate follow-up appointment.",
+          "example": "Please note that this initial appointment will primarily focus on diagnosis and establishing a treatment plan. Any extensive treatments, beyond the cleaning, would be scheduled for a separate follow-up appointment."
+        },
+        {
+          "title": "PPO Appointment Time Inquiry",
+          "condition": "A PPO plan is confirmed.",
+          "action": "Then inquire about the patient's preferred appointment time.",
+          "example": "Excellent, with your PPO plan, what days and times work best for your appointment?"
+        },
+        {
+          "title": "Flexible/Urgent Appointment Inquiry",
+          "condition": "Patient is flexible or uncertain about appointment timing.",
+          "action": "Ask about any discomfort, urgency, or bothering symptoms to assess priority.",
+          "example": "Since you're flexible, are you experiencing any discomfort or urgent symptoms we should be aware of?"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "sections": [
+    {
+      "name": "Call Initiation",
+      "rules": [
+        {
+          "title": "Initial Greeting",
+          "condition": "Upon answering an incoming call",
+          "action": "Acknowledge the call, thank the caller, and offer assistance.",
+          "example": "Thank you for calling [Practice Name], how may I help you today?"
+        },
+        {
+          "title": "Acknowledge Caller Status",
+          "condition": "Before requesting personal or specific information related to patient details",
+          "action": "Acknowledge the customer's known or identified status to provide context.",
+          "example": "Okay, as an established patient, I'll need some information to pull up your chart."
+        }
+      ]
+    },
+    {
+      "name": "Patient Identification & Information Gathering",
+      "rules": [
+        {
+          "title": "Determine Patient Status",
+          "condition": "When a caller expresses interest in booking an appointment",
+          "action": "Ask if the patient is new or established.",
+          "example": "Are you a new or established patient with our practice?"
+        },
+        {
+          "title": "Locate Established Patient Chart",
+          "condition": "If the patient is identified as established",
+          "action": "Request a phone number or date of birth to locate their patient chart.",
+          "example": "To help me find your chart, could you please provide your phone number or date of birth?"
+        },
+        {
+          "title": "Chart Retrieval Notification",
+          "condition": "After receiving identification details for an established patient",
+          "action": "Inform the caller that the chart is being retrieved and they may be placed on a brief hold.",
+          "example": "Thank you for that. Please hold briefly while I retrieve your patient chart."
+        }
+      ]
+    },
+    {
+      "name": "New Patient Onboarding",
+      "rules": [
+        {
+          "title": "New Patient Insurance Inquiry",
+          "condition": "If the patient is identified as new",
+          "action": "Inquire about their insurance plan and ask for the provider's name if applicable.",
+          "example": "Are you planning to use insurance for your visit? If so, what is your insurance provider's name?"
+        }
+      ]
+    },
+    {
+      "name": "Appointment Scheduling",
+      "rules": [
+        {
+          "title": "Ascertain Appointment Reason",
+          "condition": "After initial identification or for general scheduling inquiry",
+          "action": "Ask for the reason for the visit or the type of appointment desired.",
+          "example": "What is the reason for your visit today, or what type of appointment are you looking to schedule?"
+        },
+        {
+          "title": "Clarify Specific Appointment Type",
+          "condition": "After retrieving an established patient's chart",
+          "action": "Clarify the specific type of appointment needed, potentially referencing their history.",
+          "example": "Looking at your chart, what specific type of appointment are you needing today?"
+        },
+        {
+          "title": "Suggest Re-evaluation for Returning Patients",
+          "condition": "When an established patient is returning after a long absence",
+          "action": "Suggest a specific re-evaluation type of exam.",
+          "example": "Since it's been a while, we often recommend a re-evaluation exam to ensure we address all current needs. Would you be open to that?"
+        },
+        {
+          "title": "Check Appointment Availability",
+          "condition": "After fully understanding the patient's appointment need",
+          "action": "Check and communicate available appointment slots.",
+          "example": "Okay, I have your needs noted. Let me check our availability for that type of appointment."
+        },
+        {
+          "title": "Verify Contact Information for Reminders",
+          "condition": "After an appointment slot has been identified and before finalizing the booking.",
+          "action": "Verify the patient's preferred contact information (e.g., email address, phone number) for sending appointment reminders.",
+          "example": "To ensure you receive important reminders about your appointment, could you please confirm your preferred email address and phone number?"
+        }
+      ]
+    },
+    {
+      "name": "Internal Call Handling",
+      "rules": [
+        {
+          "title": "Staff Member Transfer Protocol",
+          "condition": "If a caller asks to speak with a specific staff member",
+          "action": "Ask for the caller's name and purpose, then inform them of a brief hold to check staff availability.",
+          "example": "Certainly, may I ask your name and the reason for your call so I can inform [Staff Member's Name]? Please hold briefly while I check if they are available."
+        }
+      ]
+    }
+  ]
+}

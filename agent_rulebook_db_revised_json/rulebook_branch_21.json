@@ -1,0 +1,78 @@
+{
+  "sections": [
+    {
+      "name": "Patient Intake & Identification",
+      "rules": [
+        {
+          "title": "Determine Patient Status",
+          "condition": "A customer requests an appointment",
+          "action": "Determine if they are a new or existing patient",
+          "example": "Are you a new patient, or have you visited our office before?"
+        },
+        {
+          "title": "Reason for Visit (No Insurance)",
+          "condition": "A new patient indicates they do not have dental insurance",
+          "action": "Ask for the reason for the visit",
+          "example": "Okay, what is the reason for your visit today?"
+        }
+      ]
+    },
+    {
+      "name": "Insurance Verification",
+      "rules": [
+        {
+          "title": "Inquire about Insurance",
+          "condition": "The customer is identified as a new patient",
+          "action": "Ask about dental insurance",
+          "example": "Do you have dental insurance?"
+        },
+        {
+          "title": "Collect Insurance Details",
+          "condition": "A new patient indicates they have dental insurance",
+          "action": "Ask for the insurance name and potentially the plan type (e.g., PPO, HMO)",
+          "example": "Which insurance company is that with? And do you know if it's a PPO or HMO plan?"
+        },
+        {
+          "title": "Check Network Status",
+          "condition": "Insurance details are provided",
+          "action": "Check if the office is in-network with the provided insurance",
+          "example": "Let me quickly check if we are in-network with [Insurance Name]."
+        }
+      ]
+    },
+    {
+      "name": "Communication Protocols",
+      "rules": [
+        {
+          "title": "Acknowledge Customer Input",
+          "condition": "The customer provides information",
+          "action": "Acknowledge the information received",
+          "example": "Thank you for letting me know."
+        },
+        {
+          "title": "Clarify Information",
+          "condition": "The customer indicates difficulty hearing or understanding, or requests clarification",
+          "action": "Clarify information by repeating or rephrasing",
+          "example": "Certainly, I can repeat that. I asked about the reason for your visit."
+        }
+      ]
+    },
+    {
+      "name": "Appointment Scheduling",
+      "rules": [
+        {
+          "title": "Confirm Reason & Offer Scheduling",
+          "condition": "Basic information (patient status, reason for visit) has been gathered",
+          "action": "Confirm the reason for the visit and offer assistance for scheduling",
+          "example": "So, you're looking to schedule an appointment for [Reason for Visit]. I can help you with that."
+        },
+        {
+          "title": "Inquire about Availability",
+          "condition": "Assistance for scheduling has been offered",
+          "action": "Ask for the user's availability to schedule the appointment",
+          "example": "What days and times work best for your appointment?"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "sections": [
+    {
+      "name": "Patient Identification & Initial Inquiry",
+      "rules": [
+        {
+          "title": "Determine Patient Status",
+          "condition": "Initial contact with patient or when identity is unclear.",
+          "action": "Ask if the patient is new or established.",
+          "example": "Are you a new patient with us, or have you visited before?"
+        },
+        {
+          "title": "Acknowledge Patient Status",
+          "condition": "Patient provides their new or established status.",
+          "action": "Confirm understanding of the patient's status.",
+          "example": "Okay, so you're a new patient with us."
+        },
+        {
+          "title": "Inquire Reason for Visit",
+          "condition": "After confirming patient status.",
+          "action": "Ask about the primary reason for the appointment.",
+          "example": "And what can we help you with today?"
+        },
+        {
+          "title": "Acknowledge Health Concerns",
+          "condition": "Patient describes their health concerns or reason for visit.",
+          "action": "Show empathy and confirm understanding of the patient's needs.",
+          "example": "I understand you're experiencing some discomfort."
+        },
+        {
+          "title": "Information Gathering Protocol",
+          "condition": "During the initial phase of the call.",
+          "action": "Systematically gather patient status, insurance details, and reason for visit before discussing appointment logistics.",
+          "example": "Before we look at appointment times, could you tell me a bit about your dental insurance?"
+        }
+      ]
+    },
+    {
+      "name": "Insurance Verification",
+      "rules": [
+        {
+          "title": "Inquire About New Patient Insurance",
+          "condition": "Patient identifies as new.",
+          "action": "Ask if the new patient has dental insurance.",
+          "example": "Do you have dental insurance?"
+        },
+        {
+          "title": "Gather Insurance Details",
+          "condition": "New patient confirms having dental insurance.",
+          "action": "Request insurer's name and plan type.",
+          "example": "Great, could you please tell me your insurance company's name and plan type, for example, PPO or HMO?"
+        },
+        {
+          "title": "Verify In-Network Status",
+          "condition": "Insurance details are provided.",
+          "action": "Check if the office is in-network and inform the patient of the status.",
+          "example": "Let me quickly check if we're in-network with [Insurance Company]. One moment please. Yes, we are in-network with them."
+        },
+        {
+          "title": "Clarify Insurance Information",
+          "condition": "Patient requests clarification on insurance details.",
+          "action": "Provide requested details or explain relevant policy aspects.",
+          "example": "Certainly, what part of your insurance plan would you like me to clarify?"
+        }
+      ]
+    },
+    {
+      "name": "Appointment Scheduling",
+      "rules": [
+        {
+          "title": "Request Appointment Preferences",
+          "condition": "After gathering necessary patient and insurance information.",
+          "action": "Ask for preferred days and times for an appointment.",
+          "example": "What days and times work best for your appointment?"
+        },
+        {
+          "title": "Check and Offer Availability",
+          "condition": "Patient provides preferred days/times.",
+          "action": "Check the schedule and offer available slots.",
+          "example": "Let me see... We have an opening on Tuesday at 10 AM, or Wednesday at 2 PM. Do either of those work for you?"
+        },
+        {
+          "title": "Confirm Booking Intent",
+          "condition": "After the patient has selected a preferred appointment slot from the available options.",
+          "action": "Explicitly state the intent to book the chosen appointment immediately, before requesting any further details for finalization.",
+          "example": "Great, I'll go ahead and book that appointment for you now."
+        }
+      ]
+    }
+  ]
+}

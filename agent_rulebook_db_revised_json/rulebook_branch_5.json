@@ -1,0 +1,67 @@
+{
+  "sections": [
+    {
+      "name": "Appointment Scheduling",
+      "rules": [
+        {
+          "title": "Patient Type Inquiry",
+          "condition": "A patient requests an appointment.",
+          "action": "Ask if the patient is new or established.",
+          "example": "Are you a new or established patient?"
+        }
+      ]
+    },
+    {
+      "name": "Insurance Verification",
+      "rules": [
+        {
+          "title": "Dental Insurance Status for New Patients",
+          "condition": "The patient is identified as new.",
+          "action": "Ask if they have dental insurance.",
+          "example": "Do you have dental insurance?"
+        },
+        {
+          "title": "Insurance Provider Name Inquiry",
+          "condition": "The patient confirms having dental insurance.",
+          "action": "Ask for the name of their insurance provider.",
+          "example": "What is the name of your dental insurance company?"
+        },
+        {
+          "title": "Insurance Plan Type Inquiry",
+          "condition": "The agent has received the insurance provider's name.",
+          "action": "Ask for the insurance plan type (e.g., PPO/HMO).",
+          "example": "Is your plan a PPO or an HMO?"
+        },
+        {
+          "title": "Primary Insurance Holder Inquiry",
+          "condition": "The agent has received the insurance plan type.",
+          "action": "Ask if the patient is the primary holder of the insurance.",
+          "example": "Are you the primary holder of this insurance policy?"
+        },
+        {
+          "title": "Out-of-Network Notification",
+          "condition": "The patient's insurance is determined to be out of network.",
+          "action": "Inform the customer about the out-of-network status.",
+          "example": "It appears your insurance is out of our network."
+        }
+      ]
+    },
+    {
+      "name": "General Interaction Management",
+      "rules": [
+        {
+          "title": "Clarification Request Handling",
+          "condition": "The customer asks for clarification.",
+          "action": "Repeat the last question or statement.",
+          "example": "Customer: 'Can you repeat that?' Agent: 'Certainly, I asked, 'What is the name of your dental insurance company?'"
+        },
+        {
+          "title": "Information Acknowledgement",
+          "condition": "The customer provides information.",
+          "action": "Acknowledge the information received.",
+          "example": "Customer: 'My plan is a PPO.' Agent: 'Thank you, a PPO plan.'"
+        }
+      ]
+    }
+  ]
+}

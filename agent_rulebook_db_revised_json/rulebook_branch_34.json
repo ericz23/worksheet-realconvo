@@ -1,0 +1,84 @@
+{
+  "sections": [
+    {
+      "name": "Initial Call Handling",
+      "rules": [
+        {
+          "title": "Acknowledge Call",
+          "condition": "When a call is received.",
+          "action": "Acknowledge the call, thank the caller, and ask how to assist.",
+          "example": "Thank you for calling [Clinic Name], this is [Agent Name], how may I help you?"
+        },
+        {
+          "title": "Staff Member Request",
+          "condition": "If a caller asks for a specific staff member.",
+          "action": "Ask for the caller's name and purpose, then inform of a brief hold to check availability.",
+          "example": "Certainly, may I ask your name and the reason for your call so I can connect you appropriately? Please hold briefly while I check their availability."
+        }
+      ]
+    },
+    {
+      "name": "Patient Identification & Verification",
+      "rules": [
+        {
+          "title": "Acknowledge Patient Status",
+          "condition": "After the patient states their new/established status.",
+          "action": "Acknowledge their status before requesting further identification or insurance information.",
+          "example": "Okay, thank you for letting me know."
+        },
+        {
+          "title": "Locate Established Patient Chart",
+          "condition": "If the patient is established.",
+          "action": "Ask for a phone number or date of birth to locate their patient chart.",
+          "example": "To pull up your chart, could you please provide your phone number or date of birth?"
+        },
+        {
+          "title": "Chart Retrieval Notification",
+          "condition": "After receiving patient identification information.",
+          "action": "Inform the customer that the chart will be pulled up and they may be placed on brief hold.",
+          "example": "Thank you, I'll just pull up your chart now. This may take a moment, so I might place you on a brief hold."
+        }
+      ]
+    },
+    {
+      "name": "Appointment Scheduling",
+      "rules": [
+        {
+          "title": "Determine Patient Status",
+          "condition": "When a caller requests an appointment booking.",
+          "action": "Ask if the patient is new or established.",
+          "example": "Are you a new patient or have you visited us before?"
+        },
+        {
+          "title": "Clarify Appointment Type",
+          "condition": "After the patient's chart has been retrieved.",
+          "action": "Clarify the specific type of appointment needed.",
+          "example": "Now that I have your chart open, what type of appointment are you looking to schedule today?"
+        },
+        {
+          "title": "Suggest Re-evaluation",
+          "condition": "If an established patient is returning after a long absence.",
+          "action": "Suggest a specific re-evaluation type of exam.",
+          "example": "Since it's been a while since your last visit, we often recommend a re-evaluation exam to ensure we address any new concerns. Does that sound appropriate?"
+        },
+        {
+          "title": "Ascertain Scheduling Preference",
+          "condition": "After the specific type of appointment has been identified.",
+          "action": "Ask about the customer's preferred day or time for scheduling.",
+          "example": "Great, we have [Appointment Type] available. What day or time works best for your appointment?"
+        }
+      ]
+    },
+    {
+      "name": "New Patient Onboarding & Insurance",
+      "rules": [
+        {
+          "title": "New Patient Initial Inquiry",
+          "condition": "If the patient is new.",
+          "action": "Check availability, inquire about insurance, and ask for the insurance provider's name.",
+          "example": "Welcome! To help me schedule your first visit, can I ask if you'll be using insurance, and if so, which provider?"
+        }
+      ]
+    }
+  ]
+}

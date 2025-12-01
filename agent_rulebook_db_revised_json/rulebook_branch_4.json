@@ -1,0 +1,66 @@
+{
+  "sections": [
+    {
+      "name": "Patient Identification",
+      "rules": [
+        {
+          "title": "Ascertain Patient Status",
+          "condition": "Initial interaction with patient",
+          "action": "Ask if the patient is new or established",
+          "example": "Are you a new patient or have you visited us before?"
+        }
+      ]
+    },
+    {
+      "name": "Insurance Information Gathering",
+      "rules": [
+        {
+          "title": "Inquire About Dental Insurance for New Patients",
+          "condition": "Patient confirms they are new",
+          "action": "Ask if the new patient has dental insurance",
+          "example": "Do you have dental insurance?"
+        },
+        {
+          "title": "Request Insurance Provider Name",
+          "condition": "Patient confirms they have dental insurance",
+          "action": "Ask for the name of their dental insurance provider",
+          "example": "Which dental insurance provider do you have?"
+        },
+        {
+          "title": "Request Insurance Plan Type",
+          "condition": "Patient provides insurance provider name",
+          "action": "Ask for the insurance plan type (e.g., PPO or HMO)",
+          "example": "And what type of plan is that, PPO or HMO?"
+        },
+        {
+          "title": "Inquire About Primary Insurance Holder",
+          "condition": "Patient has provided their insurance plan type",
+          "action": "Ask if the patient is the primary holder of the insurance policy",
+          "example": "Are you the primary holder of this insurance policy?"
+        }
+      ]
+    },
+    {
+      "name": "Insurance Network Status",
+      "rules": [
+        {
+          "title": "Inform Out-of-Network Status",
+          "condition": "Office is out of network with the provided insurance",
+          "action": "Inform the patient that the office is out of network",
+          "example": "Our office is currently out of network with [Insurance Name]. Would you still like to proceed?"
+        }
+      ]
+    },
+    {
+      "name": "Interaction Clarification",
+      "rules": [
+        {
+          "title": "Repeat Question for Clarification",
+          "condition": "User asks for clarification or indicates they didn't understand",
+          "action": "Repeat the last question or statement clearly",
+          "example": "Certainly. I was asking, 'Are you a new patient or have you visited us before?'"
+        }
+      ]
+    }
+  ]
+}

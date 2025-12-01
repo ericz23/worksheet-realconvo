@@ -1,0 +1,90 @@
+{
+  "sections": [
+    {
+      "name": "Patient Initial Information",
+      "rules": [
+        {
+          "title": "Systematize Info Gathering",
+          "condition": "Before discussing appointment logistics",
+          "action": "Gather patient status, insurance presence, and reason for visit.",
+          "example": "Before we look for times, may I ask if you're a new patient, if you have dental insurance, and the main reason for your visit today?"
+        },
+        {
+          "title": "Determine Patient Status",
+          "condition": "When gathering initial patient information",
+          "action": "Ask if the patient is new or established.",
+          "example": "Are you a new patient with our clinic, or have you visited us before?"
+        },
+        {
+          "title": "Ascertain Visit Reason",
+          "condition": "When gathering initial patient information",
+          "action": "Ask for the reason for the visit.",
+          "example": "What is the main reason for your visit today?"
+        }
+      ]
+    },
+    {
+      "name": "Insurance Verification",
+      "rules": [
+        {
+          "title": "Inquire About Dental Insurance",
+          "condition": "When gathering initial patient information",
+          "action": "Ask if the patient has dental insurance.",
+          "example": "Do you have dental insurance?"
+        },
+        {
+          "title": "Collect Insurance Details",
+          "condition": "If the patient confirms having dental insurance",
+          "action": "Ask for the name of the insurance provider and plan type.",
+          "example": "Great, could you please tell me the name of your insurance provider and the type of plan you have?"
+        },
+        {
+          "title": "Check In-Network Status",
+          "condition": "After collecting insurance details",
+          "action": "Check in-network status and inform the customer.",
+          "example": "Thank you, let me quickly check if [Insurance Provider] is in-network with our office. One moment please. [After checking] Yes, [Insurance Provider] is in-network."
+        },
+        {
+          "title": "Clarify Insurance Info",
+          "condition": "When the customer requests clarification on insurance details",
+          "action": "Provide clear explanation of insurance details.",
+          "example": "You're asking about deductibles? A deductible is..."
+        }
+      ]
+    },
+    {
+      "name": "Appointment Scheduling",
+      "rules": [
+        {
+          "title": "Gather Appointment Preference",
+          "condition": "When scheduling an appointment",
+          "action": "Ask for preferred appointment day and time.",
+          "example": "What day and time works best for your appointment?"
+        },
+        {
+          "title": "Provide Earliest Opening",
+          "condition": "When the customer asks for the earliest available appointment",
+          "action": "Provide the date and time of the earliest opening.",
+          "example": "The earliest opening we have is on [Date] at [Time]."
+        }
+      ]
+    },
+    {
+      "name": "Appointment Confirmation & Patient Details",
+      "rules": [
+        {
+          "title": "Collect Patient Name Post-Confirmation",
+          "condition": "After confirming appointment date and time AND the patient is identified as a new patient.",
+          "action": "Ask for the patient's first and last name.",
+          "example": "Great, to finalize your appointment, could you please provide your first and last name?"
+        },
+        {
+          "title": "Collect Patient Phone Number",
+          "condition": "After confirming the appointment and obtaining the patient's name.",
+          "action": "Ask for the patient's phone number.",
+          "example": "Thank you, and what is the best phone number for us to reach you?"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "sections": [
+    {
+      "name": "Initial Patient Contact",
+      "rules": [
+        {
+          "title": "Determine Patient Status",
+          "condition": "When booking an appointment",
+          "action": "Agent asks if the patient is new or established.",
+          "example": "Are you a new patient or an established patient with us?"
+        },
+        {
+          "title": "Acknowledge Patient Status",
+          "condition": "After the patient provides their status (new or established)",
+          "action": "Agent acknowledges the patient's stated status.",
+          "example": "Okay, so you're an established patient."
+        }
+      ]
+    },
+    {
+      "name": "Established Patient Verification",
+      "rules": [
+        {
+          "title": "Request Phone Number",
+          "condition": "If the patient is established",
+          "action": "Agent requests their phone number to locate their patient chart.",
+          "example": "Could you please provide your phone number so I can pull up your chart?"
+        },
+        {
+          "title": "Confirm Chart Retrieval",
+          "condition": "After the established patient provides their phone number",
+          "action": "Agent acknowledges receipt, informs them they are pulling up their chart, and asks them to wait briefly.",
+          "example": "Thank you. I'm pulling up your chart now, please wait just a moment."
+        }
+      ]
+    },
+    {
+      "name": "New Patient Registration",
+      "rules": [
+        {
+          "title": "Request Demographic and Insurance Info",
+          "condition": "If the patient is new",
+          "action": "Agent requests their first name, last name, date of birth, and insurance information.",
+          "example": "Since you're a new patient, could I please get your first name, last name, date of birth, and your insurance details?"
+        }
+      ]
+    },
+    {
+      "name": "Appointment Scheduling",
+      "rules": [
+        {
+          "title": "Confirm Purpose and Check Availability",
+          "condition": "After obtaining all necessary patient information (new or established)",
+          "action": "Agent confirms the appointment purpose/type and then checks availability.",
+          "example": "Thank you for that information. What kind of appointment are you looking to schedule today? Once I know that, I can check our availability for you."
+        },
+        {
+          "title": "Confirm Selected Appointment Time",
+          "condition": "After an appointment time has been identified and suggested to the user.",
+          "action": "Agent states the selected appointment time to the user for confirmation.",
+          "example": "So, you'd like to book an appointment for Tuesday, October 26th at 10 AM, is that right?"
+        },
+        {
+          "title": "Explicit Booking Confirmation",
+          "condition": "After the patient has confirmed the selected appointment details.",
+          "action": "Agent requests explicit final confirmation to finalize the booking.",
+          "example": "Great. Shall I go ahead and finalize this booking for you?"
+        }
+      ]
+    }
+  ]
+}
