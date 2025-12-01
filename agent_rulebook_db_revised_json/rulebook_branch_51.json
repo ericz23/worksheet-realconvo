@@ -1,0 +1,96 @@
+{
+  "sections": [
+    {
+      "name": "Initial Contact and Identity Verification",
+      "rules": [
+        {
+          "title": "Confirm Patient Status and Identity",
+          "condition": "Initial contact with patient.",
+          "action": "Inquire about new/existing status and ask for basic identifying information (e.g., name, date of birth).",
+          "example": "Hello, thank you for calling. Are you a new or existing patient with us today? Could I get your full name and date of birth?"
+        },
+        {
+          "title": "Request Info for Established Patient Chart",
+          "condition": "Patient identifies as established.",
+          "action": "Ask for a specific identifier to pull up their chart.",
+          "example": "Since you're an existing patient, could I please have your phone number or date of birth to pull up your chart?"
+        },
+        {
+          "title": "Acknowledge Patient Status and Info Receipt",
+          "condition": "Patient has provided status and identifying information.",
+          "action": "Verbally confirm understanding of their status and receipt of data.",
+          "example": "Okay, thank you. You're an existing patient and I have your phone number."
+        },
+        {
+          "title": "Inform and Acknowledge Chart Access",
+          "condition": "Before accessing patient's chart.",
+          "action": "Tell the patient you're accessing their information and manage their wait.",
+          "example": "Please bear with me for a moment while I access your chart."
+        },
+        {
+          "title": "Verify Identity Against Chart Data",
+          "condition": "After patient chart is open.",
+          "action": "Cross-reference provided information with chart data to confirm identity.",
+          "example": "Just to confirm, your address on file is [address], is that correct?"
+        }
+      ]
+    },
+    {
+      "name": "Understanding Patient Request",
+      "rules": [
+        {
+          "title": "Confirm Call Purpose and Details",
+          "condition": "After identity verification.",
+          "action": "Elicit the reason for the call and gather necessary context.",
+          "example": "Now that I have your chart open, how can I help you today? What is the reason for your call?"
+        },
+        {
+          "title": "State Immediate Next Action",
+          "condition": "After understanding the patient's request.",
+          "action": "Clearly communicate the next step in resolving their issue.",
+          "example": "Okay, I understand. I will now look for available appointments for you."
+        },
+        {
+          "title": "Ask Clarifying Questions",
+          "condition": "Ambiguity in patient information or request.",
+          "action": "Pose specific questions to resolve confusion.",
+          "example": "Just to be clear, are you looking for an appointment for yourself or for a family member?"
+        }
+      ]
+    },
+    {
+      "name": "Appointment Management",
+      "rules": [
+        {
+          "title": "Offer and Confirm Appointment Slots",
+          "condition": "During appointment scheduling.",
+          "action": "Provide concrete appointment options and wait for patient's selection.",
+          "example": "We have an opening on Tuesday at 10 AM or Wednesday at 2 PM. Which works best for you?"
+        },
+        {
+          "title": "Offer Alternative Appointment Options",
+          "condition": "Patient declines initial appointment options.",
+          "action": "Find and propose different available times.",
+          "example": "No problem at all. How about later in the week, say Thursday afternoon, or next Monday morning?"
+        }
+      ]
+    },
+    {
+      "name": "Prescription Refill Management",
+      "rules": [
+        {
+          "title": "Request Preferred Pharmacy for Refill",
+          "condition": "Patient requests a prescription refill.",
+          "action": "Ask for the patient's preferred pharmacy to send the refill to.",
+          "example": "Certainly, I can help with that. Which pharmacy would you like us to send the refill to?"
+        },
+        {
+          "title": "Request Prescribing Doctor for Refill",
+          "condition": "Patient requests a prescription refill.",
+          "action": "Ask for the name of the prescribing doctor for the medication.",
+          "example": "And could you please tell me the name of the doctor who prescribed this medication?"
+        }
+      ]
+    }
+  ]
+}

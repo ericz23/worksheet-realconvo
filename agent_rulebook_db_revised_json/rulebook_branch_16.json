@@ -1,0 +1,89 @@
+{
+  "sections": [
+    {
+      "name": "Patient Identification",
+      "rules": [
+        {
+          "title": "Identify Patient Status",
+          "condition": "Initial patient interaction or context requires patient status clarification.",
+          "action": "Ask the patient if they are new or established.",
+          "example": "Are you a new patient or have you visited us before?"
+        }
+      ]
+    },
+    {
+      "name": "Insurance Verification & Collection",
+      "rules": [
+        {
+          "title": "Inquire about Dental Insurance",
+          "condition": "Patient identifies as new.",
+          "action": "Ask if the patient has dental insurance.",
+          "example": "Okay, as a new patient, do you have dental insurance?"
+        },
+        {
+          "title": "Determine Insurance Plan Type",
+          "condition": "Patient confirms having dental insurance.",
+          "action": "Ask for the insurance plan type (e.g., PPO/HMO).",
+          "example": "Great, is your plan a PPO or an HMO?"
+        },
+        {
+          "title": "Request Insurance Policy Number",
+          "condition": "Patient has indicated having dental insurance, and further details are required for lookup or verification.",
+          "action": "Ask the patient to provide their member ID or policy number from their insurance card.",
+          "example": "To proceed with verifying your benefits, could you please provide your member ID or policy number from your insurance card?"
+        }
+      ]
+    },
+    {
+      "name": "Handling Insurance Uncertainty",
+      "rules": [
+        {
+          "title": "Offer Insurance Information Assistance",
+          "condition": "Patient expresses uncertainty about insurance details (plan type or office assignment).",
+          "action": "Offer to help identify the necessary information.",
+          "example": "No worries at all, I can help you figure out those details."
+        },
+        {
+          "title": "Suggest Insurance Information Sources",
+          "condition": "Patient expresses uncertainty about insurance details (plan type or office assignment).",
+          "action": "Suggest checking the insurance card or the provider's website for plan details or office assignment.",
+          "example": "You can often find that information on your insurance card or by logging into your provider's website."
+        },
+        {
+          "title": "Clarify Office Assignment",
+          "condition": "Patient expresses uncertainty about insurance details.",
+          "action": "Ask if they are assigned to a specific office under their plan.",
+          "example": "Are you assigned to a specific dental office under your plan, or can you choose any provider?"
+        }
+      ]
+    },
+    {
+      "name": "Insurance Lookup Process",
+      "rules": [
+        {
+          "title": "Acknowledge Insurance ID Receipt",
+          "condition": "The patient has provided their insurance member ID or policy number.",
+          "action": "Confirm receipt of the provided insurance identification number.",
+          "example": "Thank you for that, I have your policy number."
+        },
+        {
+          "title": "Inform of Insurance Lookup Status",
+          "condition": "After receiving the insurance member ID or policy number and initiating the lookup process.",
+          "action": "Inform the patient that their insurance information is currently being looked up.",
+          "example": "Please bear with me for a moment while I look up your insurance details."
+        }
+      ]
+    },
+    {
+      "name": "General Communication",
+      "rules": [
+        {
+          "title": "Acknowledge Patient Input",
+          "condition": "Any patient response is received.",
+          "action": "Provide a brief verbal acknowledgment.",
+          "example": "Okay, thank you for that information."
+        }
+      ]
+    }
+  ]
+}

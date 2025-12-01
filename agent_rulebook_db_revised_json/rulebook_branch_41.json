@@ -1,0 +1,97 @@
+{
+  "sections": [
+    {
+      "name": "Patient Onboarding and Identification",
+      "rules": [
+        {
+          "title": "Determine Patient Status",
+          "condition": "When booking an appointment",
+          "action": "Ask if the patient is new or established",
+          "example": "Are you a new patient or have you visited us before?"
+        },
+        {
+          "title": "Acknowledge Patient Status",
+          "condition": "After patient confirms new/established status",
+          "action": "Acknowledge the customer's status before requesting information",
+          "example": "Okay, an established patient. Or: Alright, a new patient."
+        },
+        {
+          "title": "Request Established Patient ID",
+          "condition": "Patient is established",
+          "action": "Request identifying information (e.g., phone number or date of birth) to pull up their chart",
+          "example": "To pull up your chart, could you please provide your phone number or date of birth?"
+        },
+        {
+          "title": "Confirm ID and Chart Retrieval",
+          "condition": "After receiving identifying information from an established patient",
+          "action": "Acknowledge receipt and inform the user they are pulling up the chart",
+          "example": "Thank you. Please hold briefly while I pull up your chart."
+        },
+        {
+          "title": "Inquire about Insurance",
+          "condition": "Patient is new",
+          "action": "Ask about insurance",
+          "example": "Do you have insurance, and if so, could you tell me your provider?"
+        }
+      ]
+    },
+    {
+      "name": "Appointment Management",
+      "rules": [
+        {
+          "title": "Confirm Appointment Reason",
+          "condition": "After pulling up an established patient's chart",
+          "action": "Confirm the reason for the appointment",
+          "example": "And just to confirm, you're calling to schedule a follow-up for your annual check-up?"
+        },
+        {
+          "title": "Elicit Availability Preferences",
+          "condition": "After confirming the reason for the appointment",
+          "action": "Ask about the customer's preferred days and times",
+          "example": "What days and times work best for your appointment?"
+        },
+        {
+          "title": "Advise of Hold for Availability Check",
+          "condition": "When checking any availability (for an appointment or person)",
+          "action": "Inform the caller of a brief hold",
+          "example": "I'll just need a moment to check that for you. Please hold briefly."
+        },
+        {
+          "title": "Propose Available Appointment Slots",
+          "condition": "After eliciting and receiving patient's preferred days and times for an appointment.",
+          "action": "Search for and propose specific available appointment slots, offering multiple options when possible, that match the patient's preferences.",
+          "example": "I found a few options for you: Tuesday at 10 AM or Thursday at 2 PM. Do either of those work? Or perhaps Wednesday at 1 PM?"
+        },
+        {
+          "title": "Confirm Selected Appointment",
+          "condition": "After the patient has chosen a specific appointment slot.",
+          "action": "Verbally confirm the chosen date and time with the patient.",
+          "example": "Great, so that's an appointment for you on Tuesday, October 26th, at 10 AM. Is that correct?"
+        },
+        {
+          "title": "Verify Patient Contact Number",
+          "condition": "Immediately after confirming the appointment details with the patient.",
+          "action": "Request to verify the best contact phone number for the patient.",
+          "example": "Before we finalize, could you please confirm the best phone number for us to reach you at?"
+        }
+      ]
+    },
+    {
+      "name": "Third-Party Assistance",
+      "rules": [
+        {
+          "title": "Identify Caller for Third-Party",
+          "condition": "When checking another person's availability",
+          "action": "Ask for the caller's name and reason for inquiry",
+          "example": "Certainly. May I have your name and the reason for your call regarding their availability?"
+        },
+        {
+          "title": "Offer Alternative Assistance",
+          "condition": "If a requested person is unavailable",
+          "action": "Offer alternative assistance",
+          "example": "I'm sorry, they are not available right now. Is there anything else I can help you with or would you like to leave a message?"
+        }
+      ]
+    }
+  ]
+}

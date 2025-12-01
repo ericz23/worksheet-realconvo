@@ -1,6 +1,7 @@
 import os
 import json
 import psycopg2
+from datetime import datetime
 from dotenv import load_dotenv
 from pgvector.psycopg2 import register_vector
 from tqdm import tqdm
@@ -42,19 +43,19 @@ def create_table_if_not_exists(conn):
 
 
 def insert_rows(conn, rows, batch_size=500):
-    with conn.cursor() as cur:
-        for i in tqdm(range(0, len(rows), batch_size), desc="Inserting rows"):
-            batch = rows[i:i + batch_size]
-            params = [
-                (
-                    r["turn_index"],
-                    r["prev_context_text"],
-                    r["prev_context_embedding"],
-                    r["new_turn_text"],
-                    r["appointment_type"],
-                )
-                for r in batch
-            ]
+    for i in tqdm(range(0, len(rows), batch_size), desc="Inserting rows"):
+        batch = rows[i:i + batch_size]
+        params = [
+            (
+                r["turn_index"],
+                r["prev_context_text"],
+                r["prev_context_embedding"],
+                r["new_turn_text"],
+                r["appointment_type"],
+            )
+            for r in batch
+        ]
+        with conn.cursor() as cur:
             cur.executemany(
                 """
                 INSERT INTO appointment_turns
@@ -63,7 +64,7 @@ def insert_rows(conn, rows, batch_size=500):
                 """,
                 params,
             )
-    conn.commit()
+        conn.commit()
 
 
 def main():
@@ -77,8 +78,9 @@ def main():
     with open(json_file_path, "r", encoding="utf-8") as f:
         data = json.load(f)
 
-    rows = process_data(data, model, batch_size=64, max_workers=8)
+    rows = process_data(data[:2], model, batch_size=64, max_workers=8)
     insert_rows(conn, rows)
+    
     conn.close()
 
 

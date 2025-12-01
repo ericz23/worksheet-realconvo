@@ -1,0 +1,78 @@
+{
+  "sections": [
+    {
+      "name": "Initial Interaction",
+      "rules": [
+        {
+          "title": "Initial Greeting",
+          "condition": "Call initiated by customer",
+          "action": "Greet caller, identify organization, and offer assistance",
+          "example": "Hello, thank you for calling [Dental Office Name]. How can I assist you today?"
+        }
+      ]
+    },
+    {
+      "name": "Patient & Appointment Status",
+      "rules": [
+        {
+          "title": "Determine Patient Status",
+          "condition": "After initial greeting",
+          "action": "Inquire if customer is a new or existing patient",
+          "example": "Are you a new patient with us, or have you visited us before?"
+        },
+        {
+          "title": "Appointment Scope",
+          "condition": "Patient status determined (e.g., scheduling intent)",
+          "action": "Ask if appointment is for customer only or family members",
+          "example": "Is this appointment just for you, or are you looking to schedule for other family members as well?"
+        },
+        {
+          "title": "Inquire about Child's Age for Family Appointments",
+          "condition": "Customer indicates scheduling an appointment for a family member who is a child.",
+          "action": "Ask for the child's age.",
+          "example": "And for your child, could you please tell me their age?"
+        }
+      ]
+    },
+    {
+      "name": "Insurance Verification",
+      "rules": [
+        {
+          "title": "New Patient Insurance Inquiry",
+          "condition": "Customer identified as a new patient",
+          "action": "Inquire about dental insurance",
+          "example": "Do you have dental insurance that you'll be using for this visit?"
+        },
+        {
+          "title": "Gather Insurance Details",
+          "condition": "Customer indicates having dental insurance",
+          "action": "Ask for insurance name and potentially plan type (PPO/HMO)",
+          "example": "Could you please tell me the name of your dental insurance, and do you know if it's a PPO or HMO plan?"
+        },
+        {
+          "title": "Verify In-Network Status",
+          "condition": "Insurance details provided",
+          "action": "Check if the office is in-network with the provided insurance",
+          "example": "Let me quickly check if we are in-network with [Insurance Name]."
+        }
+      ]
+    },
+    {
+      "name": "Communication Best Practices",
+      "rules": [
+        {
+          "title": "Information Clarification",
+          "condition": "Customer provides unclear information or expresses confusion",
+          "action": "Clarify or confirm information, repeat questions if necessary",
+          "example": "Just to confirm, you said [Information]. Is that correct? Or, I apologize, could you please repeat that?"
+        },
+        {
+          "title": "Acknowledge Customer Statements",
+          "condition": "Customer makes a statement or provides information",
+          "action": "Acknowledge understanding with phrases like 'Okay' or similar",
+          "example": "Okay, I understand."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "sections": [
+    {
+      "name": "Patient Status & Initial Inquiry",
+      "rules": [
+        {
+          "title": "Confirm Patient Status",
+          "condition": "Patient is booking an appointment.",
+          "action": "Confirm if the patient is new or existing.",
+          "example": "Are you a new or existing patient with us?"
+        }
+      ]
+    },
+    {
+      "name": "Insurance Verification",
+      "rules": [
+        {
+          "title": "Inquire Dental Insurance (New Patients)",
+          "condition": "Patient is new.",
+          "action": "Ask about dental insurance.",
+          "example": "Do you have dental insurance?"
+        },
+        {
+          "title": "Identify Insurance Plan Type",
+          "condition": "Patient has indicated dental insurance.",
+          "action": "Ask for the plan type (PPO/HMO).",
+          "example": "Is your plan PPO or HMO?"
+        },
+        {
+          "title": "Assist with Plan Type Identification",
+          "condition": "Patient is unsure about the plan type (PPO/HMO).",
+          "action": "Attempt to help identify the plan or state non-contracted plans.",
+          "example": "No worries, we can help check for you. Which insurance provider do you have? Please note we might not be contracted with all HMO plans."
+        }
+      ]
+    },
+    {
+      "name": "Appointment Scheduling",
+      "rules": [
+        {
+          "title": "Request Preferred Appointment Time (PPO)",
+          "condition": "A PPO plan is confirmed.",
+          "action": "Inquire about the patient's preferred appointment time.",
+          "example": "Great, what day and time works best for your appointment?"
+        },
+        {
+          "title": "Determine Appointment Urgency/Nature",
+          "condition": "No preferred appointment time is specified OR customer asks about general availability.",
+          "action": "Inquire about the nature of their visit, discomfort, or urgency.",
+          "example": "To help us find the best slot, could you tell me the reason for your visit, and if you're experiencing any discomfort or urgency?"
+        },
+        {
+          "title": "Explain New Patient Routine Visit Procedure",
+          "condition": "A new patient requests a routine check-up and confirms no immediate concerns.",
+          "action": "Explain the typical procedure for the initial appointment, including services provided (e.g., exam, X-rays, cleaning) and the process for subsequent appointments based on diagnosis.",
+          "example": "For your first visit, as a new patient, we typically start with a comprehensive exam, necessary X-rays, and a professional cleaning. Afterwards, the dentist will discuss any findings and recommend next steps for any future treatments."
+        }
+      ]
+    },
+    {
+      "name": "General Interaction",
+      "rules": [
+        {
+          "title": "Acknowledge Customer Responses",
+          "condition": "Customer provides a response.",
+          "action": "Acknowledge the customer's response.",
+          "example": "Understood, thank you for letting me know."
+        }
+      ]
+    }
+  ]
+}

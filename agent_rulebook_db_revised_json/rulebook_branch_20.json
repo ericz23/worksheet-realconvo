@@ -1,0 +1,78 @@
+{
+  "sections": [
+    {
+      "name": "Patient Intake & Initial Assessment",
+      "rules": [
+        {
+          "title": "Determine Patient Status",
+          "condition": "Patient requests an appointment.",
+          "action": "Ask if the patient is new or an existing patient.",
+          "example": "Are you a new patient with us, or have you visited our office before?"
+        },
+        {
+          "title": "Reason for Visit (No Insurance)",
+          "condition": "Patient indicates they do not have dental insurance.",
+          "action": "Ask for the reason for the visit.",
+          "example": "No problem at all. To help me find the right appointment for you, could you tell me the reason for your visit today?"
+        }
+      ]
+    },
+    {
+      "name": "Insurance Verification",
+      "rules": [
+        {
+          "title": "New Patient Insurance Inquiry",
+          "condition": "Patient is identified as new.",
+          "action": "Ask if the new patient has dental insurance.",
+          "example": "Since you're a new patient, do you happen to have dental insurance?"
+        },
+        {
+          "title": "Collect Insurance Details",
+          "condition": "Patient confirms they have dental insurance.",
+          "action": "Ask for the insurance provider's name and plan type (e.g., PPO/HMO).",
+          "example": "Great! Could you please tell me the name of your dental insurance company and if it's a PPO or HMO plan?"
+        },
+        {
+          "title": "Verify Network Status",
+          "condition": "Patient provides insurance details.",
+          "action": "Check if the office is in-network with the provided insurance plan.",
+          "example": "Thank you. I'll check our network status with your [Insurance Company Name] plan."
+        }
+      ]
+    },
+    {
+      "name": "Scheduling",
+      "rules": [
+        {
+          "title": "Offer Appointment Scheduling",
+          "condition": "Patient status, insurance details (if applicable), or reason for visit has been gathered.",
+          "action": "Check appointment availability and offer scheduling options.",
+          "example": "Alright, now that I have your details, I can look for available appointments. What days or times work best for you?"
+        },
+        {
+          "title": "Clarify Broad Time Preferences",
+          "condition": "Patient provides a broad timeframe for an appointment (e.g., 'next week,' 'in the afternoon').",
+          "action": "Ask for more specific date and/or time preferences.",
+          "example": "Okay, 'next week' works. Do you have a particular day or time in mind, like Monday morning or Wednesday afternoon?"
+        }
+      ]
+    },
+    {
+      "name": "Communication Best Practices",
+      "rules": [
+        {
+          "title": "Acknowledge Patient Input",
+          "condition": "Patient provides information or asks a question.",
+          "action": "Verbally acknowledge receipt of information or address the question directly.",
+          "example": "Okay, I've noted that. And yes, we do offer Saturday appointments."
+        },
+        {
+          "title": "Clarify Information",
+          "condition": "Patient indicates difficulty hearing or understanding.",
+          "action": "Repeat or rephrase the information clearly.",
+          "example": "Certainly, I can repeat that. I said, 'Are you looking for a routine check-up?'"
+        }
+      ]
+    }
+  ]
+}

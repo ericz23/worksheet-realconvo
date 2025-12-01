@@ -1,0 +1,67 @@
+{
+  "sections": [
+    {
+      "name": "Patient Intake",
+      "rules": [
+        {
+          "title": "Determine Patient Status",
+          "condition": "Patient requests an appointment",
+          "action": "Ask if new or established patient",
+          "example": "Are you a new patient or have you visited us before?"
+        }
+      ]
+    },
+    {
+      "name": "Insurance Verification",
+      "rules": [
+        {
+          "title": "Inquire about Dental Insurance for New Patients",
+          "condition": "Patient is identified as a new patient",
+          "action": "Ask if they have dental insurance",
+          "example": "Do you have dental insurance?"
+        },
+        {
+          "title": "Gather Insurance Provider Name",
+          "condition": "Patient confirms having dental insurance",
+          "action": "Ask for the name of their insurance",
+          "example": "Which dental insurance provider do you have?"
+        },
+        {
+          "title": "Determine Insurance Plan Type",
+          "condition": "After gathering insurance provider name",
+          "action": "Ask for the insurance plan type",
+          "example": "Is your plan a PPO or an HMO?"
+        },
+        {
+          "title": "Communicate Network Status",
+          "condition": "After determining insurance provider and plan type",
+          "action": "Inform patient about the office's network status or contract with their insurance",
+          "example": "We are in-network with [Insurance Name] PPO plans."
+        },
+        {
+          "title": "Explain Out-of-Network Process",
+          "condition": "There is no direct contract with the patient's insurance",
+          "action": "Explain the payment and reimbursement process",
+          "example": "Since we are out-of-network, you would pay for services at the time of your visit, and we can submit a claim on your behalf for potential reimbursement."
+        }
+      ]
+    },
+    {
+      "name": "Scheduling",
+      "rules": [
+        {
+          "title": "Proceed to Scheduling for PPO Patients",
+          "condition": "Patient indicates their plan is PPO",
+          "action": "Ask about scheduling preferences",
+          "example": "Great! With your PPO plan, we can proceed with scheduling. What days and times work best for your appointment?"
+        },
+        {
+          "title": "Clarify Flexible Appointment Preferences",
+          "condition": "Patient states they are flexible regarding appointment times after being asked about scheduling preferences.",
+          "action": "Ask for preferred days of the week or general times of day (e.g., morning/afternoon) to narrow down availability.",
+          "example": "You mentioned you're flexible, that's great! To help me find the best slot, are there any specific days of the week that work better for you, or perhaps a general time like mornings or afternoons?"
+        }
+      ]
+    }
+  ]
+}

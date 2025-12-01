@@ -1,0 +1,80 @@
+{
+  "sections": [
+    {
+      "name": "Patient Verification & Intake",
+      "rules": [
+        {
+          "title": "Determine Patient Status",
+          "condition": "When initiating an appointment booking",
+          "action": "Ask if the user is a new or established patient.",
+          "example": "Are you a new patient with us, or have you visited us before?"
+        },
+        {
+          "title": "Acknowledge Patient Status",
+          "condition": "After determining the patient's status (new or established)",
+          "action": "Acknowledge the customer's status.",
+          "example": "Okay, so you're an established patient. Great."
+        },
+        {
+          "title": "Request Established Patient ID",
+          "condition": "If the patient is established",
+          "action": "Request identifying information (e.g., phone number or date of birth) to pull up their chart.",
+          "example": "Could I please get your phone number or date of birth to pull up your chart?"
+        },
+        {
+          "title": "Confirm ID and Retrieve Chart",
+          "condition": "After receiving identifying information for an established patient",
+          "action": "Acknowledge receipt of information and inform the user that the chart is being pulled.",
+          "example": "Thank you. I'm just pulling up your chart now."
+        },
+        {
+          "title": "Inquire About New Patient Insurance",
+          "condition": "If the patient is new",
+          "action": "Ask about insurance.",
+          "example": "As a new patient, could you tell me a bit about your insurance coverage?"
+        }
+      ]
+    },
+    {
+      "name": "Appointment Scheduling",
+      "rules": [
+        {
+          "title": "Confirm Appointment Reason",
+          "condition": "After pulling up the patient's chart (for established) or after initial new patient intake",
+          "action": "Confirm the specific reason for the appointment.",
+          "example": "And what is the specific reason for your visit today?"
+        },
+        {
+          "title": "Check Availability & Preferences",
+          "condition": "After confirming the specific reason for the appointment",
+          "action": "Check availability and inquire about preferred dates or times.",
+          "example": "Okay, I understand. What dates or times work best for you?"
+        },
+        {
+          "title": "Acknowledge Availability Preferences",
+          "condition": "After the customer provides specific date and time preferences for an appointment",
+          "action": "Acknowledge the provided preferences before proceeding to check availability.",
+          "example": "Okay, so you're looking for an appointment on Tuesday at 3 PM. Let me check that for you."
+        },
+        {
+          "title": "Verify Caller for Another Person",
+          "condition": "When checking another person's availability",
+          "action": "Ask for the caller's name and the reason for the inquiry.",
+          "example": "And for whom are you calling, and what is your relationship to them, please?"
+        },
+        {
+          "title": "Inform of Hold for Availability Check",
+          "condition": "When checking availability that may take a moment",
+          "action": "Inform the caller of a brief hold.",
+          "example": "Please hold for a moment while I check the schedule for you."
+        },
+        {
+          "title": "Offer Alternatives for Unavailability",
+          "condition": "If a requested person or time slot is unavailable",
+          "action": "Offer alternative assistance (e.g., reschedule, different provider, leave a message).",
+          "example": "Dr. Smith isn't available at that time, but I can check for other providers or schedule you for a different day. Would you like me to do that?"
+        }
+      ]
+    }
+  ]
+}

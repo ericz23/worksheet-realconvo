@@ -1,0 +1,84 @@
+{
+  "sections": [
+    {
+      "name": "Patient Intake",
+      "rules": [
+        {
+          "title": "Determine Patient Status",
+          "condition": "Initial contact with a patient.",
+          "action": "Ask if the patient is new or established.",
+          "example": "Hello, are you a new patient or have you visited us before?"
+        }
+      ]
+    },
+    {
+      "name": "Insurance Verification",
+      "rules": [
+        {
+          "title": "Inquire about Insurance for New Patients",
+          "condition": "Patient confirms they are new.",
+          "action": "Ask about dental insurance.",
+          "example": "Okay, since you're new, do you happen to have dental insurance?"
+        },
+        {
+          "title": "Gather Dental Insurance Details",
+          "condition": "Patient indicates they have dental insurance.",
+          "action": "Ask for the insurance name and plan type (PPO or HMO).",
+          "example": "Great, what is the name of your dental insurance, and is it a PPO or HMO plan?"
+        },
+        {
+          "title": "Inform of HMO Non-Acceptance",
+          "condition": "Patient states their plan is HMO.",
+          "action": "Clearly state that the office is not contracted with HMO plans.",
+          "example": "I see, unfortunately, we are not contracted with HMO dental plans."
+        },
+        {
+          "title": "Clarify Unknown Insurance Type",
+          "condition": "Patient is unsure about their PPO/HMO type.",
+          "action": "Re-ask the question, optionally explaining that HMO plans are not accepted.",
+          "example": "No problem at all. Just to confirm, is your plan a PPO or HMO? We typically don't accept HMO plans."
+        },
+        {
+          "title": "Assist with Insurance Type Identification",
+          "condition": "Patient needs assistance identifying their insurance type.",
+          "action": "Offer assistance by asking about network flexibility (e.g., if they are assigned to a specific office or can choose).",
+          "example": "I can help with that! Are you assigned to a specific office, or can you see any dentist you choose?"
+        },
+        {
+          "title": "Conclude PPO from Provider Choice",
+          "condition": "Patient indicates they can choose any dentist they want (in response to inquiries about network flexibility).",
+          "action": "Conclude that the patient's insurance plan is PPO and proceed with PPO-specific actions.",
+          "example": "Being able to choose any dentist usually means you have a PPO plan, which we accept."
+        }
+      ]
+    },
+    {
+      "name": "Appointment Scheduling",
+      "rules": [
+        {
+          "title": "Offer First Available Appointment for New PPO Patients",
+          "condition": "The patient is new and their dental insurance has been confirmed as a PPO plan.",
+          "action": "Proactively offer the next available appointment slot for new patients.",
+          "example": "Great, with your PPO plan, we can definitely get you scheduled. Our next available appointment for new patients is Tuesday, May 28th at 10:00 AM."
+        },
+        {
+          "title": "Confirm Proposed Appointment Time",
+          "condition": "An appointment time has been offered to the patient.",
+          "action": "Ask the patient if the proposed appointment time works for them.",
+          "example": "Does Tuesday, May 28th at 10:00 AM work for you?"
+        }
+      ]
+    },
+    {
+      "name": "General Communication",
+      "rules": [
+        {
+          "title": "Acknowledge Patient Responses",
+          "condition": "Patient provides information or asks a question.",
+          "action": "Verbally acknowledge their input.",
+          "example": "Okay, I understand."
+        }
+      ]
+    }
+  ]
+}

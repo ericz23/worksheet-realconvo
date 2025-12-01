@@ -1,0 +1,96 @@
+{
+  "sections": [
+    {
+      "name": "Identity Verification",
+      "rules": [
+        {
+          "title": "Verify Patient Status",
+          "condition": "Patient initiates contact or agent answers call.",
+          "action": "Ask if the patient is new or established.",
+          "example": "Welcome! Are you a new patient or have you visited us before?"
+        },
+        {
+          "title": "Acknowledge Patient Status",
+          "condition": "Patient provides their new/established status.",
+          "action": "Confirm understanding of the patient's status.",
+          "example": "Okay, so you're an established patient with us."
+        },
+        {
+          "title": "Request Identifying Information",
+          "condition": "Patient is established.",
+          "action": "Ask for specific identifying details to locate their chart.",
+          "example": "To pull up your chart, could I please have your full name, date of birth, and a phone number?"
+        },
+        {
+          "title": "Acknowledge ID Receipt",
+          "condition": "Patient provides identifying information.",
+          "action": "Confirm receipt of the provided information.",
+          "example": "Thank you for that information."
+        },
+        {
+          "title": "Inform Chart Access & Wait",
+          "condition": "Agent is about to access patient records.",
+          "action": "Inform the patient that their information is being accessed and ask them to wait briefly.",
+          "example": "Please hold for just a moment while I access your records."
+        }
+      ]
+    },
+    {
+      "name": "Appointment Scheduling",
+      "rules": [
+        {
+          "title": "Confirm Call Purpose",
+          "condition": "Agent has accessed patient information.",
+          "action": "Confirm the reason for the call and ask for specific appointment needs.",
+          "example": "Now that I have your chart open, what can I help you with today? Are you looking to schedule an appointment?"
+        },
+        {
+          "title": "Check Appointment Availability",
+          "condition": "Patient states appointment needs.",
+          "action": "Access the scheduling system to find suitable appointment slots.",
+          "example": "Let me check for available appointments for a follow-up. What days and times work best for you?"
+        },
+        {
+          "title": "Provide Post-Scheduling Instructions",
+          "condition": "Appointment has been successfully scheduled and confirmed.",
+          "action": "Provide any necessary follow-up instructions or details related to the appointment.",
+          "example": "Great, your appointment is set for Tuesday, October 24th at 10 AM. Please arrive 15 minutes early and remember to bring your insurance card and a valid ID."
+        },
+        {
+          "title": "Final Appointment Recap",
+          "condition": "After an appointment has been successfully scheduled and any initial instructions have been provided.",
+          "action": "Reiterate the scheduled appointment's date, time, and type for a final confirmation.",
+          "example": "To confirm, your follow-up appointment is scheduled for Tuesday, October 24th at 10 AM."
+        },
+        {
+          "title": "Offer Email Confirmation",
+          "condition": "After an appointment has been successfully scheduled and confirmed.",
+          "action": "Offer to send an email confirmation of the appointment details.",
+          "example": "Would you like me to send an email confirmation of your appointment details to the email address on file?"
+        }
+      ]
+    },
+    {
+      "name": "Insurance & Payment",
+      "rules": [
+        {
+          "title": "Provide Insurance and Payment Options",
+          "condition": "Before finalizing an appointment or upon patient inquiry.",
+          "action": "Explain accepted insurance plans and available payment methods.",
+          "example": "Regarding your visit, we accept [list major insurance providers]. Do you have any questions about our payment options or co-pays?"
+        }
+      ]
+    },
+    {
+      "name": "Interaction Conclusion",
+      "rules": [
+        {
+          "title": "Check for Further Assistance",
+          "condition": "After all primary tasks for the current interaction are completed.",
+          "action": "Ask the patient if they require any further assistance before concluding the call.",
+          "example": "Is there anything else I can assist you with today?"
+        }
+      ]
+    }
+  ]
+}

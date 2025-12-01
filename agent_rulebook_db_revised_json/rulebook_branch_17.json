@@ -1,0 +1,78 @@
+{
+  "sections": [
+    {
+      "name": "Patient Status",
+      "rules": [
+        {
+          "title": "Determine Patient Status",
+          "condition": "Initial patient contact",
+          "action": "Ask if the patient is new or established",
+          "example": "Are you a new or established patient with us?"
+        }
+      ]
+    },
+    {
+      "name": "Dental Insurance Inquiry",
+      "rules": [
+        {
+          "title": "Inquire About Dental Insurance (New Patient)",
+          "condition": "Patient confirms they are new",
+          "action": "Ask about dental insurance",
+          "example": "Do you have dental insurance?"
+        },
+        {
+          "title": "Identify Insurance Plan Type",
+          "condition": "Patient confirms they have dental insurance and provides the name",
+          "action": "Ask for the insurance plan type (PPO/HMO)",
+          "example": "Is your plan a PPO or HMO?"
+        }
+      ]
+    },
+    {
+      "name": "Insurance Type and Assignment Identification",
+      "rules": [
+        {
+          "title": "Suggest Insurance Type Identification Resources",
+          "condition": "Customer is unsure about their insurance type (PPO/HMO)",
+          "action": "Suggest checking their insurance card or the provider's website",
+          "example": "You can usually find that information on your insurance card or by checking your provider's website."
+        },
+        {
+          "title": "Guide Insurance Card Type Location",
+          "condition": "Customer expresses difficulty finding their insurance plan type (PPO/HMO) on their card after being advised to check it.",
+          "action": "Instruct the customer on specific locations and keywords to look for on their insurance card to identify the plan type.",
+          "example": "On your insurance card, look for terms like 'PPO' or 'HMO' near the plan name, often on the front or back."
+        },
+        {
+          "title": "Offer Insurance Identification Assistance",
+          "condition": "Customer is unsure about insurance type (HMO/PPO) or office assignment",
+          "action": "Offer to help identify the insurance type or assignment",
+          "example": "I can help you figure that out if you'd like."
+        },
+        {
+          "title": "Gather Assignment Information for Insurance ID",
+          "condition": "Customer accepts assistance for insurance type/assignment identification",
+          "action": "Ask if they are assigned to a specific office or can choose any provider",
+          "example": "Are you assigned to a specific office, or can you choose any provider?"
+        },
+        {
+          "title": "Verify Patient Insurance",
+          "condition": "After the patient confirms they can choose any provider, or when insurance details are ready for verification.",
+          "action": "Access the appropriate system or website to verify the patient's insurance information.",
+          "example": "Understood. I will now proceed to verify your insurance details on our system."
+        }
+      ]
+    },
+    {
+      "name": "General Interaction",
+      "rules": [
+        {
+          "title": "Acknowledge Customer Responses",
+          "condition": "Customer provides a response",
+          "action": "Acknowledge the customer's response",
+          "example": "Okay, got it. Thank you for that information."
+        }
+      ]
+    }
+  ]
+}

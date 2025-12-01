@@ -1,0 +1,101 @@
+{
+  "sections": [
+    {
+      "name": "Initial Call Handling",
+      "rules": [
+        {
+          "title": "Initial Call Greeting",
+          "condition": "Call is answered",
+          "action": "Acknowledge call, thank caller, ask how to assist",
+          "example": "Hello, thank you for calling [Clinic Name]. How may I help you today?"
+        }
+      ]
+    },
+    {
+      "name": "Staff Member Requests",
+      "rules": [
+        {
+          "title": "Specific Staff Request",
+          "condition": "Caller asks for a specific staff member",
+          "action": "Ask for staff member's name and purpose, inform of brief hold to check availability",
+          "example": "Certainly. May I ask who you're trying to reach and the purpose of your call? I'll just check their availability for you, which may take a moment."
+        }
+      ]
+    },
+    {
+      "name": "Patient Identification",
+      "rules": [
+        {
+          "title": "Determine Patient Status",
+          "condition": "Caller requests to book an appointment",
+          "action": "Ask if the patient is new or established",
+          "example": "Are you a new patient with us, or have you been seen here before?"
+        },
+        {
+          "title": "Identify Established Patient",
+          "condition": "Caller identifies as an established patient",
+          "action": "Acknowledge status, request phone number or date of birth to locate chart",
+          "example": "Okay, great. To pull up your chart, could I please have your phone number or date of birth?"
+        },
+        {
+          "title": "Chart Retrieval Notification",
+          "condition": "Patient identification (phone number/DOB) received for an established patient",
+          "action": "Inform customer chart will be pulled up, mention brief hold",
+          "example": "Thank you. I'll just pull up your chart now. This may take a moment, so I might place you on a brief hold."
+        }
+      ]
+    },
+    {
+      "name": "New Patient Intake & Insurance",
+      "rules": [
+        {
+          "title": "New Patient Insurance Inquiry",
+          "condition": "Caller identifies as a new patient",
+          "action": "Check availability, inquire about insurance, ask for provider's name if applicable",
+          "example": "Alright, for new patients, we'll need to check availability and also verify your insurance. Do you have insurance you'll be using today? If so, could you tell me your provider's name?"
+        }
+      ]
+    },
+    {
+      "name": "Appointment Scheduling",
+      "rules": [
+        {
+          "title": "Ascertain Appointment Type",
+          "condition": "Patient type determined and chart retrieved (if established)",
+          "action": "Ask for the specific type of appointment needed",
+          "example": "Now that we have your information, what kind of appointment are you looking to schedule today?"
+        },
+        {
+          "title": "Long Absence Re-evaluation",
+          "condition": "Established patient returning after a long absence, and appointment type is being discussed",
+          "action": "Suggest a re-evaluation type of exam",
+          "example": "Since it's been a while, we might recommend a re-evaluation exam to ensure we address any new concerns."
+        },
+        {
+          "title": "Preferred Date/Time",
+          "condition": "Appointment type has been specified",
+          "action": "Inquire about preferred dates or times",
+          "example": "Okay, and do you have any preferred dates or times that work best for you?"
+        },
+        {
+          "title": "Confirm Preferred Date/Time",
+          "condition": "Patient provides preferred dates or times for an appointment",
+          "action": "Acknowledge and confirm the patient's stated date and time preferences to ensure accuracy.",
+          "example": "You're looking for an appointment on Tuesday afternoons, correct?"
+        },
+        {
+          "title": "Check Appointment Availability",
+          "condition": "Patient's preferred dates/times have been acknowledged and confirmed",
+          "action": "Inform the patient that you are checking the scheduling system for available slots based on their preferences.",
+          "example": "Okay, let me check our schedule now for Tuesday afternoons."
+        },
+        {
+          "title": "Offer Available Appointment Slots",
+          "condition": "Appointment availability has been checked based on patient preferences",
+          "action": "Present the patient with available appointment slots, explicitly stating the exact date and time for each option.",
+          "example": "I have an opening on Tuesday, November 7th at 10:00 AM, or Wednesday, November 8th at 2:30 PM. Do either of those work for you?"
+        }
+      ]
+    }
+  ]
+}

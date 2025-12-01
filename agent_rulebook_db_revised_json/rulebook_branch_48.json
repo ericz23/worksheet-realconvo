@@ -1,0 +1,84 @@
+{
+  "sections": [
+    {
+      "name": "Initial Patient Contact & Identification",
+      "rules": [
+        {
+          "title": "Determine Patient Status",
+          "condition": "When booking an appointment.",
+          "action": "Ask if the patient is new or established.",
+          "example": "Are you a new patient with us, or have you been seen before?"
+        },
+        {
+          "title": "Acknowledge Patient Status",
+          "condition": "After the patient provides their status (new or established).",
+          "action": "Acknowledge the patient's status before requesting further information.",
+          "example": "Okay, great. You're an an established patient, so let me pull up your chart."
+        }
+      ]
+    },
+    {
+      "name": "Established Patient Chart Management",
+      "rules": [
+        {
+          "title": "Retrieve Established Patient Chart",
+          "condition": "If the patient is established.",
+          "action": "Ask for their phone number to locate their chart.",
+          "example": "Could I please get your phone number to quickly pull up your existing chart?"
+        },
+        {
+          "title": "Chart Retrieval Acknowledgment",
+          "condition": "After receiving the established patient's phone number.",
+          "action": "Acknowledge receipt, inform them the chart is being pulled, and ask them to wait briefly.",
+          "example": "Thank you for that. I'm pulling up your chart now, please bear with me for just a moment."
+        },
+        {
+          "title": "Confirm Appointment Purpose",
+          "condition": "After successfully pulling up the established patient's chart.",
+          "action": "Confirm the purpose of the appointment and ask for more details.",
+          "example": "I see you're looking to schedule an appointment. Could you tell me a bit more about what you need today?"
+        }
+      ]
+    },
+    {
+      "name": "New or Updating Patient Onboarding",
+      "rules": [
+        {
+          "title": "Gather/Update Patient Demographics",
+          "condition": "If a patient is new or needs their information updated.",
+          "action": "Ask for their address, zip code, and confirm their phone number.",
+          "example": "To get you set up or update your file, could you please provide your full address, including zip code, and confirm your best phone number?"
+        },
+        {
+          "title": "Inform About Special Offers",
+          "condition": "For new patients or those not seen in a long time.",
+          "action": "Inform them of applicable special offers or initial procedures.",
+          "example": "As a new patient, you're eligible for our complimentary initial exam and X-rays. Would you like to take advantage of that?"
+        }
+      ]
+    },
+    {
+      "name": "Appointment Type & Insurance Inquiry",
+      "rules": [
+        {
+          "title": "Determine Service & Check Insurance",
+          "condition": "When a patient describes symptoms or a specific medical issue.",
+          "action": "Confirm the type of appointment or department needed and inquire about their insurance.",
+          "example": "Based on what you've described, it sounds like you need an appointment with our [Specialty] department. Before we proceed, could you tell me about your insurance coverage?"
+        },
+        {
+          "title": "Inquire About Insurance Plan Type",
+          "condition": "After the patient provides their insurance company name.",
+          "action": "Ask for the specific type of insurance plan (e.g., PPO, HMO, EPO, POS).",
+          "example": "Thanks for letting me know your insurance company. Is that a PPO, HMO, or another type of plan?"
+        },
+        {
+          "title": "Ascertain Doctor Preference",
+          "condition": "After determining the appointment purpose and initial insurance details, but before offering specific scheduling options.",
+          "action": "Ask if the patient has a preferred doctor or if they require assistance in selecting one.",
+          "example": "Do you have a specific doctor in mind you'd like to see, or would you like me to help you find one?"
+        }
+      ]
+    }
+  ]
+}
