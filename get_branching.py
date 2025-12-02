@@ -36,7 +36,7 @@ def node_to_nested(node):
     }
 
 def main():
-    base_dir = "conversation_branches"
+    base_dir = "conversation_branches_ft"
     input_path = os.path.join(base_dir, "all_conversations.json")
     output_path = os.path.join(base_dir, "conversation_tree.json")
     with open(input_path, "r", encoding="utf-8") as f:
