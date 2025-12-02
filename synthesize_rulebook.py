@@ -167,8 +167,8 @@ async def process_node(node: dict, base_dir: Path, gem: genai.Client, schema: di
     return out_path
 
 async def main():
-    base_dir = Path("agent_rulebook_db_revised")
-    tree_path = Path("conversation_branches") / "conversation_tree.json"
+    base_dir = Path("agent_rulebook_ft")
+    tree_path = Path("conversation_branches_ft") / "conversation_tree.json"
     with tree_path.open("r", encoding="utf-8") as f:
         tree_nodes = json.load(f)
     gem = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
