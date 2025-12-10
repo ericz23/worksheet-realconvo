@@ -121,4 +121,4 @@ Incorrect examples (do NOT produce):
 print("\n=== Finished policy extraction ===")
 print(f"Total unique policies discovered: {len(policy_rules)}")
 
-generate_rulebook(policy_rules)
+generate_rulebook(policy_rules, output_path="agent_rulebook_v2.md")
