@@ -13,8 +13,8 @@ from policy_eval.generate_agent_rulebook import generate_rulebook
 load_dotenv()
 genai_client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 agent_model = FinetunedGeminiClient()
-NUM_INTERACTIONS = 10
-MAX_TURNS = 10
+NUM_INTERACTIONS = 25
+MAX_TURNS = 12
 
 # System prompt for the customer LLM
 base_customer_instruction = """
@@ -121,4 +121,4 @@ Incorrect examples (do NOT produce):
 print("\n=== Finished policy extraction ===")
 print(f"Total unique policies discovered: {len(policy_rules)}")
 
-generate_rulebook(policy_rules, output_path="agent_rulebook_v2.md")
+generate_rulebook(policy_rules, output_path="agent_rulebook_v3.md")
