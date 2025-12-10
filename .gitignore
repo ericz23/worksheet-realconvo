@@ -20,3 +20,11 @@ annotated/
 test_db_connection.py
 cloud-sql-proxy.exe
 visualize_conversation_tree.py
+agent_rulebook_db_new/
+agent_rulebook_db_revised/
+agent_rulebook_db_revised_json/
+agent_rulebook_ft/
+conversation_branches_db/
+conversation_branches_ft/
+formatted_data/
+deprecated/
