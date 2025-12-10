@@ -1,83 +1,73 @@
 import os
+import json
 from dotenv import load_dotenv
 from google import genai
+from pydantic import BaseModel
+from typing import List
 
 load_dotenv()
 api_key = os.getenv("GEMINI_API_KEY")
 
 client = genai.Client(api_key=api_key)
 
+class CleanedPolicies(BaseModel):
+    policies: List[str]
 
-POLICY_COMPILER_PROMPT = """
-You are a Policy Compiler for a medical appointment scheduling agent.
+class Rule(BaseModel):
+    title: str
+    condition: str
+    action: str
+    example: str
 
-Your job is to take a list of raw natural-language rules and produce a cleaned,
-deduplicated, and sensibly ordered set of policies. The goal is clarity and completeness.
+class Section(BaseModel):
+    name: str
+    rules: List[Rule]
 
-Instructions:
-- Merge duplicates or near-duplicates.
-- Remove contradictions or resolve them by choosing the most general consistent form.
-- Keep the rules concise but precise.
-- Do not create new rules; only reorganize and clean the given ones.
-- Output a simple bullet list of cleaned rules.
-Here are the raw rules:
-"""
-
-
-RULEBOOK_SYNTHESIZER_PROMPT = """
-You are a Rulebook Synthesizer.
-
-Given a cleaned list of agent policies, produce a short, structured, and easy-to-follow
-rulebook for a medical appointment scheduling agent.
-
-Guidelines:
-- Group rules into meaningful sections (e.g. identity verification, scheduling logic, doctor preferences, insurance).
-- For each rule, provide:
-  * Short Rule Title
-  * When: the condition
-  * Action: what the agent should do
-  * Example: 1 short sample response
-- Keep it concise and readable.
-- Do not add new rules — only organize and express clearly.
-
-Return the rulebook in Markdown.
-"""
+class Rulebook(BaseModel):
+    sections: List[Section]
 
 
 def compile_policies(policy_rules):
     rules_text = "\n".join(f"- {r}" for r in policy_rules)
-    full_prompt = POLICY_COMPILER_PROMPT + "\n" + rules_text
+    prompt = f"Clean these rules: merge duplicates, remove contradictions by choosing most general form, keep precise and concise, don't add new rules.\n{rules_text}"
 
     response = client.models.generate_content(
         model="gemini-2.5-flash",
-        contents=full_prompt
+        contents=prompt,
+        config={"response_mime_type": "application/json", "response_json_schema": CleanedPolicies.model_json_schema()}
     )
-
-    return response.text
+    
+    return CleanedPolicies.model_validate_json(response.text).policies
 
 
 def synthesize_rulebook(cleaned_rules):
-    full_prompt = RULEBOOK_SYNTHESIZER_PROMPT + "\n\n" + cleaned_rules
+    rules_text = "\n".join(f"- {r}" for r in cleaned_rules)
+    prompt = f"Organize into logical sections (identity verification, scheduling, insurance, etc). Each rule needs: short title, when condition, action to take, example response. Group similar rules together.\n{rules_text}"
 
     response = client.models.generate_content(
         model="gemini-2.5-flash",
-        contents=full_prompt
+        contents=prompt,
+        config={"response_mime_type": "application/json", "response_json_schema": Rulebook.model_json_schema()}
     )
+    
+    return Rulebook.model_validate_json(response.text)
 
-    return response.text
 
-
-def generate_rulebook(policy_rules, output_path="agent_rulebook.md"):
-    print("Compiling raw policies...")
+def generate_rulebook(policy_rules, output_path="agent_rulebook_db_new.md"):
     cleaned_rules = compile_policies(policy_rules)
-
-    print("\nSynthesizing rulebook...")
     rulebook = synthesize_rulebook(cleaned_rules)
-
+    
+    markdown = "# Agent Rulebook\n\n"
+    for section in rulebook.sections:
+        markdown += f"## {section.name}\n\n"
+        for rule in section.rules:
+            markdown += f"### {rule.title}\n"
+            markdown += f"**When:** {rule.condition}\n"
+            markdown += f"**Action:** {rule.action}\n"
+            markdown += f"**Example:** {rule.example}\n\n"
+    
     with open(output_path, "w", encoding="utf-8") as f:
-        f.write(rulebook)
-
-    print(f"\nRulebook saved to {output_path}")
+        f.write(markdown)
 
 def normalize_bullet_list(raw_text):
     """

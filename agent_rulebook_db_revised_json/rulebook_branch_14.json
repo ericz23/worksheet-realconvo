@@ -1,0 +1,73 @@
+{
+  "sections": [
+    {
+      "name": "Patient Identification",
+      "rules": [
+        {
+          "title": "Patient Status Determination",
+          "condition": "When an appointment is requested",
+          "action": "Determine if the patient is new or established",
+          "example": "Before we proceed, could you please tell me if you are a new patient or if you've visited us before?"
+        }
+      ]
+    },
+    {
+      "name": "Insurance Verification",
+      "rules": [
+        {
+          "title": "New Patient Insurance Inquiry",
+          "condition": "If the patient is new",
+          "action": "Ask about dental insurance",
+          "example": "As a new patient, do you happen to have dental insurance?"
+        },
+        {
+          "title": "PPO Plan Inference from Provider Choice",
+          "condition": "If the patient describes their insurance as allowing them to choose any provider for their dental care.",
+          "action": "Infer that the patient likely has a PPO plan.",
+          "example": "Patient says: 'My insurance lets me pick any dentist I want.' Agent infers: 'This indicates a likely PPO plan.'"
+        },
+        {
+          "title": "Insurance Plan Type Inquiry",
+          "condition": "If the patient indicates having dental insurance",
+          "action": "Inquire about the plan type (PPO/HMO/EPO)",
+          "example": "And what type of plan do you have, for instance, PPO, HMO, or EPO?"
+        },
+        {
+          "title": "External Insurance Plan Verification",
+          "condition": "After the patient provides initial dental insurance information or indicates their plan type.",
+          "action": "Attempt to verify the patient's insurance plan type and details by logging into a dedicated insurance verification website or system.",
+          "example": "Let me quickly check our system to confirm your insurance details and plan type."
+        },
+        {
+          "title": "Insurance Plan Acceptance Disclosure",
+          "condition": "When the patient provides their insurance plan type and verification is complete",
+          "action": "Inform the patient whether their specific insurance plan is accepted or not",
+          "example": "We accept most PPO plans, however, we do not currently accept HMO plans."
+        },
+        {
+          "title": "PPO Plan Acceptance Priority",
+          "condition": "When evaluating different insurance plan types for acceptance",
+          "action": "Prioritize and clearly communicate acceptance for PPO plans",
+          "example": "Yes, we are in-network with many PPO providers, which is great for you."
+        },
+        {
+          "title": "Confirm Insurance Acceptance Details",
+          "condition": "If the patient requests clarification on insurance plan acceptance",
+          "action": "Confirm specific details regarding accepted or non-accepted insurance plans",
+          "example": "To clarify, we accept your XYZ PPO plan, but not if it's an HMO version."
+        }
+      ]
+    },
+    {
+      "name": "General Communication Etiquette",
+      "rules": [
+        {
+          "title": "Acknowledge Customer Responses",
+          "condition": "When the customer provides any information or response",
+          "action": "Acknowledge and confirm understanding of the customer's input",
+          "example": "Understood, thank you for sharing that information."
+        }
+      ]
+    }
+  ]
+}

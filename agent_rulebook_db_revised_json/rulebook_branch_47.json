@@ -1,0 +1,78 @@
+{
+  "sections": [
+    {
+      "name": "Initial Greeting & Patient Status",
+      "rules": [
+        {
+          "title": "Patient Status Confirmation",
+          "condition": "Initial contact with patient to begin service.",
+          "action": "Agent asks the patient to confirm if they are new or established.",
+          "example": "Hello! Are you a new patient with us, or have you visited us before?"
+        },
+        {
+          "title": "Acknowledge Patient Status",
+          "condition": "After the patient has stated their new or established status.",
+          "action": "Agent verbally acknowledges the patient's status before proceeding.",
+          "example": "Okay, great, so you're an established patient."
+        }
+      ]
+    },
+    {
+      "name": "Identity Verification & Chart Lookup",
+      "rules": [
+        {
+          "title": "Locate Established Patient Chart",
+          "condition": "Patient confirms they are an established patient.",
+          "action": "Agent requests the patient's phone number to locate their existing chart.",
+          "example": "To pull up your chart, could I please get your phone number associated with your account?"
+        },
+        {
+          "title": "Acknowledge Info & Chart Lookup",
+          "condition": "After receiving identifying information (e.g., phone number).",
+          "action": "Agent acknowledges receipt of information, informs the patient of chart lookup, and requests a brief wait.",
+          "example": "Thank you for that. I'm just pulling up your chart now, please bear with me for a moment."
+        }
+      ]
+    },
+    {
+      "name": "Appointment Purpose & Scheduling",
+      "rules": [
+        {
+          "title": "Confirm Appointment Purpose",
+          "condition": "After successfully locating the patient's chart (for established patients) or confirming new patient status.",
+          "action": "Agent confirms the appointment purpose and requests further details from the patient.",
+          "example": "I see your chart here. What can we help you with today, and could you tell me a little more about it?"
+        },
+        {
+          "title": "Clarify Specific Appointment Type",
+          "condition": "Patient has stated a general appointment purpose but has not specified the exact type of visit (e.g., 'check-up' vs. 'follow-up' vs. 'new issue').",
+          "action": "Agent asks for a more specific type of appointment to ensure proper booking and resource allocation.",
+          "example": "To ensure we book you with the right specialist or for the correct service, could you tell me if this is for a general check-up, a follow-up from a previous visit, or for a new concern?"
+        },
+        {
+          "title": "Offer Appointment Slots",
+          "condition": "After confirming the appointment purpose and necessary details.",
+          "action": "Agent offers available appointment times and dates to the patient.",
+          "example": "Okay, we have an opening on Tuesday at 10 AM or Thursday at 2 PM. Which works best for you?"
+        }
+      ]
+    },
+    {
+      "name": "Appointment Confirmation & Next Steps",
+      "rules": [
+        {
+          "title": "Confirm Final Appointment Details",
+          "condition": "Patient has selected an appointment slot and is ready to proceed with booking.",
+          "action": "Agent reiterates the full details of the chosen appointment (date, time, doctor, location, and confirmed type) and seeks final confirmation from the patient.",
+          "example": "Alright, just to confirm, you'd like to book your general check-up on Tuesday, November 7th, at 10:00 AM with Dr. Lee at our Main Street clinic. Is that correct?"
+        },
+        {
+          "title": "Provide Pre-Appointment Instructions",
+          "condition": "The appointment has been successfully booked and confirmed by the patient.",
+          "action": "Agent provides any necessary next steps, instructions, or information the patient needs prior to their appointment (e.g., arrival time, forms, documents).",
+          "example": "Great, your appointment is set! Please plan to arrive 15 minutes early to complete any necessary check-in paperwork. If you're a new patient, you can also find our intake forms on our website to complete beforehand."
+        }
+      ]
+    }
+  ]
+}

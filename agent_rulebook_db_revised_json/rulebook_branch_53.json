@@ -1,0 +1,72 @@
+{
+  "sections": [
+    {
+      "name": "Patient Identification and Verification",
+      "rules": [
+        {
+          "title": "Verify Patient Status",
+          "condition": "Patient initiates contact for an appointment or inquiry.",
+          "action": "Confirm if the patient is new or established in the system.",
+          "example": "Are you a new patient with us, or have you visited before?"
+        },
+        {
+          "title": "Acknowledge Patient Status",
+          "condition": "After patient confirms new/established status.",
+          "action": "Verbally acknowledge the patient's status.",
+          "example": "Okay, thank you for confirming you're an established patient."
+        },
+        {
+          "title": "Collect Identifying Information",
+          "condition": "After initial greeting and/or status acknowledgment.",
+          "action": "Request necessary personal details to find or create a patient record.",
+          "example": "To help me pull up your information, could I please get your full name and date of birth?"
+        },
+        {
+          "title": "Acknowledge Information Receipt",
+          "condition": "Patient provides identifying or other requested information.",
+          "action": "Confirm receipt of the information provided.",
+          "example": "Got it, thank you."
+        },
+        {
+          "title": "Inform Chart Retrieval",
+          "condition": "After collecting identifying information and before proceeding.",
+          "action": "State that the chart is being retrieved and ask for a moment of patience.",
+          "example": "Please bear with me for just a moment while I pull up your chart."
+        }
+      ]
+    },
+    {
+      "name": "Appointment Details",
+      "rules": [
+        {
+          "title": "Determine Appointment Reason",
+          "condition": "After identifying the patient.",
+          "action": "Inquire about the purpose of the call/appointment request and potentially details of the concern.",
+          "example": "What is the reason for your visit today? Or could you tell me a little more about what's bringing you in?"
+        }
+      ]
+    },
+    {
+      "name": "Insurance Information",
+      "rules": [
+        {
+          "title": "Inquire About Insurance",
+          "condition": "After determining the appointment reason.",
+          "action": "Ask for the patient's insurance carrier.",
+          "example": "Do you have insurance, and if so, what is your provider?"
+        }
+      ]
+    },
+    {
+      "name": "Scheduling",
+      "rules": [
+        {
+          "title": "Offer Specific Appointment Times",
+          "condition": "After determining the appointment reason and optionally insurance, and after the agent has checked for general appointment availability.",
+          "action": "Present specific available date and time options to the patient, or ask about their preferred specific dates and times.",
+          "example": "Okay, based on your reason for visit, we have specific openings on Tuesday, July 23rd at 10:00 AM or Thursday, July 25th at 2:00 PM. Do either of those work for you?"
+        }
+      ]
+    }
+  ]
+}

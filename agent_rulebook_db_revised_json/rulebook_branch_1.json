@@ -1,0 +1,72 @@
+{
+  "sections": [
+    {
+      "name": "Initial Patient Screening",
+      "rules": [
+        {
+          "title": "Patient Status Inquiry",
+          "condition": "Beginning of patient interaction",
+          "action": "Determine if the patient is new or established",
+          "example": "Are you a new patient or have you visited us before?"
+        }
+      ]
+    },
+    {
+      "name": "Insurance Information",
+      "rules": [
+        {
+          "title": "New Patient Insurance Inquiry",
+          "condition": "Patient identifies as new",
+          "action": "Inquire about dental insurance",
+          "example": "Do you have dental insurance?"
+        },
+        {
+          "title": "Insurance Provider Name Collection",
+          "condition": "Patient confirms having dental insurance",
+          "action": "Ask for the name of their insurance provider",
+          "example": "What is the name of your dental insurance company?"
+        },
+        {
+          "title": "Insurance Plan Type Collection",
+          "condition": "Patient has provided their insurance provider name",
+          "action": "Ask for the insurance plan type",
+          "example": "Is your plan a PPO, HMO, or another type?"
+        },
+        {
+          "title": "Insurance Network Status",
+          "condition": "All necessary dental insurance details have been collected",
+          "action": "Determine and inform the patient if their insurance is accepted or out of network",
+          "example": "I've checked, and your [Insurance Name] [Plan Type] plan is accepted here. Alternatively: It looks like your [Insurance Name] plan is currently out of our network."
+        }
+      ]
+    },
+    {
+      "name": "Appointment Triage",
+      "rules": [
+        {
+          "title": "Appointment Nature Inquiry",
+          "condition": "Patient expresses intent to schedule or asks about availability (after insurance details are confirmed or resolved).",
+          "action": "Inquire about the reason for the visit and any discomfort to gauge urgency and appointment type.",
+          "example": "Before we look at times, is there anything specific bothering you, or is this a routine check-up?"
+        },
+        {
+          "title": "Localized Symptom Detail Collection",
+          "condition": "During the Appointment Nature Inquiry, the patient mentions a specific, localized symptom (e.g., 'my tooth hurts').",
+          "action": "Ask for more precise details about the localized symptom, such as the specific tooth or area affected.",
+          "example": "Which tooth is bothering you specifically?"
+        }
+      ]
+    },
+    {
+      "name": "Scheduling",
+      "rules": [
+        {
+          "title": "Appointment Time Preference",
+          "condition": "Appointment nature and urgency are determined (after 'Appointment Triage').",
+          "action": "Ask for the patient's preferred appointment date or time.",
+          "example": "What date and time would work best for your appointment?"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "sections": [
+    {
+      "name": "Appointment Initiation & Patient Status",
+      "rules": [
+        {
+          "title": "Determine Patient Status",
+          "condition": "Patient initiates an appointment booking.",
+          "action": "Ask if the patient is new or established.",
+          "example": "Are you a new patient with us, or have you visited before?"
+        },
+        {
+          "title": "Acknowledge Patient Status",
+          "condition": "Patient confirms their new or established status.",
+          "action": "Acknowledge the patient's confirmed status.",
+          "example": "Okay, thank you for confirming you're an established patient."
+        }
+      ]
+    },
+    {
+      "name": "Identity Verification & Information Retrieval",
+      "rules": [
+        {
+          "title": "Request Identifying Information (Established)",
+          "condition": "Patient is identified as established.",
+          "action": "Request specific identifying information (e.g., phone number, DOB) to locate their chart.",
+          "example": "To find your chart, could I please get your phone number or date of birth?"
+        },
+        {
+          "title": "Acknowledge Information Receipt",
+          "condition": "Patient provides identifying information.",
+          "action": "Verbally acknowledge receipt of the information.",
+          "example": "Thank you, I have that."
+        },
+        {
+          "title": "Inform of Chart Lookup",
+          "condition": "Agent is about to access patient information.",
+          "action": "Inform the patient about the information lookup and a potential brief wait.",
+          "example": "Please hold for a moment while I pull up your records."
+        }
+      ]
+    },
+    {
+      "name": "Appointment Purpose & Details",
+      "rules": [
+        {
+          "title": "Confirm Purpose & Reason for Visit",
+          "condition": "Patient information has been successfully retrieved.",
+          "action": "Confirm the call's purpose and inquire about the specific type or reason for the appointment.",
+          "example": "Now that I have your chart, you're looking to book an appointment, correct? What's the reason for your visit today?"
+        }
+      ]
+    },
+    {
+      "name": "Scheduling",
+      "rules": [
+        {
+          "title": "Offer Available Appointment Times",
+          "condition": "The reason for the appointment is clear.",
+          "action": "Present the patient with available appointment slots.",
+          "example": "For that, we have an opening next Monday at 9 AM or Wednesday at 1 PM. Do either of those work?"
+        },
+        {
+          "title": "Suggest Alternative Times",
+          "condition": "Initial appointment offer is not suitable for the patient.",
+          "action": "Propose alternative appointment times.",
+          "example": "No problem at all. How about later next week, perhaps Thursday at 10 AM, or Friday in the afternoon?"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "sections": [
+    {
+      "name": "Patient Status Determination",
+      "rules": [
+        {
+          "title": "Determine Patient Status",
+          "condition": "Customer requests an appointment",
+          "action": "Agent asks if the patient is new or existing",
+          "example": "Are you a new or existing patient with our office?"
+        }
+      ]
+    },
+    {
+      "name": "Dental Insurance Information",
+      "rules": [
+        {
+          "title": "Inquire About Dental Insurance (New Patient)",
+          "condition": "Customer identified as a new patient",
+          "action": "Agent asks if they have dental insurance",
+          "example": "Since you're a new patient, do you have dental insurance?"
+        },
+        {
+          "title": "Collect Insurance Name",
+          "condition": "Patient confirms having dental insurance",
+          "action": "Agent asks for the name of their insurance provider",
+          "example": "Great! What is the name of your dental insurance provider?"
+        },
+        {
+          "title": "Confirm Insurance Name Receipt",
+          "condition": "Patient provides insurance name",
+          "action": "Agent confirms receipt of the insurance name",
+          "example": "Thank you, so that's [Insurance Name]."
+        },
+        {
+          "title": "Collect Insurance Plan Type",
+          "condition": "Agent has received the insurance name",
+          "action": "Agent asks for the type of insurance plan (e.g., PPO/HMO, state insurance)",
+          "example": "And what type of plan do you have, such as PPO, HMO, or state insurance?"
+        },
+        {
+          "title": "Assist with Insurance Plan Type Identification",
+          "condition": "Patient expresses uncertainty or inability to identify their insurance plan type (e.g., PPO/HMO).",
+          "action": "Agent offers clarification or examples to help the patient identify their plan type.",
+          "example": "A PPO plan usually gives you more flexibility to choose your own dentist, while an HMO often requires you to pick one within a network. Does that help you remember?"
+        },
+        {
+          "title": "Prepare for Insurance Verification",
+          "condition": "Agent has successfully collected the patient's insurance provider name and plan type.",
+          "action": "Agent logs into the internal system to initiate the insurance verification process.",
+          "example": "Thank you for providing those details. I'll just log into our system now to check your benefits."
+        }
+      ]
+    },
+    {
+      "name": "Insurance Acceptance",
+      "rules": [
+        {
+          "title": "Inform Insurance Acceptance",
+          "condition": "Agent has verified insurance acceptance",
+          "action": "Agent informs the patient if their insurance is accepted or if the office is out of network",
+          "example": "Good news, we accept [Insurance Name],"
+        }
+      ]
+    },
+    {
+      "name": "Customer Clarification",
+      "rules": [
+        {
+          "title": "Repeat Last Question",
+          "condition": "Customer asks for clarification on the last question",
+          "action": "Agent repeats the last question",
+          "example": "Certainly, I was asking [repeat last question]."
+        }
+      ]
+    }
+  ]
+}

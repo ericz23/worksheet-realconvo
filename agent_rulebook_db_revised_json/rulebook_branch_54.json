@@ -1,0 +1,62 @@
+{
+  "sections": [
+    {
+      "name": "Patient Identification & Verification",
+      "rules": [
+        {
+          "title": "Verify Patient Status",
+          "condition": "Initial contact with patient.",
+          "action": "Ask patient if they are new or established.",
+          "example": "Hello, thank you for calling. Are you a new patient or an established patient with us?"
+        },
+        {
+          "title": "Acknowledge Patient Status",
+          "condition": "Patient states their status (new/established).",
+          "action": "Verbally acknowledge the patient's stated status.",
+          "example": "Okay, thank you for letting me know you're an established patient."
+        },
+        {
+          "title": "Request Established Patient ID",
+          "condition": "Patient is established.",
+          "action": "Ask for identifying information to pull up their chart.",
+          "example": "To pull up your chart, could I please have your phone number or date of birth?"
+        },
+        {
+          "title": "Acknowledge ID Information",
+          "condition": "Patient provides identifying information.",
+          "action": "Confirm receipt of the information.",
+          "example": "Thank you, I've got that."
+        },
+        {
+          "title": "Inform Chart Retrieval",
+          "condition": "After receiving identifying information from an established patient.",
+          "action": "Inform patient about chart retrieval and ask them to hold.",
+          "example": "Please give me just a moment while I pull up your chart."
+        }
+      ]
+    },
+    {
+      "name": "Appointment Scheduling",
+      "rules": [
+        {
+          "title": "Offer Appointment Slots",
+          "condition": "After patient identification/verification and understanding the patient's scheduling need.",
+          "action": "Present available dates and times for appointments based on doctor availability.",
+          "example": "Okay, Dr. Sharma has openings on November 10th at 10 AM or 2 PM. Which time works best for you?"
+        },
+        {
+          "title": "Confirm Selected Appointment",
+          "condition": "After the patient selects a preferred appointment slot.",
+          "action": "Verbally confirm the chosen doctor, date, and time with the patient.",
+          "example": "Just to confirm, you'd like to schedule an appointment with Dr. Sharma on November 10th at 2 PM. Is that correct?"
+        },
+        {
+          "title": "Offer Additional Assistance Post-Confirmation",
+          "condition": "After an appointment has been successfully confirmed.",
+          "action": "Proactively ask the patient if there is anything else they need assistance with.",
+          "example": "Your appointment is now confirmed. Is there anything else I can help you with today?"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "sections": [
+    {
+      "name": "Patient Identification",
+      "rules": [
+        {
+          "title": "Determine Patient Status",
+          "condition": "Initial patient contact or intake process",
+          "action": "Ask if the patient is new or an established patient.",
+          "example": "Are you a new patient with us, or have you visited before?"
+        }
+      ]
+    },
+    {
+      "name": "Dental Insurance Intake",
+      "rules": [
+        {
+          "title": "Inquire About Dental Insurance",
+          "condition": "Patient identified as new",
+          "action": "Ask if the new patient has dental insurance.",
+          "example": "Do you have dental insurance?"
+        },
+        {
+          "title": "Collect Insurance Provider Name",
+          "condition": "Patient confirms having dental insurance",
+          "action": "Ask for the name of their dental insurance provider.",
+          "example": "Great! Which insurance provider are you with?"
+        },
+        {
+          "title": "Collect Insurance Plan Type",
+          "condition": "Insurance provider name has been received",
+          "action": "Ask for the insurance plan type (e.g., PPO or HMO).",
+          "example": "And do you know if your plan is a PPO or HMO?"
+        },
+        {
+          "title": "Clarify Ambiguous Plan Type",
+          "condition": "Patient does not know plan type or provides an ambiguous answer",
+          "action": "Re-ask for plan type, potentially explain contract limitations, and ask for an alternative identifier like a group number.",
+          "example": "No worries at all. Could you check your insurance card for a group number, or does it specify PPO or HMO anywhere?"
+        },
+        {
+          "title": "Assist with Insurance Info Location",
+          "condition": "Patient expresses difficulty finding insurance information",
+          "action": "Guide the patient on where to find their insurance details (e.g., insurance card, online portal).",
+          "example": "The insurance card usually has all the details. It might also be available on your insurance provider's website. Do you have access to your card or their online portal?"
+        },
+        {
+          "title": "Collect Insurance Member ID",
+          "condition": "After the patient provides a group number or after the insurance plan type has been clarified.",
+          "action": "Ask for the patient's insurance member ID.",
+          "example": "Thank you for that group number. Could you also provide your insurance member ID?"
+        },
+        {
+          "title": "Collect Patient Date of Birth for Insurance Verification",
+          "condition": "After collecting the insurance member ID.",
+          "action": "Ask for the patient's date of birth for verification purposes.",
+          "example": "And to verify your insurance, what is your date of birth?"
+        }
+      ]
+    },
+    {
+      "name": "Insurance Policy Communication",
+      "rules": [
+        {
+          "title": "Inform Network Status",
+          "condition": "Patient's insurance information is collected",
+          "action": "Inform the patient about the office's network status or contract with their insurance.",
+          "example": "We are an in-network provider with [Insurance Name], so your benefits will apply directly."
+        },
+        {
+          "title": "Explain Out-of-Network Process",
+          "condition": "Office does not have a direct contract with the patient's insurance",
+          "action": "Explain the payment process (e.g., full payment upfront) and how to seek reimbursement from their insurance.",
+          "example": "Since we're out-of-network with [Insurance Name], you would pay for services at the time of your visit, and we can provide you with a superbill to submit to your insurance for direct reimbursement."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "sections": [
+    {
+      "name": "Initial Contact",
+      "rules": [
+        {
+          "title": "Greet and Identify",
+          "condition": "Call starts",
+          "action": "Greet the caller, identify the organization, and offer assistance.",
+          "example": "Hello, thank you for calling [Dental Office Name]. How may I help you today?"
+        },
+        {
+          "title": "Handle Confusion",
+          "condition": "Customer expresses confusion or asks for clarification",
+          "action": "Repeat or clarify the previous question.",
+          "example": "I apologize, let me rephrase that. I was asking, do you have dental insurance?"
+        }
+      ]
+    },
+    {
+      "name": "Patient Identification",
+      "rules": [
+        {
+          "title": "Determine Patient Status",
+          "condition": "After initial greeting",
+          "action": "Ask if the patient is new or existing.",
+          "example": "Are you a new patient with us, or have you visited our office before?"
+        }
+      ]
+    },
+    {
+      "name": "Insurance Information",
+      "rules": [
+        {
+          "title": "New Patient Insurance Inquiry",
+          "condition": "Patient indicates they are new",
+          "action": "Inquire about dental insurance.",
+          "example": "Do you have dental insurance you'll be using for your visit?"
+        },
+        {
+          "title": "Obtain Insurance Provider Name",
+          "condition": "Patient indicates having dental insurance",
+          "action": "Ask for the name of their dental insurance provider.",
+          "example": "Great, what is the name of your dental insurance company?"
+        },
+        {
+          "title": "Confirm Insurance and Plan Type",
+          "condition": "Insurance provider name is provided",
+          "action": "Confirm the insurance name and ask for the plan type (e.g., PPO, HMO).",
+          "example": "Okay, [Insurance Name]. Is that typically a PPO or an HMO plan?"
+        },
+        {
+          "title": "Verify In-network Status",
+          "condition": "Insurance details (provider and plan type) are provided",
+          "action": "Check if the office is in-network with the provided insurance plan.",
+          "example": "Let me quickly check if we are in-network with your [Insurance Name] [Plan Type] plan."
+        }
+      ]
+    },
+    {
+      "name": "Appointment Details",
+      "rules": [
+        {
+          "title": "Determine Appointment Scope",
+          "condition": "After patient identification and initial insurance check",
+          "action": "Ask if the appointment is for the customer only or also for family members.",
+          "example": "Is this appointment just for you, or are you looking to schedule for other family members as well?"
+        },
+        {
+          "title": "Ascertain Visit Reason",
+          "condition": "After confirming patient status and appointment scope",
+          "action": "Ask for the reason for the visit.",
+          "example": "What is the primary reason for your visit today?"
+        }
+      ]
+    },
+    {
+      "name": "Scheduling",
+      "rules": [
+        {
+          "title": "Inquire About Availability",
+          "condition": "Patient, insurance, and appointment scope details confirmed",
+          "action": "Inquire about the customer's preferred scheduling availability.",
+          "example": "Thank you for all that information. What days or times work best for you to come in for your appointment?"
+        },
+        {
+          "title": "Ask for Preferred Month",
+          "condition": "After the patient provides general or broad availability (e.g., 'any weekday morning') in response to the initial availability inquiry.",
+          "action": "Ask the patient to specify a preferred month for the appointment.",
+          "example": "Okay, and do you have a specific month in mind for this appointment?"
+        },
+        {
+          "title": "Reiterate Confirmed Appointment Preferences",
+          "condition": "After all patient, insurance (if applicable), visit reason, and desired availability details have been collected, and before offering specific appointment slots.",
+          "action": "Summarize all confirmed appointment preferences to the patient for verification.",
+          "example": "Just to confirm, you are a new patient seeking a cleaning, with PPO insurance, available on weekday mornings, preferably in July. Is that correct?"
+        }
+      ]
+    }
+  ]
+}

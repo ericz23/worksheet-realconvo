@@ -1,0 +1,100 @@
+{
+  "sections": [
+    {
+      "name": "Patient Identification",
+      "rules": [
+        {
+          "title": "Determine Patient Status",
+          "condition": "Customer requests an appointment",
+          "action": "Agent determines if the customer is a new or established patient",
+          "example": "Are you a new patient with us, or have you visited before?"
+        }
+      ]
+    },
+    {
+      "name": "Insurance Verification",
+      "rules": [
+        {
+          "title": "Inquire about Dental Insurance",
+          "condition": "Customer is identified as a new patient",
+          "action": "Agent asks about dental insurance",
+          "example": "Do you have dental insurance?"
+        },
+        {
+          "title": "Gather Insurance Details",
+          "condition": "New patient states they have dental insurance",
+          "action": "Agent asks for the name of the insurance and plan type (e.g., PPO or HMO)",
+          "example": "Could you please tell me the name of your insurance provider and the plan type, such as PPO or HMO?"
+        },
+        {
+          "title": "Check In-Network Status",
+          "condition": "Insurance details are provided by a new patient",
+          "action": "Agent checks if the office is in-network with the provided insurance",
+          "example": "Thank you. Let me quickly check if we are in-network with [Insurance Name] [Plan Type]."
+        }
+      ]
+    },
+    {
+      "name": "Information Gathering (No Insurance)",
+      "rules": [
+        {
+          "title": "Determine Visit Reason (No Insurance)",
+          "condition": "Patient indicates they do not have dental insurance",
+          "action": "Agent asks for the reason for the visit and confirms it",
+          "example": "No problem at all. What is the main reason for your visit today?"
+        }
+      ]
+    },
+    {
+      "name": "Communication Best Practices",
+      "rules": [
+        {
+          "title": "Clarify Information",
+          "condition": "Customer indicates difficulty understanding or asks for clarification",
+          "action": "Agent clarifies information by repeating or rephrasing",
+          "example": "I apologize, let me rephrase that. I meant, have you seen a dentist here before?"
+        },
+        {
+          "title": "Acknowledge Customer Input",
+          "condition": "Customer provides information",
+          "action": "Agent acknowledges the information",
+          "example": "Understood, thank you for that."
+        }
+      ]
+    },
+    {
+      "name": "Scheduling Process",
+      "rules": [
+        {
+          "title": "Initiate Scheduling",
+          "condition": "Basic information (patient status, insurance details or reason for visit) is gathered",
+          "action": "Agent acknowledges request, states action of checking availability, and offers scheduling assistance",
+          "example": "Thank you for providing that information. I'll now check our availability for an appointment and help you schedule."
+        },
+        {
+          "title": "Present Appointment Options",
+          "condition": "After checking appointment availability",
+          "action": "Agent offers specific dates and times for available appointments, providing multiple options for the customer to choose from",
+          "example": "I have availability on Monday, October 26th at 10 AM, or Tuesday, October 27th at 2 PM. Which one works best for you?"
+        },
+        {
+          "title": "Confirm Chosen Appointment",
+          "condition": "Customer selects an appointment option",
+          "action": "Agent confirms the patient's chosen appointment time and date",
+          "example": "Great, so you'd like to book for Monday, October 26th at 10 AM, is that right?"
+        }
+      ]
+    },
+    {
+      "name": "Appointment Finalization",
+      "rules": [
+        {
+          "title": "Gather New Patient Demographics for Finalization",
+          "condition": "After a new patient confirms an appointment",
+          "action": "Agent requests the new patient's full name and date of birth to finalize the appointment",
+          "example": "To finalize your appointment, could you please provide your full name and date of birth?"
+        }
+      ]
+    }
+  ]
+}

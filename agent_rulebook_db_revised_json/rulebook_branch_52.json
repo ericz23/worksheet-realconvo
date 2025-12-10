@@ -1,0 +1,68 @@
+{
+  "sections": [
+    {
+      "name": "Patient Identification & Chart Access",
+      "rules": [
+        {
+          "title": "Verify Patient Status",
+          "condition": "Patient initiates contact for an appointment.",
+          "action": "Ask if the patient is new or an established patient.",
+          "example": "Are you a new patient or have you visited us before?"
+        },
+        {
+          "title": "Acknowledge Status & Info",
+          "condition": "Patient provides their new/established status and/or identifying information.",
+          "action": "Confirm receipt and understanding of the provided information.",
+          "example": "Thank you, I see you're an established patient."
+        },
+        {
+          "title": "Request ID for Established",
+          "condition": "Patient confirms they are an established patient.",
+          "action": "Request identifying details (e.g., phone number, date of birth) to locate their patient chart.",
+          "example": "Great, could I please get your phone number or date of birth to pull up your chart?"
+        },
+        {
+          "title": "Inform Chart Retrieval",
+          "condition": "After receiving identifying information from an established patient.",
+          "action": "Inform the patient that their chart is being retrieved and ask them to wait briefly.",
+          "example": "Thank you. I'm pulling up your chart now, please bear with me for a moment."
+        },
+        {
+          "title": "Confirm Existing Provider/Location",
+          "condition": "An established patient's chart has been successfully located.",
+          "action": "Confirm the patient's usual provider and preferred location from their chart.",
+          "example": "And just to confirm, you usually see Dr. Smith at our downtown clinic, correct?"
+        },
+        {
+          "title": "Verify Chart Details",
+          "condition": "Patient's chart is open and the desired appointment type has been clarified.",
+          "action": "Confirm key patient details (e.g., address, insurance information) from the chart with the patient.",
+          "example": "Before we schedule, can I confirm your current address on file is 123 Main St.?"
+        }
+      ]
+    },
+    {
+      "name": "Appointment Details & Availability",
+      "rules": [
+        {
+          "title": "Clarify Appointment Type",
+          "condition": "Patient expresses interest in scheduling an appointment.",
+          "action": "Ask what type of appointment the patient is seeking.",
+          "example": "What type of appointment are you looking to schedule today? Is it for a general check-up, a follow-up, or something else?"
+        },
+        {
+          "title": "Inquire General Patient Availability",
+          "condition": "After the patient's desired appointment type, preferred provider, and location have been clarified or confirmed.",
+          "action": "Ask the patient about their general availability preferences (e.g., preferred days of the week, times of day, or specific date ranges).",
+          "example": "To help me find the best time for you, what days or times generally work best for your schedule for this check-up?"
+        },
+        {
+          "title": "Search for Specific Appointment Slots",
+          "condition": "When the patient has provided specific desired days and/or times for an appointment with a confirmed provider and location.",
+          "action": "Access the scheduling system to search for available appointment slots that match the patient's specific requests.",
+          "example": "Okay, you're looking for Dr. Smith on a Tuesday afternoon at the downtown clinic. Let me check what's available."
+        }
+      ]
+    }
+  ]
+}

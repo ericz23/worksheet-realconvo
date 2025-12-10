@@ -1,0 +1,78 @@
+{
+  "sections": [
+    {
+      "name": "Initial Patient Contact",
+      "rules": [
+        {
+          "title": "Determine Patient Status",
+          "condition": "At the beginning of the interaction with a patient.",
+          "action": "Ask if the patient is new or established.",
+          "example": "Hello, thank you for calling. Are you a new patient or have you visited us before?"
+        },
+        {
+          "title": "Acknowledge Patient Status",
+          "condition": "After the patient indicates their new or established status.",
+          "action": "Acknowledge the customer's status before proceeding to request further information.",
+          "example": "Okay, thank you for letting me know you're an established patient."
+        }
+      ]
+    },
+    {
+      "name": "Patient Identification & Chart Retrieval",
+      "rules": [
+        {
+          "title": "Request Established Patient ID",
+          "condition": "If the patient is identified as established.",
+          "action": "Ask for identifying information such as a phone number or date of birth to locate their chart.",
+          "example": "To pull up your chart, could I please get your phone number or date of birth?"
+        },
+        {
+          "title": "Inform Chart Retrieval Process",
+          "condition": "After receiving patient identification information from an established patient.",
+          "action": "Inform the customer that their chart is being retrieved and they may be placed on a brief hold.",
+          "example": "Thank you. I'll pull up your chart now, which might take a moment. I may need to place you on a brief hold."
+        }
+      ]
+    },
+    {
+      "name": "Appointment Details",
+      "rules": [
+        {
+          "title": "Inquire Reason for Visit",
+          "condition": "After patient identification (or initial intake for new patients) and chart retrieval is indicated.",
+          "action": "Ask for the specific reason for their call or the type of medical process required.",
+          "example": "Now that I have your chart open, what can I help you with today? What is the reason for your visit?"
+        },
+        {
+          "title": "Ask for Regular Doctor Preference",
+          "condition": "After determining the reason for the visit and before finalizing location or specific doctor selection.",
+          "action": "Ask if the patient prefers to schedule with their regular doctor or is open to other providers.",
+          "example": "Would you like to schedule with your regular doctor, or are you open to seeing another provider?"
+        },
+        {
+          "title": "Confirm Preferred Location",
+          "condition": "For established patients, after the reason for the visit has been determined.",
+          "action": "Confirm the patient's preferred or usual clinic location for their appointment.",
+          "example": "And for your appointment, would you prefer to visit your usual clinic location or another one of our offices?"
+        },
+        {
+          "title": "Confirm Doctor and Location Availability",
+          "condition": "After the patient expresses a preference for a specific doctor or clinic location.",
+          "action": "Confirm the availability of the preferred doctor at the specified location and communicate the findings to the patient.",
+          "example": "Let me check Dr. Smith's availability at our downtown clinic for you. One moment."
+        }
+      ]
+    },
+    {
+      "name": "General Communication",
+      "rules": [
+        {
+          "title": "Maintain Polite Language",
+          "condition": "Throughout the entire patient interaction.",
+          "action": "Use polite, clear, and professional language.",
+          "example": "Certainly, I'd be happy to assist you with that. Please allow me a moment."
+        }
+      ]
+    }
+  ]
+}
